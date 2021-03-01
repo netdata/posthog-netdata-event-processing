@@ -6,6 +6,9 @@ async function setupPlugin({ config, global }) {
 
 async function processEvent(event, { config, cache }) {
 
+    var mobileOS = ["Android", "iOS"]
+    var desktopOS = ["Windows", "Mac OS X", "Linux"]
+
     if (event.properties) {
         
         // check if netdata_version property exists
@@ -18,7 +21,19 @@ async function processEvent(event, { config, cache }) {
                 event.properties['netdata_nightly'] = false
             }
         }
-        
+
+        // derive device_type
+        if (event.properties['$os']) {
+            if (mobileOS.includes(event.properties['$os'])) {
+                event.properties['device_type'] = 'Mobile'
+            }
+            else if (desktopOS.includes(event.properties['$os'])) {
+                event.properties['device_type'] = 'Desktop'
+            } else {
+                event.properties['device_type'] = 'Other'
+            }
+        }
+   
     }
 
     return event

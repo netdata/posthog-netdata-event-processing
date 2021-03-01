@@ -50,6 +50,36 @@ test('netdata_nightly', async () => {
 
 })
 
+// test device_type Android
+test('device_type_android', async () => {
+
+    const event = createEvent({ event: 'test event', properties: { "$os": "Android" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            device_type: "Mobile"
+        },
+    })
+
+})
+
+// test device_type Windows
+test('device_type_windows', async () => {
+
+    const event = createEvent({ event: 'test event', properties: { "$os": "Windows" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            device_type: "Desktop"
+        },
+    })
+
+})
+
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()
