@@ -5,8 +5,6 @@ async function setupPlugin({ config, global }) {
 }
 
 async function processEvent(event, { config, cache }) {
-    const counter = await cache.get('counter', 0)
-    cache.set('counter', counter + 1)
 
     if (event.properties) {
         
