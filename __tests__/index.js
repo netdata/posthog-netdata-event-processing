@@ -12,53 +12,42 @@ const { setupPlugin, processEvent } = require('../index')
 beforeEach(() => {
     resetMeta({
         config: {
-            bar: 'siin ei ole kala',
+            netdata_version: 'v1.29.2',
         },
     })
 })
 
 test('setupPlugin', async () => {
-    expect(getMeta().config.bar).toEqual('siin ei ole kala')
-
+    expect(getMeta().config.netdata_version).toEqual('v1.29.2')
     await setupPlugin(getMeta())
-
     expect(getMeta().global.setupDone).toEqual(true)
 })
 
-test('processEvent adds properties', async () => {
-    // create a random event
-    const event0 = createEvent({ event: 'booking completed', properties: { amount: '20', currency: 'USD' } })
+// test netdata_nightly logic
+test('netdata_nightly', async () => {
 
-    // must clone the event since `processEvent` will mutate it otherwise
-    const event1 = await processEvent(clone(event0), getMeta())
-    expect(event1).toEqual({
-        ...event0,
+    // create a eventNetdataNotNightly test event
+    const eventNetdataNotNightly = createEvent({ event: 'test event', properties: { netdata_version: 'v1.29.2' } })
+    const eventNetdataNotNightlyCopy = await processEvent(clone(eventNetdataNotNightly), getMeta())
+    expect(eventNetdataNotNightlyCopy).toEqual({
+        ...eventNetdataNotNightly,
         properties: {
-            ...event0.properties,
-            bar: 'siin ei ole kala',
-            hello: 'world',
-            lib_number: 6,
-            $counter: 0,
+            ...eventNetdataNotNightly.properties,
+            netdata_nightly: false
         },
     })
 
-    const event2 = await processEvent(clone(event0), getMeta())
-    expect(event2).toEqual({
-        ...event1,
+    // create a eventNetdataNightly test event
+    const eventNetdataNightly = createEvent({ event: 'test event', properties: { netdata_version: 'v1.29.2-25-nightly' } })
+    const eventNetdataNightlyCopy = await processEvent(clone(eventNetdataNightly), getMeta())
+    expect(eventNetdataNightlyCopy).toEqual({
+        ...eventNetdataNightly,
         properties: {
-            ...event1.properties,
-            $counter: 1,
+            ...eventNetdataNightly.properties,
+            netdata_nightly: true
         },
     })
 
-    const event3 = await processEvent(clone(event0), getMeta())
-    expect(event3).toEqual({
-        ...event2,
-        properties: {
-            ...event2.properties,
-            $counter: 2,
-        },
-    })
 })
 
 test('processEvent does not crash with identify', async () => {
