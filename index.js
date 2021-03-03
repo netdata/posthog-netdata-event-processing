@@ -31,7 +31,7 @@ async function processEvent(event, { config, cache }) {
 
         // add attribute for each collector being used
         if (event.properties['host_collector_modules']) {
-            event.properties['host_collector_modules'].split('|').forEach((collector) => {
+            [...new Set(event.properties['host_collector_modules'].split('|'))].forEach((collector) => {
                 if (!(collector === "")){
                     const collectorKey = collector
                         // remove leading slash
