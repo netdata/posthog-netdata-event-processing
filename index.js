@@ -56,6 +56,16 @@ async function processEvent(event, { config, cache }) {
                 }
             })
         }
+
+        // has_alarms_critical
+        if (event.properties['alarms_critical']) {
+            event.properties['has_alarms_critical'] = event.properties['alarms_critical'] > 0
+        }
+
+        // has_alarms_warning
+        if (event.properties['alarms_warning']) {
+            event.properties['has_alarms_warning'] = event.properties['alarms_warning'] > 0
+        }
    
     }
 
