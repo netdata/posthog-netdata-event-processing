@@ -43,7 +43,7 @@ async function processEvent(event, { config, cache }) {
             })
         }
 
-        // add attribute for each plugin being used
+        // add attribute for each collector plugin being used
         if (event.properties['host_collector_plugins']) {
             [...new Set(event.properties['host_collector_plugins'].split('|'))].forEach((plugin) => {
                 if (!(plugin === "")){
@@ -55,6 +55,16 @@ async function processEvent(event, { config, cache }) {
                     event.properties[`host_collector_plugin_${pluginKey}`] = true
                 }
             })
+        }
+
+        // has_alarms_critical
+        if (event.properties['alarms_critical']) {
+            event.properties['has_alarms_critical'] = event.properties['alarms_critical'] > 0
+        }
+
+        // has_alarms_warning
+        if (event.properties['alarms_warning']) {
+            event.properties['has_alarms_warning'] = event.properties['alarms_warning'] > 0
         }
    
     }

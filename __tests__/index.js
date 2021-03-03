@@ -105,6 +105,32 @@ test('collector_plugins_flags', async () => {
     })
 })
 
+// test has_alarms_critical
+test('has_alarms_critical', async () => {
+    const event = createEvent({ event: 'test event', properties: { "alarms_critical": 1 } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            has_alarms_critical: true
+        },
+    })
+})
+
+// test has_alarms_warning
+//test('has_alarms_warning', async () => {
+//    const event = createEvent({ event: 'test event', properties: { "alarms_warning": 0 } })
+//    const eventCopy = await processEvent(clone(event), getMeta())
+//    expect(eventCopy).toEqual({
+//        ...event,
+//        properties: {
+//            ...event.properties,
+//            has_alarms_warning: false
+//        },
+//    })
+//})
+
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()
