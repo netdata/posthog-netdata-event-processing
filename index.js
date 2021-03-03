@@ -43,7 +43,7 @@ async function processEvent(event, { config, cache }) {
             })
         }
 
-        // add attribute for each plugin being used
+        // add attribute for each collector plugin being used
         if (event.properties['host_collector_plugins']) {
             [...new Set(event.properties['host_collector_plugins'].split('|'))].forEach((plugin) => {
                 if (!(plugin === "")){
