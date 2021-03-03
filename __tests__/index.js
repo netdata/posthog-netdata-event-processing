@@ -83,15 +83,16 @@ test('device_type_windows', async () => {
 // test collector flags
 test('device_type_windows', async () => {
 
-    const event = createEvent({ event: 'test event', properties: { "host_collector_modules": "dockerhub|||/proc/diskstats|postfix|/proc/softirqs|/proc/uptime|systemd|/proc/meminfo|||/proc/net/dev|/proc/net/stat/nf_conntrack|/proc/loadavg|ipc|/proc/net/sockstat|stats|stats|web_log|/proc/interrupts|/proc/net/snmp|ntpd|/sys/kernel/mm/ksm|/proc/stat" } })
+    const event = createEvent({ event: 'test event', properties: { "host_collector_modules": "redis||web_log|/proc/diskstats|apps.plugin|||" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
         ...event,
         properties: {
             ...event.properties,
-            host_collector_redis: false,
+            host_collector_redis: true,
             host_collector_web_log: true,
-            host_collector_proc_diskstats: true
+            host_collector_proc_diskstats: true,
+            host_collector_apps_plugin: true
         },
     })
 

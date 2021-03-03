@@ -8,7 +8,6 @@ async function processEvent(event, { config, cache }) {
 
     const mobileOS = ["Android", "iOS"]
     const desktopOS = ["Windows", "Mac OS X", "Linux"]
-    const flagCollectorModules = ["redis"]
 
     if (event.properties) {
         
@@ -30,11 +29,18 @@ async function processEvent(event, { config, cache }) {
             }
         }
 
-        // add attributes to see if specific collectors being used
+        // add attribute for each collector being used
         if (event.properties['host_collector_modules']) {
-            event.properties['host_collector_redis'] = !!event.properties['host_collector_modules'].includes('redis');
-            event.properties['host_collector_web_log'] = !!event.properties['host_collector_modules'].includes('web_log');
-            event.properties['host_collector_proc_diskstats'] = !!event.properties['host_collector_modules'].includes('/proc/diskstats');
+            event.properties['host_collector_modules'].split('|').forEach((collector) => {
+                if (!(collector === "")){
+                    const collectorKey = collector
+                        // remove leading slash
+                        .replace(/^\//, "")
+                        // replace all slashes and dots with _
+                        .replace(/\/|\./g, "_")
+                    event.properties[`host_collector_${collectorKey}`] = true
+                }
+            })
         }
    
     }
