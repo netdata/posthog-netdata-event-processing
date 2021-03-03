@@ -47,12 +47,10 @@ test('netdata_nightly', async () => {
             netdata_nightly: true
         },
     })
-
 })
 
 // test device_type Android
 test('device_type_android', async () => {
-
     const event = createEvent({ event: 'test event', properties: { "$os": "Android" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
@@ -62,12 +60,10 @@ test('device_type_android', async () => {
             device_type: "Mobile"
         },
     })
-
 })
 
 // test device_type Windows
 test('device_type_windows', async () => {
-
     const event = createEvent({ event: 'test event', properties: { "$os": "Windows" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
@@ -77,25 +73,36 @@ test('device_type_windows', async () => {
             device_type: "Desktop"
         },
     })
-
 })
 
-// test collector flags
-test('device_type_windows', async () => {
-
+// test collector module flags
+test('collector_modules_flags', async () => {
     const event = createEvent({ event: 'test event', properties: { "host_collector_modules": "redis||web_log|/proc/diskstats|apps.plugin|||" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
         ...event,
         properties: {
             ...event.properties,
-            host_collector_redis: true,
-            host_collector_web_log: true,
-            host_collector_proc_diskstats: true,
-            host_collector_apps_plugin: true
+            host_collector_module_redis: true,
+            host_collector_module_web_log: true,
+            host_collector_module_proc_diskstats: true,
+            host_collector_module_apps_plugin: true
         },
     })
+})
 
+// test collector plugin flags
+test('collector_plugins_flags', async () => {
+    const event = createEvent({ event: 'test event', properties: { "host_collector_plugins": "apps.plugin||idlejitter.plugin|||" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            host_collector_plugin_apps_plugin: true,
+            host_collector_plugin_idlejitter_plugin: true
+        },
+    })
 })
 
 test('processEvent does not crash with identify', async () => {

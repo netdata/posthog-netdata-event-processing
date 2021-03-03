@@ -29,16 +29,30 @@ async function processEvent(event, { config, cache }) {
             }
         }
 
-        // add attribute for each collector being used
+        // add attribute for each collector module being used
         if (event.properties['host_collector_modules']) {
-            [...new Set(event.properties['host_collector_modules'].split('|'))].forEach((collector) => {
-                if (!(collector === "")){
-                    const collectorKey = collector
+            [...new Set(event.properties['host_collector_modules'].split('|'))].forEach((module) => {
+                if (!(module === "")){
+                    const moduleKey = module
                         // remove leading slash
                         .replace(/^\//, "")
                         // replace all slashes and dots with _
                         .replace(/\/|\./g, "_")
-                    event.properties[`host_collector_${collectorKey}`] = true
+                    event.properties[`host_collector_module_${moduleKey}`] = true
+                }
+            })
+        }
+
+        // add attribute for each plugin being used
+        if (event.properties['host_collector_plugins']) {
+            [...new Set(event.properties['host_collector_plugins'].split('|'))].forEach((plugin) => {
+                if (!(plugin === "")){
+                    const pluginKey = plugin
+                        // remove leading slash
+                        .replace(/^\//, "")
+                        // replace all slashes and dots with _
+                        .replace(/\/|\./g, "_")
+                    event.properties[`host_collector_plugin_${pluginKey}`] = true
                 }
             })
         }
