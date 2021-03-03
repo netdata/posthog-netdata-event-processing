@@ -6,20 +6,15 @@ async function setupPlugin({ config, global }) {
 
 async function processEvent(event, { config, cache }) {
 
-    var mobileOS = ["Android", "iOS"]
-    var desktopOS = ["Windows", "Mac OS X", "Linux"]
+    const mobileOS = ["Android", "iOS"]
+    const desktopOS = ["Windows", "Mac OS X", "Linux"]
 
     if (event.properties) {
         
         // check if netdata_version property exists
         if (event.properties['netdata_version']) {
             // flag if a nightly version
-            if (event.properties['netdata_version'].includes('nightly')) {
-                event.properties['netdata_nightly'] = true
-            }
-            else {
-                event.properties['netdata_nightly'] = false
-            }
+            event.properties['netdata_nightly'] = !!event.properties['netdata_version'].includes('nightly');
         }
 
         // derive device_type
@@ -32,6 +27,20 @@ async function processEvent(event, { config, cache }) {
             } else {
                 event.properties['device_type'] = 'Other'
             }
+        }
+
+        // add attribute for each collector being used
+        if (event.properties['host_collector_modules']) {
+            [...new Set(event.properties['host_collector_modules'].split('|'))].forEach((collector) => {
+                if (!(collector === "")){
+                    const collectorKey = collector
+                        // remove leading slash
+                        .replace(/^\//, "")
+                        // replace all slashes and dots with _
+                        .replace(/\/|\./g, "_")
+                    event.properties[`host_collector_${collectorKey}`] = true
+                }
+            })
         }
    
     }
