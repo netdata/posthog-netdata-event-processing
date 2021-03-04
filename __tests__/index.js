@@ -105,6 +105,22 @@ test('has_alarms_warning', async () => {
     })
 })
 
+// test netdata_buildinfo
+test('netdata_buildinfo', async () => {
+    const event = createEvent({ event: 'test event', properties: { "netdata_buildinfo": "JSON-C|dbengine|Native HTTPS|LWS v3.2.2" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            netdata_buildinfo_json_c: true,
+            netdata_buildinfo_dbengine: true,
+            netdata_buildinfo_native_https: true,
+            netdata_buildinfo_lws_v3_2_2: true,
+        },
+    })
+})
+
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()

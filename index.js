@@ -43,13 +43,29 @@ async function processEvent(event, { config, cache }) {
         }
 
         // has_alarms_critical
-        if (event.properties['alarms_critical']) {
+        if (typeof event.properties['alarms_critical'] === 'number') {
             event.properties['has_alarms_critical'] = event.properties['alarms_critical'] > 0
         }
 
         // has_alarms_warning
-        if (event.properties['alarms_warning']) {
+        if (typeof event.properties['alarms_warning'] === 'number') {
             event.properties['has_alarms_warning'] = event.properties['alarms_warning'] > 0
+        }
+
+        // add attribute for each build info flag
+        if (event.properties['netdata_buildinfo']) {
+            [...new Set(event.properties['netdata_buildinfo'].split('|'))].forEach((buildInfo) => {
+                if (!(buildInfo === "")){
+                    const buildInfoKey = buildInfo
+                        // convert to lower case
+                        .toLowerCase()
+                        // remove leading slash
+                        .replace(/^\//, "")
+                        // replace all slashes and dots with _
+                        .replace(/\/|\.|-| /g, "_")
+                    event.properties[`netdata_buildinfo_${buildInfoKey}`] = true
+                }
+            })
         }
    
     }
