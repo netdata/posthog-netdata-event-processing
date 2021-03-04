@@ -49,32 +49,6 @@ test('netdata_nightly', async () => {
     })
 })
 
-// test device_type Android
-test('device_type_android', async () => {
-    const event = createEvent({ event: 'test event', properties: { "$os": "Android" } })
-    const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy).toEqual({
-        ...event,
-        properties: {
-            ...event.properties,
-            device_type: "Mobile"
-        },
-    })
-})
-
-// test device_type Windows
-test('device_type_windows', async () => {
-    const event = createEvent({ event: 'test event', properties: { "$os": "Windows" } })
-    const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy).toEqual({
-        ...event,
-        properties: {
-            ...event.properties,
-            device_type: "Desktop"
-        },
-    })
-})
-
 // test collector module flags
 test('collector_modules_flags', async () => {
     const event = createEvent({ event: 'test event', properties: { "host_collector_modules": "redis||web_log|/proc/diskstats|apps.plugin|||" } })
