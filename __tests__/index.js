@@ -94,13 +94,13 @@ test('has_alarms_critical', async () => {
 
 // test has_alarms_warning
 test('has_alarms_warning', async () => {
-    const event = createEvent({ event: 'test event', properties: { "alarms_warning": 1 } })
+    const event = createEvent({ event: 'test event', properties: { "alarms_warning": 0 } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
         ...event,
         properties: {
             ...event.properties,
-            has_alarms_warning: true
+            has_alarms_warning: false
         },
     })
 })
