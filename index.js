@@ -70,6 +70,8 @@ async function processEvent(event, { config, cache }) {
 
         // add attribute for each host collector
         if (event.properties['host_collectors']) {
+
+            // make set for both plugins and modules present
             let plugins = [...new Set(event.properties['host_collectors'].map(a => a.plugin))];
             let modules = [...new Set(event.properties['host_collectors'].map(a => a.module))];
 
