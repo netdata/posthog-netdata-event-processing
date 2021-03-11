@@ -49,36 +49,6 @@ test('netdata_nightly', async () => {
     })
 })
 
-// test collector module flags
-test('collector_modules_flags', async () => {
-    const event = createEvent({ event: 'test event', properties: { "host_collector_modules": "redis||web_log|/proc/diskstats|apps.plugin|||" } })
-    const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy).toEqual({
-        ...event,
-        properties: {
-            ...event.properties,
-            host_collector_module_redis: true,
-            host_collector_module_web_log: true,
-            host_collector_module_proc_diskstats: true,
-            host_collector_module_apps_plugin: true
-        },
-    })
-})
-
-// test collector plugin flags
-test('collector_plugins_flags', async () => {
-    const event = createEvent({ event: 'test event', properties: { "host_collector_plugins": "apps.plugin||idlejitter.plugin|||" } })
-    const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy).toEqual({
-        ...event,
-        properties: {
-            ...event.properties,
-            host_collector_plugin_apps_plugin: true,
-            host_collector_plugin_idlejitter_plugin: true
-        },
-    })
-})
-
 // test has_alarms_critical
 test('has_alarms_critical', async () => {
     const event = createEvent({ event: 'test event', properties: { "alarms_critical": 1 } })
