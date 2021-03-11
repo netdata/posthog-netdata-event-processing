@@ -67,6 +67,40 @@ async function processEvent(event, { config, cache }) {
                 }
             })
         }
+
+        // add attribute for each host collector
+        if (event.properties['host_collectors']) {
+            let plugins = [...new Set(event.properties['host_collectors'].map(a => a.plugin))];
+            let modules = [...new Set(event.properties['host_collectors'].map(a => a.module))];
+
+            // add flag for each plugin
+            plugins.forEach((plugin) => {
+                if (!(plugin === "")){
+                    const pluginKey = plugin
+                        // convert to lower case
+                        .toLowerCase()
+                        // remove leading slash
+                        .replace(/^\//, "")
+                        // replace all slashes and dots with _
+                        .replace(/\/|\.|-| /g, "_")
+                    event.properties[`host_collector_plugin_${pluginKey}`] = true
+                }
+            })
+
+            // add flag for each module
+            modules.forEach((module) => {
+                if (!(module === "")){
+                    const moduleKey = module
+                        // convert to lower case
+                        .toLowerCase()
+                        // remove leading slash
+                        .replace(/^\//, "")
+                        // replace all slashes and dots with _
+                        .replace(/\/|\.|-| /g, "_")
+                    event.properties[`host_collector_module_${moduleKey}`] = true
+                }
+            })
+        }
    
     }
 

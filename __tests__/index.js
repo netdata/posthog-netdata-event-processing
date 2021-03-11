@@ -121,6 +121,46 @@ test('netdata_buildinfo', async () => {
     })
 })
 
+// test host_collectors
+test('host_collectors', async () => {
+    const event = createEvent({
+        event: 'test event',
+        properties: {
+            "host_collectors": [
+                {
+                    "plugin": "python.d.plugin",
+                    "module": "dockerhub"
+                },
+                {
+                    "plugin": "apps.plugin",
+                    "module": ""
+                },
+                {
+                    "plugin": "proc.plugin",
+                    "module": "/proc/diskstats"
+                },
+                {
+                    "plugin": "proc.plugin",
+                    "module": "/proc/softirqs"
+                },
+            ]
+        }
+    })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            host_collector_plugin_python_d_plugin: true,
+            host_collector_plugin_apps_plugin: true,
+            host_collector_plugin_proc_plugin: true,
+            host_collector_module_dockerhub: true,
+            host_collector_module_proc_diskstats: true,
+            host_collector_module_proc_softirqs: true,
+        },
+    })
+})
+
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()
