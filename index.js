@@ -4,6 +4,17 @@ async function setupPlugin({ config, global }) {
     global.setupDone = true
 }
 
+function cleanPropertyName(k) {
+    return k
+        // convert to lower case
+        .toLowerCase()
+        // remove leading slash
+        .replace(/^\//, "")
+        // replace all slashes and dots with _
+        .replace(/\/|\.|-| /g, "_")
+        ;
+}
+
 async function processEvent(event, { config, cache }) {
 
     if (event.properties) {
@@ -28,14 +39,7 @@ async function processEvent(event, { config, cache }) {
         if (event.properties['netdata_buildinfo']) {
             [...new Set(event.properties['netdata_buildinfo'].split('|'))].forEach((buildInfo) => {
                 if (!(buildInfo === "")){
-                    const buildInfoKey = buildInfo
-                        // convert to lower case
-                        .toLowerCase()
-                        // remove leading slash
-                        .replace(/^\//, "")
-                        // replace all slashes and dots with _
-                        .replace(/\/|\.|-| /g, "_")
-                    event.properties[`netdata_buildinfo_${buildInfoKey}`] = true
+                    event.properties[`netdata_buildinfo_${cleanPropertyName(buildInfo)}`] = true
                 }
             })
         }
@@ -50,28 +54,14 @@ async function processEvent(event, { config, cache }) {
             // add flag for each plugin
             plugins.forEach((plugin) => {
                 if (!(plugin === "")){
-                    const pluginKey = plugin
-                        // convert to lower case
-                        .toLowerCase()
-                        // remove leading slash
-                        .replace(/^\//, "")
-                        // replace all slashes and dots with _
-                        .replace(/\/|\.|-| /g, "_")
-                    event.properties[`host_collector_plugin_${pluginKey}`] = true
+                    event.properties[`host_collector_plugin_${cleanPropertyName(plugin)}`] = true
                 }
             })
 
             // add flag for each module
             modules.forEach((module) => {
                 if (!(module === "")){
-                    const moduleKey = module
-                        // convert to lower case
-                        .toLowerCase()
-                        // remove leading slash
-                        .replace(/^\//, "")
-                        // replace all slashes and dots with _
-                        .replace(/\/|\.|-| /g, "_")
-                    event.properties[`host_collector_module_${moduleKey}`] = true
+                    event.properties[`host_collector_module_${cleanPropertyName(module)}`] = true
                 }
             })
         }
