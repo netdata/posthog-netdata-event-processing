@@ -65,6 +65,24 @@ async function processEvent(event, { config, cache }) {
                 }
             })
         }
+
+        // check if netdata_machine_guid property exists
+        if (typeof event.properties['netdata_machine_guid'] === 'string') {
+            // flag if empty string
+            if (event.properties['netdata_machine_guid']==='') {
+                event.properties['netdata_machine_guid'] = 'empty'
+                event.properties['netdata_machine_guid_is_empty'] = true
+            }
+        }
+
+        // check if $distinct_id property exists
+        if (typeof event.properties['$distinct_id'] === 'string') {
+            // flag if empty string
+            if (event.properties['$distinct_id']==='') {
+                event.properties['$distinct_id'] = 'empty'
+                event.properties['distinct_id_is_empty'] = true
+            }
+        }
    
     }
 
