@@ -72,6 +72,8 @@ async function processEvent(event, { config, cache }) {
             if (event.properties['netdata_machine_guid']==='') {
                 event.properties['netdata_machine_guid'] = 'empty'
                 event.properties['netdata_machine_guid_is_empty'] = true
+            } else {
+                event.properties['netdata_machine_guid_is_empty'] = false
             }
         }
 
@@ -81,6 +83,8 @@ async function processEvent(event, { config, cache }) {
             if (event.properties['distinct_id']==='') {
                 event.properties['distinct_id'] = 'empty'
                 event.properties['distinct_id_is_empty'] = true
+            } else {
+                event.properties['distinct_id_is_empty'] = false
             }
         }
    

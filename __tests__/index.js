@@ -144,6 +144,19 @@ test('netdata_machine_guid', async () => {
     })
 })
 
+// test netdata_machine_guid
+test('netdata_machine_guid', async () => {
+    const event = createEvent({ event: 'test event', properties: { "netdata_machine_guid": "123" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            netdata_machine_guid: '123',
+            netdata_machine_guid_is_empty: false
+        },
+    })
+})
+
 // test distinct_id
 test('distinct_id', async () => {
     const event = createEvent({ event: 'test event', properties: { "distinct_id": "" } })
@@ -153,6 +166,19 @@ test('distinct_id', async () => {
         properties: {
             distinct_id: 'empty',
             distinct_id_is_empty: true
+        },
+    })
+})
+
+// test distinct_id
+test('distinct_id', async () => {
+    const event = createEvent({ event: 'test event', properties: { "distinct_id": "123" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            distinct_id: '123',
+            distinct_id_is_empty: false
         },
     })
 })
