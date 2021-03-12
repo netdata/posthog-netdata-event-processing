@@ -131,6 +131,32 @@ test('host_collectors', async () => {
     })
 })
 
+// test netdata_machine_guid
+test('netdata_machine_guid', async () => {
+    const event = createEvent({ event: 'test event', properties: { "netdata_machine_guid": "" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            netdata_machine_guid: 'empty',
+            netdata_machine_guid_is_empty: true
+        },
+    })
+})
+
+// test distinct_id
+test('distinct_id', async () => {
+    const event = createEvent({ event: 'test event', properties: { "$distinct_id": "" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            $distinct_id: 'empty',
+            distinct_id_is_empty: true
+        },
+    })
+})
+
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()
