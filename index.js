@@ -76,10 +76,10 @@ async function processEvent(event, { config, cache }) {
         }
 
         // check if $distinct_id property exists
-        if (typeof event.properties['$distinct_id'] === 'string') {
+        if (typeof event.properties['distinct_id'] === 'string') {
             // flag if empty string
-            if (event.properties['$distinct_id']==='') {
-                event.properties['$distinct_id'] = 'empty'
+            if (event.properties['distinct_id']==='') {
+                event.properties['distinct_id'] = 'empty'
                 event.properties['distinct_id_is_empty'] = true
             }
         }

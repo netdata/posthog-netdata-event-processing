@@ -146,12 +146,12 @@ test('netdata_machine_guid', async () => {
 
 // test distinct_id
 test('distinct_id', async () => {
-    const event = createEvent({ event: 'test event', properties: { "$distinct_id": "" } })
+    const event = createEvent({ event: 'test event', properties: { "distinct_id": "" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
         ...event,
         properties: {
-            $distinct_id: 'empty',
+            distinct_id: 'empty',
             distinct_id_is_empty: true
         },
     })
