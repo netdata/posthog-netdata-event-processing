@@ -77,6 +77,17 @@ async function processEvent(event, { config, cache }) {
             }
         }
 
+        // check if netdata_machine_guid property exists
+        if (typeof event.properties['netdata_person_id'] === 'string') {
+            // flag if empty string
+            if (event.properties['netdata_person_id']==='') {
+                event.properties['netdata_person_id'] = 'empty'
+                event.properties['netdata_person_id_is_empty'] = true
+            } else {
+                event.properties['netdata_person_id_is_empty'] = false
+            }
+        }
+
         // check if $distinct_id property exists
         if (typeof event.properties['distinct_id'] === 'string') {
             // flag if empty string
