@@ -157,6 +157,32 @@ test('netdata_machine_guid', async () => {
     })
 })
 
+// test netdata_person_id
+test('netdata_person_id', async () => {
+    const event = createEvent({ event: 'test event', properties: { "netdata_person_id": "" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            netdata_person_id: 'empty',
+            netdata_person_id_is_empty: true
+        },
+    })
+})
+
+// test netdata_person_id
+test('netdata_person_id', async () => {
+    const event = createEvent({ event: 'test event', properties: { "netdata_person_id": "123" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            netdata_person_id: '123',
+            netdata_person_id_is_empty: false
+        },
+    })
+})
+
 // test distinct_id
 test('distinct_id', async () => {
     const event = createEvent({ event: 'test event', properties: { "distinct_id": "" } })
