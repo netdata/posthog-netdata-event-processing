@@ -106,18 +106,25 @@ async function processEvent(event, { config, cache }) {
                 // data_testid
                 if ('attr__data-testid' in element) {
                     arr = element['attr__data-testid'].split('::')
-                    event.properties['data_testid'] = element['attr__data-testid']
-                    event.properties['data_testid_0'] = arr[0]
-                    event.properties['data_testid_1'] = arr[1]
-                    event.properties['data_testid_2'] = arr[2]
-                    event.properties['data_testid_3'] = arr[3]
-                    event.properties['data_testid_4'] = arr[4]
+                    event.properties['el_data_testid'] = element['attr__data-testid']
+                    event.properties['el_data_testid_0'] = arr[0]
+                    event.properties['el_data_testid_1'] = arr[1]
+                    event.properties['el_data_testid_2'] = arr[2]
+                    event.properties['el_data_testid_3'] = arr[3]
+                    event.properties['el_data_testid_4'] = arr[4]
                 }
 
                 // href_menu
                 if ('attr__href' in element) {
                     if ((element['attr__href'] !== null) && (element['attr__href'].substring(0,5) === '#menu')) {
-                        event.properties['href_menu'] = element['attr__href']
+                        event.properties['el_href_menu'] = element['attr__href']
+                    }
+                }
+
+                // el_text
+                if ('text' in element) {
+                    if (element['text'] !== null) {
+                        event.properties['el_text'] = element['text']
                     }
                 }
 
