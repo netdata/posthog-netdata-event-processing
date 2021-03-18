@@ -98,26 +98,30 @@ async function processEvent(event, { config, cache }) {
                 event.properties['distinct_id_is_empty'] = false
             }
         }
+
+        if (event.properties['$elements']) {
+            event.properties['elements_found'] = true
+        }
    
     }
 
     // extract useful properties from elements
-    if (event.properties['$elements']) {
+    //if (event.properties['$elements']) {
 
         // loop over each element
-        event.properties['$elements'].forEach((element) => {
+        //event.properties['$elements'].forEach((element) => {
 
             // if attributes present
-            if (element.attributes) {
+            //if (element.attributes) {
 
-                if (element.attributes['attr__data-testid']) {
-                    event.properties['data_testid'] = element.attributes['attr__data-testid']
-                }
+                //if (element.attributes['attr__data-testid']) {
+                //    event.properties['data_testid'] = element.attributes['attr__data-testid']
+                //}
 
-            }
+            //}
 
-        })
-    }
+        //})
+    //}
 
     event.properties['netdata_posthog_plugin_version'] = '0.0.1'
 
