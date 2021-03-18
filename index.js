@@ -107,14 +107,15 @@ async function processEvent(event, { config, cache }) {
         // loop over each element
         event.elements.forEach((element) => {
 
-            // extract data-testid if present
-            if (element['attr__data-testid']) {
-                arr = element['attr__data-testid'].split('::')
-                event.properties['data_testid'] = element['attr__data-testid']
-                event.properties['data_testid_0'] = arr[0]
-                event.properties['data_testid_1'] = arr[1]
-            }
+            // if attributes present
+            if (element.attributes) {
 
+                // extract data-testid if present
+                if (element.attributes['attr__data-testid']) {
+                    event.properties['data_testid'] = element.attributes['attr__data-testid']
+                }
+
+            }
         })
     }
 
