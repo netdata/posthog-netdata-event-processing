@@ -119,6 +119,10 @@ async function processEvent(event, { config, cache }) {
         })
     }
 
+    if (event === '$autocapture'){
+        event.properties['elements_copy'] = event.properties['$elements']
+    }
+
     return event
 }
 
