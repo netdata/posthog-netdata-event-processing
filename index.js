@@ -104,6 +104,8 @@ async function processEvent(event, { config, cache }) {
     // extract useful properties from elements
     if (event.elements) {
 
+        event.properties['elements_copy'] = event.elements
+
         // loop over each element
         event.elements.forEach((element) => {
 
