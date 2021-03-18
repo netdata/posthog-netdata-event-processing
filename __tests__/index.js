@@ -348,17 +348,11 @@ test('data_testid', async () => {
                 },
                 "order": 7
             }
-        ],
-        "elements_chain": "div.bNKkxa.styled__ShortPickElement-sc-1yj3701-7:attr__class=\"styled__ShortPickElement-sc-1yj3701-7 bNKkxa\"attr__data-testid=\"date-picker::click-quick-selector::::21600\"nth-child=\"6\"nth-of-type=\"6\"text=\"Last 6 hours\";div.bjKBDB.styled__ShortPick-sc-1yj3701-6:attr__class=\"styled__ShortPick-sc-1yj3701-6 bjKBDB\"nth-child=\"1\"nth-of-type=\"1\";div.izBCiM.styled__PickerActionArea-sc-1yj3701-3:attr__class=\"styled__PickerActionArea-sc-1yj3701-3 izBCiM\"nth-child=\"1\"nth-of-type=\"1\";div.dGUlEh.styled__PickerBox-sc-1yj3701-0:attr__class=\"styled__PickerBox-sc-1yj3701-0 dGUlEh\"nth-child=\"1\"nth-of-type=\"1\";aside.iHSuaA.idivwh.sc-bdfBwQ.styled__PortalSidebox-l97ylu-3:attr__class=\"styled__PortalSidebox-l97ylu-3 iHSuaA sc-bdfBwQ idivwh\"nth-child=\"1\"nth-of-type=\"1\";div.:attr__class=\"\"attr__style=\"--mdc-theme-on-primary:#FDFDFD; --mdc-theme-on-surface:#FFF; --mdc-theme-on-secondary:#FDFDFD; --mdc-theme-text-primary-on-background:#FFF; --mdc-theme-text-secondary-on-background:#ECEFF2; --mdc-theme-text-hint-on-background:#FFF; --mdc-theme-text-disabled-on-background:#383B40; --mdc-theme-text-icon-on-background:#FFF; --mdc-theme-background:#2B3136; --mdc-theme-surface:#2B3136; --mdc-theme-primary:#00AB44; --mdc-theme-secondary:#00CB51; --mdc-theme-error:#FF4136; --mdc-theme-on-error:#FDFDFD; --mdc-theme-text-primary-on-light:#35414A; --mdc-theme-text-secondary-on-light:#B5B9BC; --mdc-theme-text-hint-on-light:#35414A; --mdc-theme-text-disabled-on-light:#ECEFF2; --mdc-theme-text-icon-on-light:#35414A; --mdc-theme-text-primary-on-dark:#FFF; --mdc-theme-text-secondary-on-dark:#ECEFF2; --mdc-theme-text-hint-on-dark:#FFF; --mdc-theme-text-disabled-on-dark:#383B40; --mdc-theme-text-icon-on-dark:#FFF;\"nth-child=\"2\"nth-of-type=\"1\";div:nth-child=\"33\"nth-of-type=\"23\";body.:attr__class=\"\"attr__data-offset=\"250\"attr__data-spy=\"scroll\"attr__data-target=\"#sidebar\"nth-child=\"2\"nth-of-type=\"1\""
+        ]
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy).toEqual({
-        ...event,
-        properties: {
-            data_testid: 'date-picker::click-quick-selector::::21600'
-        }
-    })
+    expect(eventCopy['properties']).toEqual({"data_testid": "date-picker::click-quick-selector::::21600"})
 })
 
 

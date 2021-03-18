@@ -101,7 +101,7 @@ async function processEvent(event, { config, cache }) {
    
     }
 
-    // extract useful properties from autocapture elements
+    // extract useful properties from elements
     if (event.elements) {
 
         // loop over each element
@@ -110,12 +110,12 @@ async function processEvent(event, { config, cache }) {
             // if attributes present
             if (element.attributes) {
 
-                // extract data-testid if present
                 if (element.attributes['attr__data-testid']) {
                     event.properties['data_testid'] = element.attributes['attr__data-testid']
                 }
 
             }
+
         })
     }
 
