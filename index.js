@@ -102,6 +102,8 @@ async function processEvent(event, { config, cache }) {
         if (event.properties['$elements']) {
 
             event.properties['$elements'].forEach((element) => {
+
+                // data_testid
                 if ('attr__data-testid' in element) {
                     arr = element['attr__data-testid'].split('::')
                     event.properties['data_testid'] = element['attr__data-testid']
@@ -111,6 +113,14 @@ async function processEvent(event, { config, cache }) {
                     event.properties['data_testid_3'] = arr[3]
                     event.properties['data_testid_4'] = arr[4]
                 }
+
+                // href_menu
+                if ('attr__href' in element) {
+                    if ((element['attr__href'] !== null) && (element['attr__href'].substring(0,5) === '#menu')) {
+                        event.properties['href_menu'] = element['attr__href']
+                    }
+                }
+
             })
 
         }
