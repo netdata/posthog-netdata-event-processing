@@ -209,6 +209,26 @@ test('distinct_id', async () => {
     })
 })
 
+
+// test data_testid
+test('data_testid', async () => {
+    var elementExample = [{"tag_name":"div","classes":["styled__ShortPickElement-sc-1yj3701-7","bqOCvG"],"attr__data-testid":"date-picker::click-quick-selector::::7200","attr__class":"styled__ShortPickElement-sc-1yj3701-7 bqOCvG","nth_child":5,"nth_of_type":5,"$el_text":"Last 2 hours"},{"tag_name":"div","classes":["styled__ShortPick-sc-1yj3701-6","DDTCS"],"attr__class":"styled__ShortPick-sc-1yj3701-6 DDTCS","nth_child":1,"nth_of_type":1},{"tag_name":"div","classes":["styled__PickerActionArea-sc-1yj3701-3","geKPLb"],"attr__class":"styled__PickerActionArea-sc-1yj3701-3 geKPLb","nth_child":1,"nth_of_type":1},{"tag_name":"div","classes":["styled__PickerBox-sc-1yj3701-0","knqCuX"],"attr__class":"styled__PickerBox-sc-1yj3701-0 knqCuX","nth_child":1,"nth_of_type":1},{"tag_name":"aside","classes":["styled__PortalSidebox-l97ylu-3","dVQDBX","sc-bdfBwQ","freZeo"],"attr__class":"styled__PortalSidebox-l97ylu-3 dVQDBX sc-bdfBwQ freZeo","nth_child":1,"nth_of_type":1},{"tag_name":"div","attr__class":"","attr__style":"--mdc-theme-on-primary:#FDFDFD; --mdc-theme-on-surface:#FFF; --mdc-theme-on-secondary:#FDFDFD; --mdc-theme-text-primary-on-background:#FFF; --mdc-theme-text-secondary-on-background:#ECEFF2; --mdc-theme-text-hint-on-background:#FFF; --mdc-theme-text-disabl","nth_child":2,"nth_of_type":1},{"tag_name":"div","nth_child":30,"nth_of_type":20},{"tag_name":"body","attr__data-spy":"scroll","attr__data-target":"#sidebar","attr__data-offset":"250","attr__class":"","nth_child":2,"nth_of_type":1}]
+    const event = createEvent({ event: 'test event', properties: { "distinct_id": "123" }, elements: elementExample })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            distinct_id: '123',
+            distinct_id_is_empty: false,
+            data_testid: 'date-picker::click-quick-selector::::7200',
+            data_testid_0: 'date-picker',
+            data_testid_1: 'click-quick-selector'
+        },
+        elements: elementExample
+    })
+})
+
+
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()
