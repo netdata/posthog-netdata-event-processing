@@ -173,6 +173,10 @@ async function processEvent(event, { config, cache }) {
             }
         } else if ('el_data_netdata' in event.properties) {
             event.properties['interaction_type'] = 'chart_dim'
+        } else if ('el_title' in event.properties) {
+            if (event.properties['el_title'] === 'Settings') {
+                event.properties['interaction_type'] = 'settings'
+            }
         } else if (event.properties['event_source'] === 'agent backend' ) {
             event.properties['interaction_type'] = 'agent_backend'
         } else {
