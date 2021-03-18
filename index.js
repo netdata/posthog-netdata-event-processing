@@ -128,6 +128,13 @@ async function processEvent(event, { config, cache }) {
                     }
                 }
 
+                // el_id
+                if ('attr__id' in element) {
+                    if (element['attr__id'] !== null) {
+                        event.properties['el_id'] = element['attr__id']
+                    }
+                }
+
                 // el_data_target
                 if ('attr__title' in element) {
                     if (element['attr__title'] !== null) {
