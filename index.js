@@ -100,6 +100,13 @@ async function processEvent(event, { config, cache }) {
         }
 
         if (event.properties['$elements']) {
+
+            event.properties['$elements'].forEach((element) => {
+                if (element['attr__data-testid']) {
+                    event.properties['data_testid'] = element['attr__data-testid']
+                }
+            })
+
             event.properties['elements_found'] = true
             event.properties['elements_copy'] = event.properties['$elements']
         }
