@@ -53,7 +53,7 @@ async function processEvent(event, { config, cache }) {
 
             // add flag for each plugin
             plugins.forEach((plugin) => {
-                if (!(plugin === "")){
+                if ((plugin !== "") && (plugin !== null)){
                     event.properties[`host_collector_plugin_${cleanPropertyName(plugin)}`] = true
                 }
             })
