@@ -9,6 +9,8 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
+const netdataPluginVersion = '0.0.1'
+
 beforeEach(() => {
     resetMeta({
         config: {
@@ -33,7 +35,8 @@ test('netdata_nightly', async () => {
         ...eventNetdataNotNightly,
         properties: {
             ...eventNetdataNotNightly.properties,
-            netdata_nightly: false
+            netdata_nightly: false,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 
@@ -44,7 +47,8 @@ test('netdata_nightly', async () => {
         ...eventNetdataNightly,
         properties: {
             ...eventNetdataNightly.properties,
-            netdata_nightly: true
+            netdata_nightly: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -57,7 +61,8 @@ test('has_alarms_critical', async () => {
         ...event,
         properties: {
             ...event.properties,
-            has_alarms_critical: true
+            has_alarms_critical: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -70,7 +75,8 @@ test('has_alarms_warning', async () => {
         ...event,
         properties: {
             ...event.properties,
-            has_alarms_warning: false
+            has_alarms_warning: false,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -87,6 +93,7 @@ test('netdata_buildinfo', async () => {
             netdata_buildinfo_dbengine: true,
             netdata_buildinfo_native_https: true,
             netdata_buildinfo_lws_v3_2_2: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -127,6 +134,7 @@ test('host_collectors', async () => {
             host_collector_module_dockerhub: true,
             host_collector_module_proc_diskstats: true,
             host_collector_module_proc_softirqs: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -139,7 +147,8 @@ test('netdata_machine_guid', async () => {
         ...event,
         properties: {
             netdata_machine_guid: 'empty',
-            netdata_machine_guid_is_empty: true
+            netdata_machine_guid_is_empty: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -152,7 +161,8 @@ test('netdata_machine_guid', async () => {
         ...event,
         properties: {
             netdata_machine_guid: '123',
-            netdata_machine_guid_is_empty: false
+            netdata_machine_guid_is_empty: false,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -165,7 +175,8 @@ test('netdata_person_id', async () => {
         ...event,
         properties: {
             netdata_person_id: 'empty',
-            netdata_person_id_is_empty: true
+            netdata_person_id_is_empty: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -178,7 +189,8 @@ test('netdata_person_id', async () => {
         ...event,
         properties: {
             netdata_person_id: '123',
-            netdata_person_id_is_empty: false
+            netdata_person_id_is_empty: false,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -191,7 +203,8 @@ test('distinct_id', async () => {
         ...event,
         properties: {
             distinct_id: 'empty',
-            distinct_id_is_empty: true
+            distinct_id_is_empty: true,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -204,7 +217,8 @@ test('distinct_id', async () => {
         ...event,
         properties: {
             distinct_id: '123',
-            distinct_id_is_empty: false
+            distinct_id_is_empty: false,
+            netdata_posthog_plugin_version: netdataPluginVersion
         },
     })
 })
@@ -215,144 +229,35 @@ test('data_testid', async () => {
     const eventExample = {
         "event": "$autocapture",
         "distinct_id": "dev-test",
-        "properties": {},
-        "$elements": [
-            {
-                "event": null,
-                "text": "Last 6 hours",
-                "tag_name": "div",
-                "attr_class": [
-                    "bNKkxa",
-                    "styled__ShortPickElement-sc-1yj3701-7"
-                ],
-                "href": null,
-                "attr_id": null,
-                "nth_child": 6,
-                "nth_of_type": 6,
-                "attributes": {
-                    "attr__class": "styled__ShortPickElement-sc-1yj3701-7 bNKkxa",
-                    "attr__data-testid": "date-picker::click-quick-selector::::21600"
+        "properties": {
+            "$elements": [
+                {
+                    "attr__data-testid": "date-picker::click-quick-selector::::21600",
                 },
-                "order": 0
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "div",
-                "attr_class": [
-                    "bjKBDB",
-                    "styled__ShortPick-sc-1yj3701-6"
-                ],
-                "href": null,
-                "attr_id": null,
-                "nth_child": 1,
-                "nth_of_type": 1,
-                "attributes": {
-                    "attr__class": "styled__ShortPick-sc-1yj3701-6 bjKBDB"
-                },
-                "order": 1
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "div",
-                "attr_class": [
-                    "izBCiM",
-                    "styled__PickerActionArea-sc-1yj3701-3"
-                ],
-                "href": null,
-                "attr_id": null,
-                "nth_child": 1,
-                "nth_of_type": 1,
-                "attributes": {
-                    "attr__class": "styled__PickerActionArea-sc-1yj3701-3 izBCiM"
-                },
-                "order": 2
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "div",
-                "attr_class": [
-                    "dGUlEh",
-                    "styled__PickerBox-sc-1yj3701-0"
-                ],
-                "href": null,
-                "attr_id": null,
-                "nth_child": 1,
-                "nth_of_type": 1,
-                "attributes": {
-                    "attr__class": "styled__PickerBox-sc-1yj3701-0 dGUlEh"
-                },
-                "order": 3
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "aside",
-                "attr_class": [
-                    "iHSuaA",
-                    "idivwh",
-                    "sc-bdfBwQ",
-                    "styled__PortalSidebox-l97ylu-3"
-                ],
-                "href": null,
-                "attr_id": null,
-                "nth_child": 1,
-                "nth_of_type": 1,
-                "attributes": {
-                    "attr__class": "styled__PortalSidebox-l97ylu-3 iHSuaA sc-bdfBwQ idivwh"
-                },
-                "order": 4
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "div",
-                "attr_class": [],
-                "href": null,
-                "attr_id": null,
-                "nth_child": null,
-                "nth_of_type": 1,
-                "attributes": {
-                    "attr__class": "\"attr__style=",
-                    "--mdc-theme-on-primary:#FDFDFD; --mdc-theme-on-surface:#FFF; --mdc-theme-on-secondary:#FDFDFD; --mdc-theme-text-primary-on-background:#FFF; --mdc-theme-text-secondary-on-background:#ECEFF2; --mdc-theme-text-hint-on-background:#FFF; --mdc-theme-text-disabled-on-background:#383B40; --mdc-theme-text-icon-on-background:#FFF; --mdc-theme-background:#2B3136; --mdc-theme-surface:#2B3136; --mdc-theme-primary:#00AB44; --mdc-theme-secondary:#00CB51; --mdc-theme-error:#FF4136; --mdc-theme-on-error:#FDFDFD; --mdc-theme-text-primary-on-light:#35414A; --mdc-theme-text-secondary-on-light:#B5B9BC; --mdc-theme-text-hint-on-light:#35414A; --mdc-theme-text-disabled-on-light:#ECEFF2; --mdc-theme-text-icon-on-light:#35414A; --mdc-theme-text-primary-on-dark:#FFF; --mdc-theme-text-secondary-on-dark:#ECEFF2; --mdc-theme-text-hint-on-dark:#FFF; --mdc-theme-text-disabled-on-dark:#383B40; --mdc-theme-text-icon-on-dark:#FFF;\"nth-child": "2"
-                },
-                "order": 5
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "div",
-                "attr_class": null,
-                "href": null,
-                "attr_id": null,
-                "nth_child": 33,
-                "nth_of_type": 23,
-                "attributes": {},
-                "order": 6
-            },
-            {
-                "event": null,
-                "text": null,
-                "tag_name": "body",
-                "attr_class": [],
-                "href": null,
-                "attr_id": null,
-                "nth_child": 2,
-                "nth_of_type": 1,
-                "attributes": {
-                    "attr__class": "\"attr__data-offset=",
-                    "250\"attr__data-spy": "scroll",
-                    "attr__data-target": "#sidebar"
-                },
-                "order": 7
-            }
-        ]
+                {
+                    "event": null,
+                    "text": null,
+                    "tag_name": "div",
+                    "attr_class": [
+                        "bjKBDB",
+                        "styled__ShortPick-sc-1yj3701-6"
+                    ],
+                    "href": null,
+                    "attr_id": null,
+                    "nth_child": 1,
+                    "nth_of_type": 1,
+                    "attributes": {
+                        "attr__class": "styled__ShortPick-sc-1yj3701-6 bjKBDB"
+                    },
+                    "order": 1
+                }
+            ]
+        }
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']).toEqual({"data_testid": "date-picker::click-quick-selector::::21600"})
+    expect(eventCopy['properties']['data_testid']).toEqual("date-picker::click-quick-selector::::21600"
+    )
 })
 
 

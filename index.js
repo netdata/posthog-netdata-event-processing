@@ -107,34 +107,17 @@ async function processEvent(event, { config, cache }) {
                     event.properties['data_testid'] = element['attr__data-testid']
                     event.properties['data_testid_0'] = arr[0]
                     event.properties['data_testid_1'] = arr[1]
+                    event.properties['data_testid_2'] = arr[2]
+                    event.properties['data_testid_3'] = arr[3]
+                    event.properties['data_testid_4'] = arr[4]
                 }
             })
 
-            event.properties['elements_found'] = true
-            event.properties['elements_copy'] = event.properties['$elements']
         }
+
+        event.properties['netdata_posthog_plugin_version'] = '0.0.1'
    
     }
-
-    // extract useful properties from elements
-    //if (event.properties['$elements']) {
-
-        // loop over each element
-        //event.properties['$elements'].forEach((element) => {
-
-            // if attributes present
-            //if (element.attributes) {
-
-                //if (element.attributes['attr__data-testid']) {
-                //    event.properties['data_testid'] = element.attributes['attr__data-testid']
-                //}
-
-            //}
-
-        //})
-    //}
-
-    event.properties['netdata_posthog_plugin_version'] = '0.0.1'
 
     return event
 }
