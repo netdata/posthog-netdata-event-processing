@@ -216,7 +216,7 @@ test('data_testid', async () => {
         "event": "$autocapture",
         "distinct_id": "dev-test",
         "properties": {},
-        "elements": [
+        "$elements": [
             {
                 "event": null,
                 "text": "Last 6 hours",

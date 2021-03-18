@@ -102,10 +102,10 @@ async function processEvent(event, { config, cache }) {
     }
 
     // extract useful properties from elements
-    if (event.elements) {
+    if (event['$elements']) {
 
         // loop over each element
-        event.elements.forEach((element) => {
+        event['$elements'].forEach((element) => {
 
             // if attributes present
             if (element.attributes) {
