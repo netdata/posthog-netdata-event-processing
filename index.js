@@ -101,6 +101,7 @@ async function processEvent(event, { config, cache }) {
 
         if (event.properties['$elements']) {
             event.properties['elements_found'] = true
+            event.properties['elements_copy'] = event.properties['$elements']
         }
    
     }
