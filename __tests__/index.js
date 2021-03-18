@@ -272,6 +272,9 @@ test('data_testid', async () => {
                     "order": 0
                 },
                 {
+                    "$el_text": "unshared"
+                },
+                {
                     "event": null,
                     "text": "unshared",
                     "tag_name": "span",

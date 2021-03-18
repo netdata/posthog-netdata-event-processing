@@ -101,8 +101,6 @@ async function processEvent(event, { config, cache }) {
 
         if (event.properties['$elements']) {
 
-            //event.properties['elements_copy'] = event.properties['$elements']
-
             event.properties['$elements'].forEach((element) => {
 
                 // data_testid
@@ -139,6 +137,15 @@ async function processEvent(event, { config, cache }) {
 
             })
 
+        }
+
+        // interaction_type
+        if (event === '$pageview') {
+            event.properties['interaction_type'] = 'pageview'
+        } else if (event === '$pageleave') {
+            event.properties['interaction_type'] = 'pageleave'
+        } else {
+            event.properties['interaction_type'] = 'other'
         }
 
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
