@@ -119,10 +119,7 @@ async function processEvent(event, { config, cache }) {
         })
     }
 
-    if (event === '$autocapture'){
-        event.properties['dev'] = 'hello'
-        event.properties['elements_copy'] = event.properties['$elements']
-    }
+    event.properties['netdata_posthog_plugin_version'] = '0.0.1'
 
     return event
 }
