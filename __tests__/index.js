@@ -235,6 +235,9 @@ test('data_testid', async () => {
                     "attr__data-testid": "date-picker::click-quick-selector::::21600",
                 },
                 {
+                    "attr__href": "#menu_web_log_nginx"
+                },
+                {
                     "event": null,
                     "text": null,
                     "tag_name": "div",
@@ -256,8 +259,8 @@ test('data_testid', async () => {
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['data_testid']).toEqual("date-picker::click-quick-selector::::21600"
-    )
+    expect(eventCopy['properties']['data_testid']).toEqual("date-picker::click-quick-selector::::21600")
+    expect(eventCopy['properties']['href_menu']).toEqual("#menu_web_log_nginx")
 })
 
 
