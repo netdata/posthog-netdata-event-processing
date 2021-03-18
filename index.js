@@ -144,6 +144,12 @@ async function processEvent(event, { config, cache }) {
             event.properties['interaction_type'] = 'pageview'
         } else if (event === '$pageleave') {
             event.properties['interaction_type'] = 'pageleave'
+        } else if ('el_href_menu' in event.properties) {
+            if (event.properties['el_href_menu'].includes('submenu')) {
+                event.properties['interaction_type'] = 'submenu'
+            } else {
+                event.properties['interaction_type'] = 'menu'
+            }
         } else {
             event.properties['interaction_type'] = 'other'
         }

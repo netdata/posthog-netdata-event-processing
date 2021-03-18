@@ -36,7 +36,8 @@ test('netdata_nightly', async () => {
         properties: {
             ...eventNetdataNotNightly.properties,
             netdata_nightly: false,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 
@@ -48,7 +49,8 @@ test('netdata_nightly', async () => {
         properties: {
             ...eventNetdataNightly.properties,
             netdata_nightly: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -62,7 +64,8 @@ test('has_alarms_critical', async () => {
         properties: {
             ...event.properties,
             has_alarms_critical: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -76,7 +79,8 @@ test('has_alarms_warning', async () => {
         properties: {
             ...event.properties,
             has_alarms_warning: false,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -93,7 +97,8 @@ test('netdata_buildinfo', async () => {
             netdata_buildinfo_dbengine: true,
             netdata_buildinfo_native_https: true,
             netdata_buildinfo_lws_v3_2_2: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -134,7 +139,8 @@ test('host_collectors', async () => {
             host_collector_module_dockerhub: true,
             host_collector_module_proc_diskstats: true,
             host_collector_module_proc_softirqs: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -148,7 +154,8 @@ test('netdata_machine_guid', async () => {
         properties: {
             netdata_machine_guid: 'empty',
             netdata_machine_guid_is_empty: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -162,7 +169,8 @@ test('netdata_machine_guid', async () => {
         properties: {
             netdata_machine_guid: '123',
             netdata_machine_guid_is_empty: false,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -176,7 +184,8 @@ test('netdata_person_id', async () => {
         properties: {
             netdata_person_id: 'empty',
             netdata_person_id_is_empty: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -190,7 +199,8 @@ test('netdata_person_id', async () => {
         properties: {
             netdata_person_id: '123',
             netdata_person_id_is_empty: false,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -204,7 +214,8 @@ test('distinct_id', async () => {
         properties: {
             distinct_id: 'empty',
             distinct_id_is_empty: true,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -218,7 +229,8 @@ test('distinct_id', async () => {
         properties: {
             distinct_id: '123',
             distinct_id_is_empty: false,
-            netdata_posthog_plugin_version: netdataPluginVersion
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other'
         },
     })
 })
@@ -306,6 +318,7 @@ test('data_testid', async () => {
     expect(eventCopy['properties']['el_href_menu']).toEqual("#menu_web_log_nginx")
     expect(eventCopy['properties']['el_text']).toEqual("unshared")
     expect(eventCopy['properties']['el_data_netdata']).toEqual("mem.ksm")
+    expect(eventCopy['properties']['interaction_type']).toEqual("menu")
 })
 
 
