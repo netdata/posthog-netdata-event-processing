@@ -128,6 +128,13 @@ async function processEvent(event, { config, cache }) {
                     }
                 }
 
+                // el_data_netdata
+                if ('attr__data-netdata' in element) {
+                    if (element['attr__data-netdata'] !== null) {
+                        event.properties['el_data_netdata'] = element['attr__data-netdata']
+                    }
+                }
+
             })
 
         }
