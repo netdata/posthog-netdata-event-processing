@@ -150,6 +150,8 @@ async function processEvent(event, { config, cache }) {
             } else {
                 event.properties['interaction_type'] = 'menu'
             }
+        } else if ('el_data_netdata' in event.properties) {
+            event.properties['interaction_type'] = 'chart_dim'
         } else {
             event.properties['interaction_type'] = 'other'
         }
