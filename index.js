@@ -140,9 +140,9 @@ async function processEvent(event, { config, cache }) {
         }
 
         // interaction_type
-        if (event === '$pageview') {
+        if (event.event === '$pageview') {
             event.properties['interaction_type'] = 'pageview'
-        } else if (event === '$pageleave') {
+        } else if (event.event === '$pageleave') {
             event.properties['interaction_type'] = 'pageleave'
         } else if ('el_href_menu' in event.properties) {
             if (event.properties['el_href_menu'].includes('submenu')) {
@@ -152,6 +152,8 @@ async function processEvent(event, { config, cache }) {
             }
         } else if ('el_data_netdata' in event.properties) {
             event.properties['interaction_type'] = 'chart_dim'
+        } else if (event.properties['event_source'] === 'agent backend' ) {
+            event.properties['interaction_type'] = 'agent_backend'
         } else {
             event.properties['interaction_type'] = 'other'
         }
