@@ -101,7 +101,7 @@ async function processEvent(event, { config, cache }) {
 
         if (event.properties['$elements']) {
 
-            event.properties['elements_copy'] = event.properties['$elements']
+            //event.properties['elements_copy'] = event.properties['$elements']
 
             event.properties['$elements'].forEach((element) => {
 
@@ -124,9 +124,9 @@ async function processEvent(event, { config, cache }) {
                 }
 
                 // el_text
-                if ('text' in element) {
-                    if (element['text'] !== null) {
-                        event.properties['el_text'] = element['text']
+                if ('$el_text' in element) {
+                    if (element['$el_text'] !== null) {
+                        event.properties['el_text'] = element['$el_text']
                     }
                 }
 
