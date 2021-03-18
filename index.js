@@ -103,8 +103,10 @@ async function processEvent(event, { config, cache }) {
 
             event.properties['$elements'].forEach((element) => {
                 if ('attr__data-testid' in element) {
-                    event.properties['data_testid_found'] = true
+                    arr = element['attr__data-testid'].split('::')
                     event.properties['data_testid'] = element['attr__data-testid']
+                    event.properties['data_testid_0'] = arr[0]
+                    event.properties['data_testid_1'] = arr[1]
                 }
             })
 
