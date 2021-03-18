@@ -114,10 +114,24 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_data_testid_4'] = arr[4]
                 }
 
-                // href_menu
+                // el_href_menu
                 if ('attr__href' in element) {
                     if ((element['attr__href'] !== null) && (element['attr__href'].substring(0,5) === '#menu')) {
                         event.properties['el_href_menu'] = element['attr__href']
+                    }
+                }
+
+                // el_href
+                if ('attr__href' in element) {
+                    if (element['attr__href'] !== null) {
+                        event.properties['el_href'] = element['attr__href']
+                    }
+                }
+
+                // el_data_target
+                if ('attr__title' in element) {
+                    if (element['attr__title'] !== null) {
+                        event.properties['el_title'] = element['attr__title']
                     }
                 }
 
