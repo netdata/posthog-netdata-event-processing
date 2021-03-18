@@ -119,8 +119,6 @@ async function processEvent(event, { config, cache }) {
         })
     }
 
-    event.properties['event_copy'] = event
-
     return event
 }
 
