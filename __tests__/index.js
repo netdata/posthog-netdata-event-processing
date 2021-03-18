@@ -253,14 +253,56 @@ test('data_testid', async () => {
                         "attr__class": "styled__ShortPick-sc-1yj3701-6 bjKBDB"
                     },
                     "order": 1
+                },
+                {
+                    "event": null,
+                    "text": "unshared",
+                    "tag_name": "span",
+                    "attr_class": [
+                        "chart-legend-bottomstyled__DimensionLabel-ltgk2z-9",
+                        "iMmOhf"
+                    ],
+                    "href": null,
+                    "attr_id": null,
+                    "nth_child": 2,
+                    "nth_of_type": 1,
+                    "attributes": {
+                        "attr__class": "chart-legend-bottomstyled__DimensionLabel-ltgk2z-9 iMmOhf"
+                    },
+                    "order": 0
+                },
+                {
+                    "event": null,
+                    "text": "unshared",
+                    "tag_name": "span",
+                    "attr_class": [
+                        "chart-legend-bottomstyled__DimensionLabel-ltgk2z-9",
+                        "iMmOhf"
+                    ],
+                    "href": null,
+                    "attr_id": null,
+                    "nth_child": 2,
+                    "nth_of_type": 1,
+                    "attributes": {
+                        "attr__class": "chart-legend-bottomstyled__DimensionLabel-ltgk2z-9 iMmOhf"
+                    },
+                    "order": 0
+
+                },
+                {
+                    "attr__data-id": "newyork_netdata_rocks_mem_ksm",
+                    "attr__data-legend-position": "bottom",
+                    "attr__data-netdata": "mem.ksm",
                 }
             ]
         }
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['data_testid']).toEqual("date-picker::click-quick-selector::::21600")
-    expect(eventCopy['properties']['href_menu']).toEqual("#menu_web_log_nginx")
+    expect(eventCopy['properties']['el_data_testid']).toEqual("date-picker::click-quick-selector::::21600")
+    expect(eventCopy['properties']['el_href_menu']).toEqual("#menu_web_log_nginx")
+    expect(eventCopy['properties']['el_text']).toEqual("unshared")
+    expect(eventCopy['properties']['el_data_netdata']).toEqual("mem.ksm")
 })
 
 
