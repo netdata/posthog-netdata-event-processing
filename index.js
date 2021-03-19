@@ -436,7 +436,7 @@ async function processEvent(event, { config, cache }) {
         } else if ('el_data_netdata' in event.properties) {
 
             // chart_dim
-            if ('el_id' in event.properties && event.properties['el_id'].startsWith('chart_')) {
+            if ('el_id' in event.properties && 'el_text' in event.properties && event.properties['el_id'].startsWith('chart_')) {
                 event.properties['interaction_type'] = 'chart_dim'
                 event.properties['interaction_detail'] = event.properties['el_data_netdata'].concat('.',event.properties['el_text'])
             }
