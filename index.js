@@ -112,13 +112,18 @@ async function processEvent(event, { config, cache }) {
 
                 // el_data_testid
                 if ('attr__data-testid' in element) {
-                    arr = element['attr__data-testid'].split('::')
                     event.properties['el_data_testid'] = element['attr__data-testid']
-                    event.properties['el_data_testid_0'] = arr[0]
-                    event.properties['el_data_testid_1'] = arr[1]
-                    event.properties['el_data_testid_2'] = arr[2]
-                    event.properties['el_data_testid_3'] = arr[3]
-                    event.properties['el_data_testid_4'] = arr[4]
+
+                    // el_data_testid_0
+                    if (element['attr__data-testid'].includes('::')) {
+                        arr = element['attr__data-testid'].split('::')
+                        event.properties['el_data_testid_0'] = arr[0]
+                        event.properties['el_data_testid_1'] = arr[1]
+                        event.properties['el_data_testid_2'] = arr[2]
+                        event.properties['el_data_testid_3'] = arr[3]
+                        event.properties['el_data_testid_4'] = arr[4]
+                    }
+
                 }
 
                 // el_href_menu
@@ -239,6 +244,21 @@ async function processEvent(event, { config, cache }) {
                 // el_class_pickerbox
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('PickerBox')) {
                     event.properties['el_class_pickerbox'] = true
+                }
+
+                // el_class_collapsablesection
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('CollapsableSection')) {
+                    event.properties['el_class_collapsablesection'] = true
+                }
+
+                // el_class_signinbutton
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('SignInButton')) {
+                    event.properties['el_class_signinbutton'] = true
+                }
+
+                // el_class_documentation_container
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('documentation__Container')) {
+                    event.properties['el_class_documentation_container'] = true
                 }
 
                 // el_id_date_picker_root
