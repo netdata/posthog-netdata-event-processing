@@ -99,11 +99,13 @@ async function processEvent(event, { config, cache }) {
             }
         }
 
+        // extract properties from elements
         if (event.properties['$elements']) {
 
+            // process each element
             event.properties['$elements'].forEach((element) => {
 
-                // data_testid
+                // el_data_testid
                 if ('attr__data-testid' in element) {
                     arr = element['attr__data-testid'].split('::')
                     event.properties['el_data_testid'] = element['attr__data-testid']
@@ -115,45 +117,33 @@ async function processEvent(event, { config, cache }) {
                 }
 
                 // el_href_menu
-                if ('attr__href' in element) {
-                    if ((element['attr__href'] !== null) && (element['attr__href'].substring(0,5) === '#menu')) {
+                if ('attr__href' in element && element['attr__href'] !== null && element['attr__href'].substring(0,5) === '#menu') {
                         event.properties['el_href_menu'] = element['attr__href']
-                    }
                 }
 
                 // el_href
-                if ('attr__href' in element) {
-                    if (element['attr__href'] !== null) {
-                        event.properties['el_href'] = element['attr__href']
-                    }
+                if ('attr__href' in element && element['attr__href'] !== null) {
+                    event.properties['el_href'] = element['attr__href']
                 }
 
                 // el_id
-                if ('attr__id' in element) {
-                    if (element['attr__id'] !== null) {
-                        event.properties['el_id'] = element['attr__id']
-                    }
+                if ('attr__id' in element && element['attr__id'] !== null) {
+                    event.properties['el_id'] = element['attr__id']
                 }
 
-                // el_data_target
-                if ('attr__title' in element) {
-                    if (element['attr__title'] !== null) {
-                        event.properties['el_title'] = element['attr__title']
-                    }
+                // el_title
+                if ('attr__title' in element && element['attr__title'] !== null) {
+                    event.properties['el_title'] = element['attr__title']
                 }
 
                 // el_text
-                if ('$el_text' in element) {
-                    if (element['$el_text'] !== null) {
-                        event.properties['el_text'] = element['$el_text']
-                    }
+                if ('$el_text' in element && element['$el_text'] !== null) {
+                    event.properties['el_text'] = element['$el_text']
                 }
 
                 // el_data_netdata
-                if ('attr__data-netdata' in element) {
-                    if (element['attr__data-netdata'] !== null) {
-                        event.properties['el_data_netdata'] = element['attr__data-netdata']
-                    }
+                if ('attr__data-netdata' in element && element['attr__data-netdata'] !== null) {
+                    event.properties['el_data_netdata'] = element['attr__data-netdata']
                 }
 
             })
