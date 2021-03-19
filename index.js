@@ -107,7 +107,7 @@ async function processEvent(event, { config, cache }) {
         // extract properties from elements
         if (event.properties['$elements']) {
 
-            // process each element
+            // process each element, reverse to use posthog order as preference
             event.properties['$elements'].slice().reverse().forEach((element) => {
 
                 // el_data_testid
@@ -208,6 +208,11 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_data_legend_position'] = element['attr__data-legend-position']
                 }
 
+                // el_aria_controls
+                if ('attr__aria-controls' in element && element['attr__aria-controls'] !== null) {
+                    event.properties['el_aria_controls'] = element['attr__aria-controls']
+                }
+
                 // el_class_netdata_legend_toolbox
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'] === 'netdata-legend-toolbox') {
                     event.properties['el_class_netdata_legend_toolbox'] = true
@@ -261,6 +266,11 @@ async function processEvent(event, { config, cache }) {
                 // el_class_documentation_container
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('documentation__Container')) {
                     event.properties['el_class_documentation_container'] = true
+                }
+
+                // el_class_utilitysection
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('UtilitySection')) {
+                    event.properties['el_class_utilitysection'] = true
                 }
 
                 // el_id_date_picker_root
