@@ -156,6 +156,50 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_data_target'] = element['attr__data-target']
                 }
 
+                // el_data_id
+                if ('attr__data-id' in element && element['attr__data-id'] !== null) {
+                    event.properties['el_data_id'] = element['attr__data-id']
+                }
+
+                // el_data_original_title
+                if ('attr__data-original-title' in element && element['attr__data-original-title'] !== null) {
+                    event.properties['el_data_original_title'] = element['attr__data-original-title']
+                }
+
+                // el_data_toggle
+                if ('attr__data-toggle' in element && element['attr__data-toggle'] !== null) {
+                    event.properties['el_data_toggle'] = element['attr__data-toggle']
+                }
+
+                // el_data-legend-position
+                if ('attr__data-legend-position' in element && element['attr__data-legend-position'] !== null) {
+                    event.properties['el_data_legend_position'] = element['attr__data-legend-position']
+                }
+
+                // el_class_netdata_legend_toolbox
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'] === 'netdata-legend-toolbox') {
+                    event.properties['el_class_netdata_legend_toolbox'] = true
+                }
+
+                // el_class_fa_play
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-play')) {
+                    event.properties['el_class_fa_play'] = true
+                }
+
+                // el_class_fa_play
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-play')) {
+                    event.properties['el_class_fa_play'] = true
+                }
+
+                // el_class_navbar_highlight_content
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('navbar-highlight-content')) {
+                    event.properties['el_class_navbar_highlight_content'] = true
+                }
+
+                navbar-highlight-content
+
+
+
             })
 
         }
