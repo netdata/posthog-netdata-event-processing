@@ -228,6 +228,16 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_fa_play'] = true
                 }
 
+                // el_class_fa_backward
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-backward')) {
+                    event.properties['el_class_fa_backward'] = true
+                }
+
+                // el_class_fa_forward
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-forward')) {
+                    event.properties['el_class_fa_forward'] = true
+                }
+
                 // el_class_navbar_highlight_content
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('navbar-highlight-content')) {
                     event.properties['el_class_navbar_highlight_content'] = true
@@ -311,11 +321,6 @@ async function processEvent(event, { config, cache }) {
                 // el_class_netdata_reset_button
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-reset-button')) {
                     event.properties['el_class_netdata_reset_button'] = true
-                }
-
-                // el_class_netdata_legend_toolbox
-                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-legend-toolbox')) {
-                    event.properties['el_class_netdata_legend_toolbox'] = true
                 }
 
                 // el_class_netdata_legend_toolbox_button
