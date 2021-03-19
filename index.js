@@ -178,7 +178,7 @@ async function processEvent(event, { config, cache }) {
                 }
 
                 // el_data_target
-                if ('attr__data-target' in element && element['attr__data-target'] !== null) {
+                if ('attr__data-target' in element && element['attr__data-target'] !== null && element['attr__data-target'] !== '#sidebar') {
                     event.properties['el_data_target'] = element['attr__data-target']
 
                     // el_data_target_updatemodal
