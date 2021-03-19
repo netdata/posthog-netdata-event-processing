@@ -283,6 +283,11 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_warning'] = true
                 }
 
+                // el_class_danger
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('danger')) {
+                    event.properties['el_class_danger'] = true
+                }
+
                 // el_class_pagination
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('pagination')) {
                     event.properties['el_class_pagination'] = true
