@@ -15,6 +15,11 @@ function cleanPropertyName(k) {
         ;
 }
 
+function isStringDDMMYYYYHHMM(dt){
+    var reDate = /^((0?[1-9]|[12][0-9]|3[01])[- /.](0?[1-9]|1[012])[- /.](19|20)?[0-9]{2}[ ][012][0-9][:][0-9]{2})*$/;
+    return reDate.test(dt);
+}
+
 async function processEvent(event, { config, cache }) {
 
     if (event.properties) {
@@ -144,6 +149,16 @@ async function processEvent(event, { config, cache }) {
                 // el_text
                 if ('$el_text' in element && element['$el_text'] !== null) {
                     event.properties['el_text'] = element['$el_text']
+
+                    // el_text_datetime
+                    if (isStringDDMMYYYYHHMM(element['$el_text'])) {
+                        dtStr = element['$el_text']
+                        dtStrClean = dtStr.substring(6,10).concat(
+                            '-',dtStr.substring(3,5),'-',dtStr.substring(0,2),' ',dtStr.substring(11,16)
+                        )
+                        event.properties['el_text_datetime'] = dtStrClean
+                    }
+
                 }
 
                 // el_data_netdata
@@ -199,6 +214,11 @@ async function processEvent(event, { config, cache }) {
                 // el_class_datepickercontainer
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('DatePickerContainer')) {
                     event.properties['el_class_datepickercontainer'] = true
+                }
+
+                // el_class_startendcontainer
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('StartEndContainer')) {
+                    event.properties['el_class_startendcontainer'] = true
                 }
 
             })
