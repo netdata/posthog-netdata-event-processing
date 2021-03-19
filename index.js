@@ -402,6 +402,37 @@ async function processEvent(event, { config, cache }) {
             }
             event.properties['interaction_detail'] = event.properties['el_href_menu']
 
+        } else if ('el_class_netdata_legend_toolbox' in event.properties) {
+
+            // chart_toolbox
+            event.properties['interaction_type'] = 'chart_toolbox'
+
+            if ('el_class_fa_minus' in event.properties) {
+                // zoom_out
+                event.properties['interaction_detail'] = 'zoom_out'
+            } else if ('el_class_fa_plus' in event.properties) {
+                // zoom_in
+                event.properties['interaction_detail'] = 'zoom_in'
+            } else if ('el_class_fa_backward' in event.properties) {
+                // scroll_backward
+                event.properties['interaction_detail'] = 'scroll_backward'
+            } else if ('el_class_fa_forward' in event.properties) {
+                // scroll_forward
+                event.properties['interaction_detail'] = 'scroll_forward'
+            } else {
+                event.properties['interaction_detail'] = 'other'
+            }
+
+        } else if ('el_class_netdata_legend_resize_handler' in event.properties) {
+
+            // chart_toolbox
+            event.properties['interaction_type'] = 'chart_toolbox'
+
+            if ('el_class_fa_sort' in event.properties) {
+                // resize
+                event.properties['interaction_detail'] = 'resize'
+            }
+
         } else if ('el_data_netdata' in event.properties) {
 
             // chart_dim
@@ -446,6 +477,24 @@ async function processEvent(event, { config, cache }) {
                     event.properties['interaction_detail'] = event.properties['el_data_testid_1']
                 }
 
+            }
+
+        } else if ('el_class_daterangepicker' in event.properties) {
+
+            // date_picker
+            event.properties['interaction_type'] = 'date_picker'
+
+            if ('el_id' in event.properties) {
+                // month_right
+                if (event.properties['el_id'] === 'month_right') {
+                    event.properties['interaction_detail'] = 'month_right'
+                // month_left
+                } else if (event.properties['el_id'] === 'month_left') {
+                    event.properties['interaction_detail'] = 'month_left'
+                }
+            } else {
+                // date_range
+                event.properties['interaction_detail'] = 'date_range'
             }
 
         } else {
