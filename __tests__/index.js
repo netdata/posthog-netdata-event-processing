@@ -37,7 +37,8 @@ test('netdata_nightly', async () => {
             ...eventNetdataNotNightly.properties,
             netdata_nightly: false,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 
@@ -50,7 +51,8 @@ test('netdata_nightly', async () => {
             ...eventNetdataNightly.properties,
             netdata_nightly: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -65,7 +67,8 @@ test('has_alarms_critical', async () => {
             ...event.properties,
             has_alarms_critical: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -80,7 +83,8 @@ test('has_alarms_warning', async () => {
             ...event.properties,
             has_alarms_warning: false,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -98,7 +102,8 @@ test('netdata_buildinfo', async () => {
             netdata_buildinfo_native_https: true,
             netdata_buildinfo_lws_v3_2_2: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -140,7 +145,8 @@ test('host_collectors', async () => {
             host_collector_module_proc_diskstats: true,
             host_collector_module_proc_softirqs: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -155,7 +161,8 @@ test('netdata_machine_guid', async () => {
             netdata_machine_guid: 'empty',
             netdata_machine_guid_is_empty: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -170,7 +177,8 @@ test('netdata_machine_guid', async () => {
             netdata_machine_guid: '123',
             netdata_machine_guid_is_empty: false,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -185,7 +193,8 @@ test('netdata_person_id', async () => {
             netdata_person_id: 'empty',
             netdata_person_id_is_empty: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -200,7 +209,8 @@ test('netdata_person_id', async () => {
             netdata_person_id: '123',
             netdata_person_id_is_empty: false,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -215,7 +225,8 @@ test('distinct_id', async () => {
             distinct_id: 'empty',
             distinct_id_is_empty: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
@@ -230,7 +241,8 @@ test('distinct_id', async () => {
             distinct_id: '123',
             distinct_id_is_empty: false,
             netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other'
+            interaction_type: 'other',
+            interaction_detail: 'other',
         },
     })
 })
