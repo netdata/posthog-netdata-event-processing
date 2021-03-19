@@ -108,7 +108,7 @@ async function processEvent(event, { config, cache }) {
         if (event.properties['$elements']) {
 
             // process each element
-            event.properties['$elements'].reverse().forEach((element) => {
+            event.properties['$elements'].slice().reverse().forEach((element) => {
 
                 // el_data_testid
                 if ('attr__data-testid' in element) {
