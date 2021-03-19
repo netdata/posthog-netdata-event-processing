@@ -196,9 +196,10 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_navbar_highlight_content'] = true
                 }
 
-                navbar-highlight-content
-
-
+                // el_class_datepickercontainer
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('DatePickerContainer')) {
+                    event.properties['el_class_datepickercontainer'] = true
+                }
 
             })
 
