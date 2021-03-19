@@ -213,14 +213,14 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_aria_controls'] = element['attr__aria-controls']
                 }
 
+                // el_aria_labelledby
+                if ('attr__aria-labelledby' in element && element['attr__aria-labelledby'] !== null) {
+                    event.properties['el_aria_labelledby'] = element['attr__aria-labelledby']
+                }
+
                 // el_class_netdata_legend_toolbox
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'] === 'netdata-legend-toolbox') {
                     event.properties['el_class_netdata_legend_toolbox'] = true
-                }
-
-                // el_class_fa_play
-                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-play')) {
-                    event.properties['el_class_fa_play'] = true
                 }
 
                 // el_class_fa_play
@@ -271,6 +271,26 @@ async function processEvent(event, { config, cache }) {
                 // el_class_utilitysection
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('UtilitySection')) {
                     event.properties['el_class_utilitysection'] = true
+                }
+
+                // el_class_success
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('success')) {
+                    event.properties['el_class_success'] = true
+                }
+
+                // el_class_warning
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('warning')) {
+                    event.properties['el_class_warning'] = true
+                }
+
+                // el_class_pagination
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('pagination')) {
+                    event.properties['el_class_pagination'] = true
+                }
+
+                // el_class_page_number
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('page-number')) {
+                    event.properties['el_class_page_number'] = true
                 }
 
                 // el_id_date_picker_root
