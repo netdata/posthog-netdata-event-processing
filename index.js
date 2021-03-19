@@ -155,7 +155,7 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_text'] = element['$el_text']
 
                     // el_text_datetime
-                    if (isStringDDMMYYYYHHMM(element['$el_text'])) {
+                    if (element['$el_text'].includes('/20') && isStringDDMMYYYYHHMM(element['$el_text'])) {
                         dtStr = element['$el_text']
                         dtStrClean = dtStr.substring(6,10).concat(
                             '-',dtStr.substring(3,5),'-',dtStr.substring(0,2),' ',dtStr.substring(11,16)
