@@ -238,6 +238,16 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_fa_forward'] = true
                 }
 
+                // el_class_fa_plus
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-plus')) {
+                    event.properties['el_class_fa_plus'] = true
+                }
+
+                // el_class_fa_minus
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-minus')) {
+                    event.properties['el_class_fa_minus'] = true
+                }
+
                 // el_class_navbar_highlight_content
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('navbar-highlight-content')) {
                     event.properties['el_class_navbar_highlight_content'] = true
