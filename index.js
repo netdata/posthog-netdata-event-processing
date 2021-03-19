@@ -348,6 +348,21 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_netdata_legend_resize_handler'] = true
                 }
 
+                // el_class_calendarday
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('CalendarDay')) {
+                    event.properties['el_class_calendarday'] = true
+                }
+
+                // el_class_daypicker
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('DayPicker')) {
+                    event.properties['el_class_daypicker'] = true
+                }
+
+                // el_class_daterangepicker
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('DateRangePicker')) {
+                    event.properties['el_class_daterangepicker'] = true
+                }
+
                 // el_id_date_picker_root
                 if ('attr__id' in element && element['attr__id'] !== null && element['attr__id'].includes('date-picker-root')) {
                     event.properties['el_id_date_picker_root'] = true
