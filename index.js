@@ -173,6 +173,12 @@ async function processEvent(event, { config, cache }) {
                 // el_data_target
                 if ('attr__data-target' in element && element['attr__data-target'] !== null) {
                     event.properties['el_data_target'] = element['attr__data-target']
+
+                    // el_data_target_updatemodal
+                    if ('attr__data-target' in element && element['attr__data-target'] !== null && element['attr__data-target'] === '#updateModal') {
+                        event.properties['el_data_target_updatemodal'] = true
+                    }
+
                 }
 
                 // el_data_id
@@ -238,6 +244,11 @@ async function processEvent(event, { config, cache }) {
                 // el_id_date_picker_root
                 if ('attr__id' in element && element['attr__id'] !== null && element['attr__id'].includes('date-picker-root')) {
                     event.properties['el_id_date_picker_root'] = true
+                }
+
+                // el_id_updatemodal
+                if ('attr__id' in element && element['attr__id'] !== null && element['attr__id'].includes('updateModal')) {
+                    event.properties['el_id_updatemodal'] = true
                 }
 
             })
