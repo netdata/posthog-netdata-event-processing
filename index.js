@@ -126,6 +126,11 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_href'] = element['attr__href']
                 }
 
+                // el_onclick
+                if ('attr__onclick' in element && element['attr__onclick'] !== null) {
+                    event.properties['el_onclick'] = element['attr__onclick']
+                }
+
                 // el_id
                 if ('attr__id' in element && element['attr__id'] !== null) {
                     event.properties['el_id'] = element['attr__id']
@@ -144,6 +149,11 @@ async function processEvent(event, { config, cache }) {
                 // el_data_netdata
                 if ('attr__data-netdata' in element && element['attr__data-netdata'] !== null) {
                     event.properties['el_data_netdata'] = element['attr__data-netdata']
+                }
+
+                // el_data_target
+                if ('attr__data-target' in element && element['attr__data-target'] !== null) {
+                    event.properties['el_data_target'] = element['attr__data-target']
                 }
 
             })
