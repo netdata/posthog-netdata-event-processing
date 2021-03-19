@@ -497,10 +497,33 @@ async function processEvent(event, { config, cache }) {
                 event.properties['interaction_detail'] = 'date_range'
             }
 
+        } else if ('el_class_collapsablesection' in event.properties) {
+
+            if ('el_title' in event.properties && event.properties['el_title'] === 'hamburger') {
+                // hamburger
+                event.properties['interaction_type'] = 'hamburger'
+                event.properties['interaction_detail'] = ''
+            }
+
+        } else if ('el_data_target_updatemodal' in event.properties || 'el_id_updatemodal' in event.properties) {
+
+            // update
+            event.properties['interaction_type'] = 'update'
+
+            if (event.properties['el_title'] === 'update') {
+                // popup
+                event.properties['interaction_detail'] = 'popup'
+            } else if (event.properties['el_text'] === 'Check Now') {
+                // check
+                event.properties['interaction_detail'] = 'check'
+            } else {
+                event.properties['interaction_detail'] = 'other'
+            }
+
         } else {
 
             event.properties['interaction_type'] = 'other'
-            event.properties['interaction_detail'] = 'other'
+            event.properties['interaction_detail'] = ''
 
         }
 
