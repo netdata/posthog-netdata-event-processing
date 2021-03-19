@@ -131,6 +131,8 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_href'] = element['attr__href']
                 } else if ('href' in element && element['href'] !== null) {
                     event.properties['el_href'] = element['href']
+                } else if ('$href' in element && element['$href'] !== null) {
+                    event.properties['el_href'] = element['$href']
                 }
 
                 // el_onclick
