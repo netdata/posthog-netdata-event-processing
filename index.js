@@ -389,12 +389,10 @@ async function processEvent(event, { config, cache }) {
 
         } else if ('el_data_netdata' in event.properties) {
 
-            event.properties['interaction_type'] = 'chart_dim'
-
-        } else if ('el_title' in event.properties) {
-
-            if (event.properties['el_title'] === 'Settings') {
-                event.properties['interaction_type'] = 'settings'
+            // chart_dim
+            if ('el_id' in event.properties && event.properties['el_id'].startsWith('chart_')) {
+                event.properties['interaction_type'] = 'chart_dim'
+                event.properties['interaction_detail'] = event.properties['el_data_netdata'].concat('.',event.properties['el_text'])
             }
 
         } else {
