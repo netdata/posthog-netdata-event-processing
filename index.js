@@ -363,26 +363,44 @@ async function processEvent(event, { config, cache }) {
         }
 
         // interaction_type
-        if (event.event === '$pageview') {
-            event.properties['interaction_type'] = 'pageview'
-        } else if (event.event === '$pageleave') {
-            event.properties['interaction_type'] = 'pageleave'
+
+        if (['$pageview', '$pageleave', '$identify'].includes(event.event)) {
+
+            // pageview, pageleave, identify
+            event.properties['interaction_type'] = event.event.replace('$','')
+            event.properties['interaction_detail'] = ''
+
+        } else if (event.properties['event_source'] === 'agent backend' ) {
+
+            // agent_backend
+            event.properties['interaction_type'] = 'agent_backend'
+            event.properties['interaction_detail'] = ''
+
         } else if ('el_href_menu' in event.properties) {
+
+            // submenu
             if (event.properties['el_href_menu'].includes('submenu')) {
                 event.properties['interaction_type'] = 'submenu'
+            // menu
             } else {
                 event.properties['interaction_type'] = 'menu'
             }
+            event.properties['interaction_detail'] = event.properties['el_href_menu']
+
         } else if ('el_data_netdata' in event.properties) {
+
             event.properties['interaction_type'] = 'chart_dim'
+
         } else if ('el_title' in event.properties) {
+
             if (event.properties['el_title'] === 'Settings') {
                 event.properties['interaction_type'] = 'settings'
             }
-        } else if (event.properties['event_source'] === 'agent backend' ) {
-            event.properties['interaction_type'] = 'agent_backend'
+
         } else {
+
             event.properties['interaction_type'] = 'other'
+
         }
 
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
