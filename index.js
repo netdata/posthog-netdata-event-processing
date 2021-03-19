@@ -129,6 +129,8 @@ async function processEvent(event, { config, cache }) {
                 // el_href
                 if ('attr__href' in element && element['attr__href'] !== null) {
                     event.properties['el_href'] = element['attr__href']
+                } else if ('href' in element && element['href'] !== null) {
+                    event.properties['el_href'] = element['href']
                 }
 
                 // el_onclick
@@ -219,6 +221,21 @@ async function processEvent(event, { config, cache }) {
                 // el_class_startendcontainer
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('StartEndContainer')) {
                     event.properties['el_class_startendcontainer'] = true
+                }
+
+                // el_class_pickerbtnarea
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('PickerBtnArea')) {
+                    event.properties['el_class_pickerbtnarea'] = true
+                }
+
+                // el_class_pickerbox
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('PickerBox')) {
+                    event.properties['el_class_pickerbox'] = true
+                }
+
+                // el_id_date_picker_root
+                if ('attr__id' in element && element['attr__id'] !== null && element['attr__id'].includes('date-picker-root')) {
+                    event.properties['el_id_date_picker_root'] = true
                 }
 
             })
