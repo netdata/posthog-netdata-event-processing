@@ -395,6 +395,44 @@ async function processEvent(event, { config, cache }) {
                 event.properties['interaction_detail'] = event.properties['el_data_netdata'].concat('.',event.properties['el_text'])
             }
 
+        } else if ('el_id' in event.properties && event.properties['el_id'] === 'date-picker-root') {
+
+            // date_picker
+            event.properties['interaction_type'] = 'date_picker'
+            event.properties['interaction_detail'] = 'open'
+
+        } else if ('el_data_testid' in event.properties) {
+
+            // date_picker
+            if (event.properties['el_data_testid'].startsWith('date-picker')) {
+
+                event.properties['interaction_type'] = 'date_picker'
+
+                // click-quick-selector
+                if (event.properties['el_data_testid'].includes('click-quick-selector')){
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1'].concat(' ',event.properties['el_data_testid_3'])
+                // click-apply
+                } else if (event.properties['el_data_testid'].includes('click-apply')) {
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1']
+                // click-clear
+                } else if (event.properties['el_data_testid'].includes('click-clear')) {
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1']
+                // click-last-time-minute
+                } else if (event.properties['el_data_testid'].includes('click-last-time-minute')) {
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1']
+                // click-last-time-hour
+                } else if (event.properties['el_data_testid'].includes('click-last-time-hour')) {
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1']
+                // click-last-time-day
+                } else if (event.properties['el_data_testid'].includes('click-last-time-day')) {
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1']
+                // click-last-time-month
+                } else if (event.properties['el_data_testid'].includes('click-last-time-month')) {
+                    event.properties['interaction_detail'] = event.properties['el_data_testid_1']
+                }
+
+            }
+
         } else {
 
             event.properties['interaction_type'] = 'other'
