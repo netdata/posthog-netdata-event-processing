@@ -298,6 +298,31 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_page_number'] = true
                 }
 
+                // el_class_export
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('export')) {
+                    event.properties['el_class_export'] = true
+                }
+
+                // el_class_netdata_chartblock_container
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-chartblock-container')) {
+                    event.properties['el_class_netdata_chartblock_container'] = true
+                }
+
+                // el_class_netdata_reset_button
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-reset-button')) {
+                    event.properties['el_class_netdata_reset_button'] = true
+                }
+
+                // el_class_netdata_legend_toolbox
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-legend-toolbox')) {
+                    event.properties['el_class_netdata_legend_toolbox'] = true
+                }
+
+                // el_class_netdata_legend_toolbox_button
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-legend-toolbox-button')) {
+                    event.properties['el_class_netdata_legend_toolbox_button'] = true
+                }
+
                 // el_id_date_picker_root
                 if ('attr__id' in element && element['attr__id'] !== null && element['attr__id'].includes('date-picker-root')) {
                     event.properties['el_id_date_picker_root'] = true
