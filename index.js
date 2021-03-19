@@ -400,6 +400,7 @@ async function processEvent(event, { config, cache }) {
         } else {
 
             event.properties['interaction_type'] = 'other'
+            event.properties['interaction_detail'] = ''
 
         }
 
