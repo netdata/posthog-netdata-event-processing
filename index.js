@@ -156,7 +156,7 @@ async function processEvent(event, { config, cache }) {
                 }
 
                 // el_text
-                if ('$el_text' in element && element['$el_text'] !== null) {
+                if ('$el_text' in element && element['$el_text'] !== null && element['$el_text'] !== '') {
                     event.properties['el_text'] = element['$el_text']
 
                     // el_text_datetime
@@ -168,6 +168,8 @@ async function processEvent(event, { config, cache }) {
                         event.properties['el_text_datetime'] = dtStrClean
                     }
 
+                } else if ('text' in element && element['text'] !== null && element['text'] !== '') {
+                    event.properties['el_text'] = element['$el_text']
                 }
 
                 // el_data_netdata
