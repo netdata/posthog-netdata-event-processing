@@ -213,6 +213,11 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_aria_controls'] = element['attr__aria-controls']
                 }
 
+                // el_aria_labelledby
+                if ('attr__aria-labelledby' in element && element['attr__aria-labelledby'] !== null) {
+                    event.properties['el_aria_labelledby'] = element['attr__aria-labelledby']
+                }
+
                 // el_class_netdata_legend_toolbox
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'] === 'netdata-legend-toolbox') {
                     event.properties['el_class_netdata_legend_toolbox'] = true
@@ -223,9 +228,24 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_fa_play'] = true
                 }
 
-                // el_class_fa_play
-                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-play')) {
-                    event.properties['el_class_fa_play'] = true
+                // el_class_fa_backward
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-backward')) {
+                    event.properties['el_class_fa_backward'] = true
+                }
+
+                // el_class_fa_forward
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-forward')) {
+                    event.properties['el_class_fa_forward'] = true
+                }
+
+                // el_class_fa_plus
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-plus')) {
+                    event.properties['el_class_fa_plus'] = true
+                }
+
+                // el_class_fa_minus
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-minus')) {
+                    event.properties['el_class_fa_minus'] = true
                 }
 
                 // el_class_navbar_highlight_content
@@ -271,6 +291,51 @@ async function processEvent(event, { config, cache }) {
                 // el_class_utilitysection
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('UtilitySection')) {
                     event.properties['el_class_utilitysection'] = true
+                }
+
+                // el_class_success
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('success')) {
+                    event.properties['el_class_success'] = true
+                }
+
+                // el_class_warning
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('warning')) {
+                    event.properties['el_class_warning'] = true
+                }
+
+                // el_class_danger
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('danger')) {
+                    event.properties['el_class_danger'] = true
+                }
+
+                // el_class_pagination
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('pagination')) {
+                    event.properties['el_class_pagination'] = true
+                }
+
+                // el_class_page_number
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('page-number')) {
+                    event.properties['el_class_page_number'] = true
+                }
+
+                // el_class_export
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('export')) {
+                    event.properties['el_class_export'] = true
+                }
+
+                // el_class_netdata_chartblock_container
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-chartblock-container')) {
+                    event.properties['el_class_netdata_chartblock_container'] = true
+                }
+
+                // el_class_netdata_reset_button
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-reset-button')) {
+                    event.properties['el_class_netdata_reset_button'] = true
+                }
+
+                // el_class_netdata_legend_toolbox_button
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-legend-toolbox-button')) {
+                    event.properties['el_class_netdata_legend_toolbox_button'] = true
                 }
 
                 // el_id_date_picker_root
