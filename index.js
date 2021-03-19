@@ -248,6 +248,11 @@ async function processEvent(event, { config, cache }) {
                     event.properties['el_class_fa_minus'] = true
                 }
 
+                // el_class_fa_sort
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('fa-sort')) {
+                    event.properties['el_class_fa_sort'] = true
+                }
+
                 // el_class_navbar_highlight_content
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('navbar-highlight-content')) {
                     event.properties['el_class_navbar_highlight_content'] = true
@@ -336,6 +341,11 @@ async function processEvent(event, { config, cache }) {
                 // el_class_netdata_legend_toolbox_button
                 if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-legend-toolbox-button')) {
                     event.properties['el_class_netdata_legend_toolbox_button'] = true
+                }
+
+                // el_class_netdata_legend_resize_handler
+                if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('netdata-legend-resize-handler')) {
+                    event.properties['el_class_netdata_legend_resize_handler'] = true
                 }
 
                 // el_id_date_picker_root
