@@ -39,6 +39,7 @@ test('netdata_nightly', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 
@@ -53,6 +54,7 @@ test('netdata_nightly', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -69,6 +71,7 @@ test('has_alarms_critical', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -85,6 +88,7 @@ test('has_alarms_warning', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -104,6 +108,7 @@ test('netdata_buildinfo', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -147,6 +152,7 @@ test('host_collectors', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -163,6 +169,7 @@ test('netdata_machine_guid', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -179,6 +186,7 @@ test('netdata_machine_guid', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -195,6 +203,7 @@ test('netdata_person_id', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -211,6 +220,7 @@ test('netdata_person_id', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -227,6 +237,7 @@ test('distinct_id', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
@@ -243,6 +254,7 @@ test('distinct_id', async () => {
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
+            interaction_token: 'other|',
         },
     })
 })
