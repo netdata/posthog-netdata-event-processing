@@ -534,6 +534,7 @@ async function processEvent(event, { config, cache }) {
         event = processElements(event)
         event.properties['interaction_type'] = getInteractionType(event)
         event.properties['interaction_detail'] = getInteractionDetail(event)
+        event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
 
     }
