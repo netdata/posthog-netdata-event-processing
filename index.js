@@ -36,8 +36,22 @@ function getInteractionType(event) {
         event.properties['el_id'].startsWith('chart_')
     ) {
         return 'chart_dim'
-    } else if (event.properties['el_id'] === 'date-picker-root') {
+    } else if (
+        event.properties['el_id'] === 'date-picker-root' ||
+        event.properties['el_data_testid'].startsWith('date-picker') ||
+        event.properties.hasOwnProperty('el_class_daterangepicker')
+    ) {
         return 'date_picker'
+    } else if (
+        event.properties.hasOwnProperty('el_class_collapsablesection') ||
+        event.properties['el_title'] === 'hamburger'
+    ) {
+        return 'hamburger'
+    } else if (
+        event.properties.hasOwnProperty('el_data_target_updatemodal') ||
+        event.properties.hasOwnProperty('el_id_updatemodal')
+    ) {
+        return 'update'
     } else {
         return 'other'
     }
