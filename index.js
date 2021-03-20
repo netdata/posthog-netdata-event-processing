@@ -96,6 +96,8 @@ function getInteractionType(event) {
         return 'settings'
     } else if (event.properties.hasOwnProperty('el_class_signinbutton')) {
         return 'cloud'
+    } else if (event.properties['el_id'] === 'navbar-highlight-content') {
+        return 'highlight'
     } else {
         return 'other'
     }
@@ -115,6 +117,8 @@ function getInteractionDetail(event) {
             return 'scroll_forward'
         } else if (event.properties.hasOwnProperty('el_class_fa_sort')) {
             return 'resize'
+        } else if (event.properties.hasOwnProperty('el_class_fa_play')) {
+            return 'play'
         } else {
             return 'other'
         }
@@ -158,6 +162,12 @@ function getInteractionDetail(event) {
             return 'popup'
         } else if (event.properties['el_text'] === 'Check Now') {
             return 'check'
+        } else {
+            return 'other'
+        }
+    } else if (event.properties['interaction_type'] === 'highlight') {
+        if (event.properties['el_onclick'] === 'urlOptions.clearHighlight();') {
+            return 'clear'
         } else {
             return 'other'
         }
@@ -536,6 +546,9 @@ async function processEvent(event, { config, cache }) {
         event.properties['interaction_detail'] = getInteractionDetail(event)
         event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
+        if (event.properties['$current_url'] === 'agent dashboard' && event.properties.hasOwnProperty('interaction_token')) {
+            event.properties['$current_url'] = event.properties['interaction_token']
+        }
 
     }
 
