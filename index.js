@@ -38,7 +38,10 @@ function getInteractionType(event) {
         return 'chart_dim'
     } else if (
         event.properties['el_id'] === 'date-picker-root' ||
-        event.properties['el_data_testid'].startsWith('date-picker') ||
+        (
+            event.properties.hasOwnProperty('el_data_testid') &&
+            event.properties['el_data_testid'].startsWith('date-picker')
+        ) ||
         event.properties.hasOwnProperty('el_class_daterangepicker')
     ) {
         return 'date_picker'
