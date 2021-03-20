@@ -32,7 +32,9 @@ function getInteractionType(event) {
     } else if (
         event.properties.hasOwnProperty('el_data_netdata') &&
         event.properties.hasOwnProperty('el_id') &&
-        event.properties.hasOwnProperty('el_text') &&
+        (
+            event.properties.hasOwnProperty('el_text') || event.properties.hasOwnProperty('el_title')
+        ) &&
         event.properties['el_id'].startsWith('chart_')
     ) {
         return 'chart_dim'
@@ -55,13 +57,113 @@ function getInteractionType(event) {
         event.properties.hasOwnProperty('el_id_updatemodal')
     ) {
         return 'update'
+    } else if (
+        ['Need Help?', 'question'].includes(event.properties['el_title']) ||
+        event.properties['el_data_testid'] === 'documentation-help-close' ||
+        event.properties.hasOwnProperty('el_class_documentation_container')
+    ) {
+        return 'help'
+    } else if (
+        event.properties['el_data_target'] === '#loadSnapshotModal' ||
+        event.properties['el_id'] === 'loadSnapshotDragAndDrop' ||
+        event.properties['el_id'] === 'loadSnapshotSelectFiles' ||
+        event.properties['el_id'] === 'loadSnapshotModal'
+    ) {
+        return 'load_snapshot'
+    } else if (
+        event.properties['el_data_target'] === '#saveSnapshotModal' ||
+        event.properties['el_id'] === 'saveSnapshotResolutionSlider' ||
+        event.properties['el_id'] === 'saveSnapshotExport' ||
+        event.properties['el_id'] === 'hiddenDownloadLinks'
+    ) {
+        return 'save_snapshot'
+    } else if (
+        event.properties['el_data_target'] === '#printPreflightModal' ||
+        event.properties['el_onclick'] === 'return printPreflight(),!1'
+    ) {
+        return 'print'
+    } else if (
+        event.properties['el_data_target'] === '#alarmsModal' ||
+        ['#alarms_all', '#alarms_log', '#alarms_active'].includes(event.properties['el_href']) ||
+        event.properties['el_id'] === 'alarms_log_table'
+    ) {
+        return 'alarms'
+    } else if (
+        event.properties['el_data_target'] === '#optionsModal' ||
+        event.properties['el_id'] === 'optionsModal' ||
+        event.properties['el_aria_labelledby'] === 'optionsModalLabel'
+    ) {
+        return 'settings'
+    } else if (event.properties.hasOwnProperty('el_class_signinbutton')) {
+        return 'cloud'
     } else {
         return 'other'
     }
 }
 
 function getInteractionDetail(event) {
-    return ''
+    if (['menu', 'submenu'].includes(event.properties['interaction_type'])) {
+        return event.properties['el_href_menu']
+    } else if (event.properties['interaction_type'] === 'chart_toolbox') {
+        if (event.properties.hasOwnProperty('el_class_fa_minus')) {
+            return 'zoom_out'
+        } else if (event.properties.hasOwnProperty('el_class_fa_plus')) {
+            return 'zoom_in'
+        } else if (event.properties.hasOwnProperty('el_class_fa_backward')) {
+            return 'scroll_backward'
+        } else if (event.properties.hasOwnProperty('el_class_fa_forward')) {
+            return 'scroll_forward'
+        } else if (event.properties.hasOwnProperty('el_class_fa_sort')) {
+            return 'resize'
+        } else {
+            return 'other'
+        }
+    } else if (event.properties['interaction_type'] === 'chart_dim') {
+        if (
+            event.properties.hasOwnProperty('el_id') &&
+            event.properties.hasOwnProperty('el_text')
+        ) {
+            return event.properties['el_data_netdata'].concat('.',event.properties['el_text'])
+        } else if (
+            event.properties.hasOwnProperty('el_id') &&
+            event.properties.hasOwnProperty('el_title')
+        ) {
+            return event.properties['el_data_netdata'].concat('.',event.properties['el_title'])
+        } else {
+            return 'other'
+        }
+    } else if (event.properties['interaction_type'] === 'date_picker') {
+        if (event.properties['el_id'] === 'date-picker-root') {
+            return 'open'
+        } else if (
+            event.properties.hasOwnProperty('el_data_testid') &&
+            event.properties['el_data_testid'].startsWith('date-picker')
+        ) {
+            if (event.properties['el_data_testid'].includes('click-quick-selector')) {
+                return event.properties['el_data_testid_1'].concat(' ',event.properties['el_data_testid_3'])
+            } else {
+                return event.properties['el_data_testid_1']
+            }
+        } else if (event.properties['el_id'] === 'month_right') {
+            return 'month_right'
+        } else if (event.properties['el_id'] === 'month_left') {
+            return 'month_left'
+        } else if (event.properties.hasOwnProperty('el_class_daterangepicker')) {
+            return 'date_range'
+        } else {
+            return 'other'
+        }
+    } else if (event.properties['interaction_type'] === 'update') {
+        if (event.properties['el_title'] === 'update') {
+            return 'popup'
+        } else if (event.properties['el_text'] === 'Check Now') {
+            return 'check'
+        } else {
+            return 'other'
+        }
+    } else {
+        return ''
+    }
 }
 
 function processElements(event) {
@@ -432,6 +534,7 @@ async function processEvent(event, { config, cache }) {
         event = processElements(event)
         event.properties['interaction_type'] = getInteractionType(event)
         event.properties['interaction_detail'] = getInteractionDetail(event)
+        event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
 
     }
