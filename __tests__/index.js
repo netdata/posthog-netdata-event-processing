@@ -40,6 +40,7 @@ test('netdata_nightly', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 
@@ -55,6 +56,7 @@ test('netdata_nightly', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -72,6 +74,7 @@ test('has_alarms_critical', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -89,6 +92,7 @@ test('has_alarms_warning', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -109,6 +113,7 @@ test('netdata_buildinfo', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -153,6 +158,7 @@ test('host_collectors', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -170,6 +176,7 @@ test('netdata_machine_guid', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -187,6 +194,7 @@ test('netdata_machine_guid', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -204,6 +212,7 @@ test('netdata_person_id', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -221,6 +230,7 @@ test('netdata_person_id', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -238,6 +248,7 @@ test('distinct_id', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
@@ -255,6 +266,7 @@ test('distinct_id', async () => {
             interaction_type: 'other',
             interaction_detail: '',
             interaction_token: 'other|',
+            event_ph: 'test event'
         },
     })
 })
