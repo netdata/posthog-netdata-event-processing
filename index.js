@@ -540,6 +540,8 @@ async function processEvent(event, { config, cache }) {
 
     if (event.properties) {
 
+        event.properties['event_ph'] = event.properties['$event']
+
         event = processProperties(event)
         event = processElements(event)
         event.properties['interaction_type'] = getInteractionType(event)
