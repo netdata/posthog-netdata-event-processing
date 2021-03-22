@@ -21,6 +21,7 @@ function isStringDDMMYYYYHHMM(dt){
 }
 
 function getInteractionType(event) {
+
     if (['$pageview', '$pageleave', '$identify', 'agent backend'].includes(event.event)) {
 
         return event.event.replace('$', '').replace(' ', '_')
@@ -122,7 +123,8 @@ function getInteractionType(event) {
         ['#alarms_all', '#alarms_log', '#alarms_active'].includes(event.properties['el_href']) ||
         event.properties['el_id'] === 'alarms_log_table' ||
         event.properties['el_id'] === 'alarms_log' ||
-        event.properties['el_id'] === 'alarmsModal'
+        event.properties['el_id'] === 'alarmsModal' ||
+        event.properties['el_aria_labelledby'] === 'alarmsModalLabel'
     ) {
 
         return 'alarms'
@@ -164,10 +166,13 @@ function getInteractionType(event) {
 }
 
 function getInteractionDetail(event) {
+
+    // menu
     if (['menu', 'submenu'].includes(event.properties['interaction_type'])) {
 
         return event.properties['el_href_menu']
 
+    // chart_toolbox
     } else if (event.properties['interaction_type'] === 'chart_toolbox') {
 
         if (event.properties.hasOwnProperty('el_class_fa_minus')) {
@@ -186,6 +191,7 @@ function getInteractionDetail(event) {
             return 'other'
         }
 
+    // chart_dim
     } else if (event.properties['interaction_type'] === 'chart_dim') {
 
         if (
@@ -202,6 +208,7 @@ function getInteractionDetail(event) {
             return 'other'
         }
 
+    // date_picker
     } else if (event.properties['interaction_type'] === 'date_picker') {
 
         if (event.properties['el_id'] === 'date-picker-root') {
@@ -225,6 +232,7 @@ function getInteractionDetail(event) {
             return 'other'
         }
 
+    // update
     } else if (event.properties['interaction_type'] === 'update') {
 
         if (event.properties['el_title'] === 'update') {
@@ -264,13 +272,61 @@ function getInteractionDetail(event) {
     // alarms
     } else if (event.properties['interaction_type'] === 'alarms') {
 
-        if (event.properties.hasOwnProperty('el_class_page_number')) {
+        if (
+            event.properties.hasOwnProperty('el_href') &&
+            event.properties['el_href'].includes('#alarm_all_')
+        ) {
+            return event.properties['el_text']
+        } else if (event.properties.hasOwnProperty('el_class_page_number')) {
             return 'page_number'
         } else if (event.properties['el_id'] === 'root') {
             return 'open'
         } else if (event.properties['el_text'] === 'Active') {
             return 'active'
-        } else if (event.properties['el_text'] === 'Close') {
+        } else if (event.properties['el_text'] === 'Log') {
+            return 'log'
+        } else if (event.properties['el_text'] === 'All') {
+            return 'all'
+        } else if (
+            event.properties.hasOwnProperty('el_class_warning') &&
+            event.properties.hasOwnProperty('el_text')
+        ) {
+            if (
+                event.properties['el_text'].includes(':') ||
+                event.properties['el_text'].includes('%')
+            ) {
+                return 'warn'
+            } else {
+                return event.properties['el_text'].concat('__warn')
+            }
+        } else if (
+            event.properties.hasOwnProperty('el_class_success') &&
+            event.properties.hasOwnProperty('el_text')
+        ) {
+            if (
+                event.properties['el_text'].includes(':') ||
+                event.properties['el_text'].includes('%')
+            ) {
+                return 'norm'
+            } else {
+                return event.properties['el_text'].concat('__norm')
+            }
+        } else if (
+            event.properties.hasOwnProperty('el_class_danger') &&
+            event.properties.hasOwnProperty('el_text')
+        ) {
+            if (
+                event.properties['el_text'].includes(':') ||
+                event.properties['el_text'].includes('%')
+            ) {
+                return 'crit'
+            } else {
+                return event.properties['el_text'].concat('__crit')
+            }
+        } else if (
+            event.properties['el_text'] === 'Close' ||
+            event.properties['el_text'] === '×'
+        ) {
             return 'close'
         } else {
             return 'other'
