@@ -162,6 +162,8 @@ function getInteractionDetail(event) {
             return 'popup'
         } else if (event.properties['el_text'] === 'Check Now') {
             return 'check'
+        } else if (event.properties['el_text'] === 'Close') {
+            return 'close'
         } else {
             return 'other'
         }
