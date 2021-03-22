@@ -121,7 +121,8 @@ function getInteractionType(event) {
         event.properties['el_data_target'] === '#alarmsModal' ||
         ['#alarms_all', '#alarms_log', '#alarms_active'].includes(event.properties['el_href']) ||
         event.properties['el_id'] === 'alarms_log_table' ||
-        event.properties['el_id'] === 'alarms_log'
+        event.properties['el_id'] === 'alarms_log' ||
+        event.properties['el_id'] === 'alarmsModal'
     ) {
 
         return 'alarms'
@@ -236,6 +237,7 @@ function getInteractionDetail(event) {
             return 'other'
         }
 
+    // highlight
     } else if (event.properties['interaction_type'] === 'highlight') {
 
         if (event.properties['el_onclick'] === 'urlOptions.clearHighlight();') {
@@ -244,6 +246,7 @@ function getInteractionDetail(event) {
             return 'other'
         }
 
+    // settings
     } else if (event.properties['interaction_type'] === 'settings') {
 
         if (event.properties['el_id'] === 'root') {
@@ -265,6 +268,10 @@ function getInteractionDetail(event) {
             return 'page_number'
         } else if (event.properties['el_id'] === 'root') {
             return 'open'
+        } else if (event.properties['el_text'] === 'Active') {
+            return 'active'
+        } else if (event.properties['el_text'] === 'Close') {
+            return 'close'
         } else {
             return 'other'
         }
