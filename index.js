@@ -281,7 +281,10 @@ function getInteractionDetail(event) {
             return 'page_number'
         } else if (event.properties['el_id'] === 'root') {
             return 'open'
-        } else if (event.properties['el_text'] === 'Active') {
+        } else if (
+            event.properties['el_text'] === 'Active' ||
+            event.properties['el_id'] === 'alarms_active'
+        ) {
             return 'active'
         } else if (event.properties['el_text'] === 'Log') {
             return 'log'
@@ -322,6 +325,18 @@ function getInteractionDetail(event) {
                 return 'crit'
             } else {
                 return event.properties['el_text'].concat('__crit')
+            }
+        } else if (
+            event.properties.hasOwnProperty('el_class_info') &&
+            event.properties.hasOwnProperty('el_text')
+        ) {
+            if (
+                event.properties['el_text'].includes(':') ||
+                event.properties['el_text'].includes('%')
+            ) {
+                return 'undef'
+            } else {
+                return event.properties['el_text'].concat('__undef')
             }
         } else if (
             event.properties['el_text'] === 'Close' ||
@@ -547,6 +562,11 @@ function processElements(event) {
             // el_class_danger
             if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'].includes('danger')) {
                 event.properties['el_class_danger'] = true
+            }
+
+            // el_class_info
+            if ('attr__class' in element && element['attr__class'] !== null && element['attr__class'] === 'info') {
+                event.properties['el_class_info'] = true
             }
 
             // el_class_pagination
