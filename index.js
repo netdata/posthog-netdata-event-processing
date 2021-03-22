@@ -300,7 +300,7 @@ function getInteractionDetail(event) {
             ) {
                 return 'warn'
             } else {
-                return event.properties['el_text'].concat('__warn')
+                return 'warn__'.concat(event.properties['el_text'])
             }
         } else if (
             event.properties.hasOwnProperty('el_class_success') &&
@@ -312,7 +312,7 @@ function getInteractionDetail(event) {
             ) {
                 return 'norm'
             } else {
-                return event.properties['el_text'].concat('__norm')
+                return 'norm__'.concat(event.properties['el_text'])
             }
         } else if (
             event.properties.hasOwnProperty('el_class_danger') &&
@@ -324,7 +324,7 @@ function getInteractionDetail(event) {
             ) {
                 return 'crit'
             } else {
-                return event.properties['el_text'].concat('__crit')
+                return 'crit__'.concat(event.properties['el_text'])
             }
         } else if (
             event.properties.hasOwnProperty('el_class_info') &&
@@ -336,7 +336,7 @@ function getInteractionDetail(event) {
             ) {
                 return 'undef'
             } else {
-                return event.properties['el_text'].concat('__undef')
+                return 'undef__'.concat(event.properties['el_text'])
             }
         } else if (
             event.properties['el_text'] === 'Close' ||
