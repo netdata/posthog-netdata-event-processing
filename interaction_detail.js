@@ -176,6 +176,11 @@ export function getInteractionDetail(event) {
             event.properties['el_text'] === '×'
         ) {
             return 'close'
+        } else if (
+            event.properties['el_title'] === 'Refresh' &&
+            event.properties['el_id'] === 'alarms_log'
+        ) {
+            return 'refresh_log'
         } else {
             return 'other'
         }
