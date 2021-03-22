@@ -546,8 +546,8 @@ async function processEvent(event, { config, cache }) {
         event.properties['interaction_detail'] = getInteractionDetail(event)
         event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
-        if (event.properties['$current_url'] === 'agent dashboard' && event.properties.hasOwnProperty('interaction_token')) {
-            event.properties['$current_url'] = event.properties['interaction_token']
+        if (event.properties['$event'] === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
+            event.properties['$event'] = event.properties['interaction_token']
         }
 
     }
