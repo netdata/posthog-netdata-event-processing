@@ -2,7 +2,7 @@
     "name": "posthog-netdata-event-processing",
     "version": "0.0.1",
     "description": "A Posthog plugin to do some data processing on our Posthog events as they arrive.",
-    "main": "index.js",
+    "main": "process.js",
     "scripts": {
         "test": "jest"
     },
