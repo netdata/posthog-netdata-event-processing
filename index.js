@@ -540,7 +540,7 @@ async function processEvent(event, { config, cache }) {
 
     if (event.properties) {
 
-        event.properties['event_ph'] = event.properties['$event']
+        event.properties['event_ph'] = event.event
 
         event = processProperties(event)
         event = processElements(event)
@@ -548,8 +548,8 @@ async function processEvent(event, { config, cache }) {
         event.properties['interaction_detail'] = getInteractionDetail(event)
         event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
         event.properties['netdata_posthog_plugin_version'] = '0.0.1'
-        if (event.properties['$event'] === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
-            event.properties['$event'] = event.properties['interaction_token']
+        if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
+            event.event = event.properties['interaction_token']
         }
 
     }
