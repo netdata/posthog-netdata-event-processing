@@ -25,18 +25,20 @@ function getInteractionType(event) {
 
         return event.event.replace('$', '').replace(' ', '_')
 
+    // menu
     } else if (event.properties.hasOwnProperty('el_href_menu')) {
 
         return event.properties['el_href_menu'].includes('submenu') ? 'submenu' : 'menu'
 
-    } else if (event.properties.hasOwnProperty('el_class_netdata_legend_toolbox')) {
+    // chart_toolbox
+    } else if (
+        event.properties.hasOwnProperty('el_class_netdata_legend_resize_handler') ||
+        event.properties.hasOwnProperty('el_class_netdata_legend_toolbox')
+    ) {
 
         return 'chart_toolbox'
 
-    } else if (event.properties.hasOwnProperty('el_class_netdata_legend_resize_handler')) {
-
-        return 'chart_toolbox'
-
+    // chart_dim
     } else if (
         event.properties.hasOwnProperty('el_data_netdata') &&
         event.properties.hasOwnProperty('el_id') &&
@@ -48,6 +50,7 @@ function getInteractionType(event) {
 
         return 'chart_dim'
 
+    // date_picker
     } else if (
         event.properties['el_id'] === 'date-picker-root' ||
         (
@@ -59,6 +62,7 @@ function getInteractionType(event) {
 
         return 'date_picker'
 
+    // hamburger
     } else if (
         event.properties.hasOwnProperty('el_class_collapsablesection') ||
         event.properties['el_title'] === 'hamburger'
@@ -66,6 +70,7 @@ function getInteractionType(event) {
 
         return 'hamburger'
 
+    // update
     } else if (
         event.properties.hasOwnProperty('el_data_target_updatemodal') ||
         event.properties.hasOwnProperty('el_id_updatemodal')
@@ -73,6 +78,7 @@ function getInteractionType(event) {
 
         return 'update'
 
+    // help
     } else if (
         ['Need Help?', 'question'].includes(event.properties['el_title']) ||
         event.properties['el_data_testid'] === 'documentation-help-close' ||
@@ -81,6 +87,7 @@ function getInteractionType(event) {
 
         return 'help'
 
+    // load_snapshot
     } else if (
         event.properties['el_data_target'] === '#loadSnapshotModal' ||
         event.properties['el_id'] === 'loadSnapshotDragAndDrop' ||
@@ -90,6 +97,7 @@ function getInteractionType(event) {
 
         return 'load_snapshot'
 
+    // save_snapshot
     } else if (
         event.properties['el_data_target'] === '#saveSnapshotModal' ||
         event.properties['el_id'] === 'saveSnapshotResolutionSlider' ||
@@ -100,6 +108,7 @@ function getInteractionType(event) {
 
         return 'save_snapshot'
 
+    // print
     } else if (
         event.properties['el_data_target'] === '#printPreflightModal' ||
         event.properties['el_onclick'] === 'return printPreflight(),!1'
@@ -107,6 +116,7 @@ function getInteractionType(event) {
 
         return 'print'
 
+    // alarms
     } else if (
         event.properties['el_data_target'] === '#alarmsModal' ||
         ['#alarms_all', '#alarms_log', '#alarms_active'].includes(event.properties['el_href']) ||
@@ -116,6 +126,7 @@ function getInteractionType(event) {
 
         return 'alarms'
 
+    // settings
     } else if (
         event.properties['el_data_target'] === '#optionsModal' ||
         event.properties['el_id'] === 'optionsModal' ||
@@ -124,13 +135,25 @@ function getInteractionType(event) {
 
         return 'settings'
 
+    // cloud
     } else if (event.properties.hasOwnProperty('el_class_signinbutton')) {
 
         return 'cloud'
 
+    // highlight
     } else if (event.properties['el_id'] === 'navbar-highlight-content') {
 
         return 'highlight'
+
+    // add_charts
+    } else if (event.properties['el_text'] === 'Add more charts') {
+
+        return 'add_charts'
+
+    // add_alarms
+    } else if (event.properties['el_text'] === 'Add more alarms') {
+
+        return 'add_alarms'
 
     } else {
 
