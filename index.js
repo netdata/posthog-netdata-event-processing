@@ -74,6 +74,7 @@ function getInteractionType(event) {
         event.properties['el_data_target'] === '#saveSnapshotModal' ||
         event.properties['el_id'] === 'saveSnapshotResolutionSlider' ||
         event.properties['el_id'] === 'saveSnapshotExport' ||
+        event.properties['el_id'] === 'saveSnapshotModal' ||
         event.properties['el_id'] === 'hiddenDownloadLinks'
     ) {
         return 'save_snapshot'
@@ -105,8 +106,11 @@ function getInteractionType(event) {
 
 function getInteractionDetail(event) {
     if (['menu', 'submenu'].includes(event.properties['interaction_type'])) {
+
         return event.properties['el_href_menu']
+
     } else if (event.properties['interaction_type'] === 'chart_toolbox') {
+
         if (event.properties.hasOwnProperty('el_class_fa_minus')) {
             return 'zoom_out'
         } else if (event.properties.hasOwnProperty('el_class_fa_plus')) {
@@ -122,7 +126,9 @@ function getInteractionDetail(event) {
         } else {
             return 'other'
         }
+
     } else if (event.properties['interaction_type'] === 'chart_dim') {
+
         if (
             event.properties.hasOwnProperty('el_id') &&
             event.properties.hasOwnProperty('el_text')
@@ -136,7 +142,9 @@ function getInteractionDetail(event) {
         } else {
             return 'other'
         }
+
     } else if (event.properties['interaction_type'] === 'date_picker') {
+
         if (event.properties['el_id'] === 'date-picker-root') {
             return 'open'
         } else if (
@@ -157,7 +165,9 @@ function getInteractionDetail(event) {
         } else {
             return 'other'
         }
+
     } else if (event.properties['interaction_type'] === 'update') {
+
         if (event.properties['el_title'] === 'update') {
             return 'popup'
         } else if (event.properties['el_text'] === 'Check Now') {
@@ -167,14 +177,33 @@ function getInteractionDetail(event) {
         } else {
             return 'other'
         }
+
     } else if (event.properties['interaction_type'] === 'highlight') {
+
         if (event.properties['el_onclick'] === 'urlOptions.clearHighlight();') {
             return 'clear'
         } else {
             return 'other'
         }
+
+    } else if (event.properties['interaction_type'] === 'settings') {
+
+        if (event.properties['el_id'] === 'root') {
+            return 'popup'
+        } else if (event.properties['el_text'] === 'Close') {
+            return 'close'
+        } else if (event.properties['el_data_toggle'] === 'tab') {
+            return 'tab'
+        } else if (event.properties['el_data_toggle'] === 'toggle') {
+            return 'toggle'
+        } else {
+            return 'other'
+        }
+
     } else {
+
         return ''
+
     }
 }
 
