@@ -1,4 +1,6 @@
 import {cleanPropertyName} from "./utils";
+import {getInteractionType} from "./interaction_type";
+import {getInteractionDetail} from "./interaction_detail";
 
 export function processProperties(event) {
     // check if netdata_version property exists
@@ -80,5 +82,17 @@ export function processProperties(event) {
             event.properties['distinct_id_is_empty'] = false
         }
     }
+
+    // interaction_type
+    event.properties['interaction_type'] = getInteractionType(event)
+    event.properties['interaction_detail'] = getInteractionDetail(event)
+    event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
+    if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
+        event.event = event.properties['interaction_token']
+    }
+
+    // netdata_posthog_plugin_version
+    event.properties['netdata_posthog_plugin_version'] = '0.0.1'
+
     return event
 }

@@ -15,15 +15,8 @@ async function processEvent(event, { config, cache }) {
 
         event.properties['event_ph'] = event.event
 
-        event = processProperties(event)
         event = processElements(event)
-        event.properties['interaction_type'] = getInteractionType(event)
-        event.properties['interaction_detail'] = getInteractionDetail(event)
-        event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
-        event.properties['netdata_posthog_plugin_version'] = '0.0.1'
-        if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
-            event.event = event.properties['interaction_token']
-        }
+        event = processProperties(event)
 
     }
 
