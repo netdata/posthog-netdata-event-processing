@@ -321,6 +321,11 @@ function getInteractionDetail(event) {
             event.properties['el_text'] === '×'
         ) {
             return 'close'
+        } else if (
+            event.properties['el_title'] === 'Refresh' &&
+            event.properties['el_id'] === 'alarms_log'
+        ) {
+            return 'refresh_log'
         } else {
             return 'other'
         }
@@ -373,7 +378,13 @@ function processElements(event) {
 
             // el_href_menu
             if ('attr__href' in element && element['attr__href'] !== null && element['attr__href'].substring(0,5) === '#menu') {
-                    event.properties['el_href_menu'] = element['attr__href'];
+                event.properties['el_href_menu'] = element['attr__href'];
+                event.properties['el_menu'] = element['attr__href'].split('_submenu')[0].replace('#menu_', '');
+                if (element['attr__href'].includes('_submenu_')) {
+                    event.properties['el_submenu'] = element['attr__href'].split('_submenu_')[1];
+                } else {
+                    event.properties['el_submenu'] = '';
+                }
             }
 
             // el_href
@@ -710,6 +721,18 @@ function processProperties(event) {
             event.properties['distinct_id_is_empty'] = false;
         }
     }
+
+    // interaction_type
+    event.properties['interaction_type'] = getInteractionType(event);
+    event.properties['interaction_detail'] = getInteractionDetail(event);
+    event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail']);
+    if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
+        event.event = event.properties['interaction_token'];
+    }
+
+    // netdata_posthog_plugin_version
+    event.properties['netdata_posthog_plugin_version'] = '0.0.1';
+
     return event
 }
 
@@ -725,15 +748,8 @@ async function processEvent(event, { config, cache }) {
 
         event.properties['event_ph'] = event.event;
 
-        event = processProperties(event);
         event = processElements(event);
-        event.properties['interaction_type'] = getInteractionType(event);
-        event.properties['interaction_detail'] = getInteractionDetail(event);
-        event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail']);
-        event.properties['netdata_posthog_plugin_version'] = '0.0.1';
-        if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
-            event.event = event.properties['interaction_token'];
-        }
+        event = processProperties(event);
 
     }
 

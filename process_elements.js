@@ -25,7 +25,13 @@ export function processElements(event) {
 
             // el_href_menu
             if ('attr__href' in element && element['attr__href'] !== null && element['attr__href'].substring(0,5) === '#menu') {
-                    event.properties['el_href_menu'] = element['attr__href']
+                event.properties['el_href_menu'] = element['attr__href']
+                event.properties['el_menu'] = element['attr__href'].split('_submenu')[0].replace('#menu_', '')
+                if (element['attr__href'].includes('_submenu_')) {
+                    event.properties['el_submenu'] = element['attr__href'].split('_submenu_')[1]
+                } else {
+                    event.properties['el_submenu'] = ''
+                }
             }
 
             // el_href

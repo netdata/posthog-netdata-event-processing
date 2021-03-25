@@ -357,6 +357,27 @@ test('data_testid', async () => {
     expect(eventCopy['properties']['interaction_type']).toEqual("menu")
 })
 
+// test menu
+test('menu', async () => {
+    const event = createEvent({ event: 'test event', properties: {"$elements":[{"attr__href": "#menu_system_submenu_cpu"}]} })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            el_href: '#menu_system_submenu_cpu',
+            el_href_menu: '#menu_system_submenu_cpu',
+            el_menu: 'system',
+            el_submenu: 'cpu',
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'submenu',
+            interaction_detail: '#menu_system_submenu_cpu',
+            interaction_token: 'submenu|#menu_system_submenu_cpu',
+            event_ph: 'test event'
+        },
+    })
+})
+
 
 test('processEvent does not crash with identify', async () => {
     // create a random event
