@@ -185,6 +185,15 @@ export function getInteractionDetail(event) {
             return 'other'
         }
 
+    // cloud
+    } else if (event.properties['interaction_type'] === 'cloud') {
+
+        if (event.properties['el_text'] === 'Sign In to Cloud') {
+            return 'sign_in'
+        } else {
+            return 'other'
+        }
+
     } else {
 
         return ''
