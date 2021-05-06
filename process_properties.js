@@ -3,11 +3,6 @@ import {getInteractionType} from "./interaction_type";
 import {getInteractionDetail} from "./interaction_detail";
 
 export function processProperties(event) {
-    // check if netdata_version property exists
-    if (event.properties['netdata_version']) {
-        // flag if a nightly version
-        event.properties['netdata_nightly'] = !!event.properties['netdata_version'].includes('nightly');
-    }
 
     // has_alarms_critical
     if (typeof event.properties['alarms_critical'] === 'number') {

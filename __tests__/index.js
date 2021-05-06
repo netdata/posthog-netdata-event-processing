@@ -25,42 +25,6 @@ test('setupPlugin', async () => {
     expect(getMeta().global.setupDone).toEqual(true)
 })
 
-// test netdata_nightly logic
-test('netdata_nightly', async () => {
-
-    // create a eventNetdataNotNightly test event
-    const eventNetdataNotNightly = createEvent({ event: 'test event', properties: { netdata_version: 'v1.29.2' } })
-    const eventNetdataNotNightlyCopy = await processEvent(clone(eventNetdataNotNightly), getMeta())
-    expect(eventNetdataNotNightlyCopy).toEqual({
-        ...eventNetdataNotNightly,
-        properties: {
-            ...eventNetdataNotNightly.properties,
-            netdata_nightly: false,
-            netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other',
-            interaction_detail: '',
-            interaction_token: 'other|',
-            event_ph: 'test event'
-        },
-    })
-
-    // create a eventNetdataNightly test event
-    const eventNetdataNightly = createEvent({ event: 'test event', properties: { netdata_version: 'v1.29.2-25-nightly' } })
-    const eventNetdataNightlyCopy = await processEvent(clone(eventNetdataNightly), getMeta())
-    expect(eventNetdataNightlyCopy).toEqual({
-        ...eventNetdataNightly,
-        properties: {
-            ...eventNetdataNightly.properties,
-            netdata_nightly: true,
-            netdata_posthog_plugin_version: netdataPluginVersion,
-            interaction_type: 'other',
-            interaction_detail: '',
-            interaction_token: 'other|',
-            event_ph: 'test event'
-        },
-    })
-})
-
 // test has_alarms_critical
 test('has_alarms_critical', async () => {
     const event = createEvent({ event: 'test event', properties: { "alarms_critical": 1 } })
