@@ -127,6 +127,28 @@ test('host_collectors', async () => {
     })
 })
 
+// test host_collectors null
+test('host_collectors_null', async () => {
+    const event = createEvent({
+        event: 'test event',
+        properties: {
+            "host_collectors": [null]
+        }
+    })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other',
+            interaction_detail: '',
+            interaction_token: 'other|',
+            event_ph: 'test event'
+        },
+    })
+})
+
 // test netdata_machine_guid
 test('netdata_machine_guid', async () => {
     const event = createEvent({ event: 'test event', properties: { "netdata_machine_guid": "" } })
