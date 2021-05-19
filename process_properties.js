@@ -26,23 +26,28 @@ export function processProperties(event) {
     // add attribute for each host collector
     if (event.properties['host_collectors']) {
 
-        // make set for both plugins and modules present
-        let plugins = [...new Set(event.properties['host_collectors'].map(a => a.plugin))];
-        let modules = [...new Set(event.properties['host_collectors'].map(a => a.module))];
+        // only process if not empty
+        if (event.properties['host_collectors'][0] != null) {
 
-        // add flag for each plugin
-        plugins.forEach((plugin) => {
-            if ((plugin !== "") && (plugin !== null)){
-                event.properties[`host_collector_plugin_${cleanPropertyName(plugin)}`] = true
-            }
-        })
+            // make set for both plugins and modules present
+            let plugins = [...new Set(event.properties['host_collectors'].map(a => a.plugin))];
+            let modules = [...new Set(event.properties['host_collectors'].map(a => a.module))];
 
-        // add flag for each module
-        modules.forEach((module) => {
-            if (!(module === "")){
-                event.properties[`host_collector_module_${cleanPropertyName(module)}`] = true
-            }
-        })
+            // add flag for each plugin
+            plugins.forEach((plugin) => {
+                if ((plugin !== "") && (plugin !== null)){
+                    event.properties[`host_collector_plugin_${cleanPropertyName(plugin)}`] = true
+                }
+            })
+
+            // add flag for each module
+            modules.forEach((module) => {
+                if (!(module === "")){
+                    event.properties[`host_collector_module_${cleanPropertyName(module)}`] = true
+                }
+            })
+
+        }
     }
 
     // check if netdata_machine_guid property exists
