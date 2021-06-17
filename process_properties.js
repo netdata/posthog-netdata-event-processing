@@ -23,6 +23,15 @@ export function processProperties(event) {
         })
     }
 
+    // add attribute for each config_https_available flag
+    if (event.properties['config_https_available']) {
+        [...new Set(event.properties['config_https_available'].split('|'))].forEach((buildInfo) => {
+            if (!(buildInfo === "")){
+                event.properties[`config_https_available_${cleanPropertyName(buildInfo)}`] = true
+            }
+        })
+    }
+
     // add attribute for each host collector
     if (event.properties['host_collectors']) {
 
