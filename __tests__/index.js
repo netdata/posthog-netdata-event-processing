@@ -364,7 +364,6 @@ test('menu', async () => {
     })
 })
 
-
 test('processEvent does not crash with identify', async () => {
     // create a random event
     const event0 = createIdentify()
@@ -372,4 +371,22 @@ test('processEvent does not crash with identify', async () => {
     // must clone the event since `processEvent` will mutate it otherwise
     const event1 = await processEvent(clone(event0), getMeta())
     expect(event1).toEqual(event0)
+})
+
+// test config_https_available
+test('config_https_available', async () => {
+    const event = createEvent({ event: 'test event', properties: { "config_https_available": "||web" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy).toEqual({
+        ...event,
+        properties: {
+            ...event.properties,
+            config_https_available_web: true,
+            netdata_posthog_plugin_version: netdataPluginVersion,
+            interaction_type: 'other',
+            interaction_detail: '',
+            interaction_token: 'other|',
+            event_ph: 'test event'
+        },
+    })
 })
