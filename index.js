@@ -665,7 +665,7 @@ function processProperties(event) {
     // add attribute for each build info flag
     if (event.properties['netdata_buildinfo']) {
         [...new Set(event.properties['netdata_buildinfo'].split('|'))].forEach((buildInfo) => {
-            if (!(buildInfo === "")){
+            if ((buildInfo !== "") && (buildInfo !== null)){
                 event.properties[`netdata_buildinfo_${cleanPropertyName(buildInfo)}`] = true;
             }
         });
@@ -674,7 +674,7 @@ function processProperties(event) {
     // add attribute for each config_https_available flag
     if (event.properties['config_https_available']) {
         [...new Set(event.properties['config_https_available'].split('|'))].forEach((httpsAvailable) => {
-            if (!(httpsAvailable === "")){
+            if ((httpsAvailable !== "") && (httpsAvailable !== null)){
                 event.properties[`config_https_available_${cleanPropertyName(httpsAvailable)}`] = true;
             }
         });
@@ -699,7 +699,7 @@ function processProperties(event) {
 
             // add flag for each module
             modules.forEach((module) => {
-                if (!(module === "")){
+                if ((module !== "") && (module !== null)){
                     event.properties[`host_collector_module_${cleanPropertyName(module)}`] = true;
                 }
             });
