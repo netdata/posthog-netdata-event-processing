@@ -71,6 +71,32 @@ export function processElementsCloud(event) {
                 event.properties['el_text'] = element['text']
             }
 
+            // el_data_menuid
+            if ('attr__data-menuid' in element && element['attr__data-menuid'] !== null) {
+                event.properties['el_data_menuid'] = element['attr__data-menuid']
+            }
+
+            // el_data_submenuid
+            if ('attr__data-submenuid' in element && element['attr__data-submenuid'] !== null) {
+                event.properties['el_data_submenuid'] = element['attr__data-submenuid']
+            }
+
+            // el_data_chartid
+            if ('attr__data-chartid' in element && element['attr__data-chartid'] !== null) {
+                event.properties['el_data_chartid'] = element['attr__data-chartid']
+            }
+
+            // el_id_menu
+            if ('attr__id' in element && element['attr__id'] !== null && element['attr__id'].substring(0,5) === 'menu_') {
+                event.properties['el_id_menu'] = element['attr__id']
+                event.properties['el_menu'] = element['attr__id'].split('_submenu')[0].replace('menu_', '')
+                if (element['attr__id'].includes('_submenu_')) {
+                    event.properties['el_submenu'] = element['attr__id'].split('_submenu_')[1]
+                } else {
+                    event.properties['el_submenu'] = ''
+                }
+            }
+
         })
 
     }
