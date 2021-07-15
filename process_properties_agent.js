@@ -1,8 +1,8 @@
 import {cleanPropertyName} from "./utils";
-import {getInteractionType} from "./interaction_type";
-import {getInteractionDetail} from "./interaction_detail";
+import {getInteractionTypeAgent} from "./interaction_type_agent";
+import {getInteractionDetailAgent} from "./interaction_detail_agent";
 
-export function processProperties(event) {
+export function processPropertiesAgent(event) {
 
     // has_alarms_critical
     if (typeof event.properties['alarms_critical'] === 'number') {
@@ -93,8 +93,8 @@ export function processProperties(event) {
     }
 
     // interaction_type
-    event.properties['interaction_type'] = getInteractionType(event)
-    event.properties['interaction_detail'] = getInteractionDetail(event)
+    event.properties['interaction_type'] = getInteractionTypeAgent(event)
+    event.properties['interaction_detail'] = getInteractionDetailAgent(event)
     event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
     if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
         event.event = event.properties['interaction_token']

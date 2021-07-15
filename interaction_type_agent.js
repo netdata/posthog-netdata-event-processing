@@ -1,4 +1,4 @@
-export function getInteractionType(event) {
+export function getInteractionTypeAgent(event) {
 
     if (['$pageview', '$pageleave', '$identify', 'agent backend'].includes(event.event)) {
 
