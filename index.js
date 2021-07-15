@@ -846,7 +846,10 @@ async function processEvent(event, { config, cache }) {
 
         if ('$current_url' in event.properties){
 
-            if (event.properties['$current_url'].startsWith('https://app.netdata.cloud') ) {
+            if (['agent dashboard', 'agent backend'].includes(event.properties['$current_url'])) {
+                event = processElementsAgent(event);
+                event = processPropertiesAgent(event);
+            } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud') ) {
                 event.properties['event_source'] = 'cloud';
                 event = processElementsCloud(event);
             } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud') ) {
@@ -860,10 +863,7 @@ async function processEvent(event, { config, cache }) {
             }
 
         } else {
-
-            event = processElementsAgent(event);
-            event = processPropertiesAgent(event);
-
+            event.properties['event_source'] = 'unknown';
         }
 
     }
