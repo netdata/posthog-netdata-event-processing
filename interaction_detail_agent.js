@@ -1,4 +1,4 @@
-export function getInteractionDetail(event) {
+export function getInteractionDetailAgent(event) {
 
     // menu
     if (['menu', 'submenu'].includes(event.properties['interaction_type'])) {

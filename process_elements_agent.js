@@ -1,6 +1,6 @@
 import {isStringDDMMYYYYHHMM} from "./utils";
 
-export function processElements(event) {
+export function processElementsAgent(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
 
