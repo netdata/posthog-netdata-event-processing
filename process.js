@@ -1,6 +1,7 @@
 import { processElementsAgent } from './process_elements_agent';
 import { processPropertiesAgent } from './process_properties_agent';
 import { processElementsCloud } from './process_elements_cloud';
+import { processElementsWebsite } from './process_elements_website';
 
 async function setupPlugin({ config, global }) {
     console.log("Setting up the plugin!")
@@ -24,6 +25,7 @@ async function processEvent(event, { config, cache }) {
                 event = processElementsCloud(event)
             } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud') ) {
                 event.properties['event_source'] = 'website'
+                event = processElementsWebsite(event)
             } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud') ) {
                 event.properties['event_source'] = 'learn'
             } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud') ) {
