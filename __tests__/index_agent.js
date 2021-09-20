@@ -39,6 +39,7 @@ test('has_alarms_critical', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -57,6 +58,7 @@ test('has_alarms_warning', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -78,6 +80,7 @@ test('netdata_buildinfo', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -124,6 +127,7 @@ test('host_collectors', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -147,6 +151,7 @@ test('host_collectors_null', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -166,6 +171,7 @@ test('netdata_machine_guid', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -185,6 +191,7 @@ test('netdata_machine_guid', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -204,6 +211,7 @@ test('netdata_person_id', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -223,6 +231,7 @@ test('netdata_person_id', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -242,6 +251,7 @@ test('distinct_id', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -261,6 +271,7 @@ test('distinct_id', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -370,6 +381,7 @@ test('menu', async () => {
             interaction_detail: '#menu_system_submenu_cpu',
             interaction_token: 'submenu|#menu_system_submenu_cpu',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
@@ -397,7 +409,15 @@ test('config_https_available', async () => {
             interaction_detail: '',
             interaction_token: 'other|',
             event_ph: 'test event',
+            event_source: 'agent',
         },
     })
 })
+
+// test event_source
+test('event_source', async () => {
+    const event = createEvent({ event: 'test event', properties: { "$current_url": "http://london.my-netdata.io/#menu_dockerhub_submenu_status;after=-420;before=0;theme=slate" } })
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("agent")
+    })
 
