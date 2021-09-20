@@ -416,7 +416,7 @@ test('config_https_available', async () => {
 
 // test event_source
 test('event_source', async () => {
-    const event = createEvent({ event: 'test event', properties: { "$current_url": "http://london.my-netdata.io/#menu_dockerhub_submenu_status;after=-420;before=0;theme=slate" } })
+    const event = createEvent({ event: 'test event', properties: { "$current_url": "http://london3.my-netdata.io/#menu_dockerhub_submenu_status;after=-420;before=0;theme=slate" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("agent")
     })
