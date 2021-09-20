@@ -18,6 +18,8 @@ export function isDemo(url) {
     if (
         (url.includes('://london.my-netdata.io'))
         ||
+        (url.includes('://london3.my-netdata.io'))
+        ||
         (url.includes('://cdn77.my-netdata.io'))
         ||
         (url.includes('://octopuscs.my-netdata.io'))
