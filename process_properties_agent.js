@@ -100,8 +100,5 @@ export function processPropertiesAgent(event) {
         event.event = event.properties['interaction_token']
     }
 
-    // netdata_posthog_plugin_version
-    event.properties['netdata_posthog_plugin_version'] = '0.0.1'
-
     return event
 }

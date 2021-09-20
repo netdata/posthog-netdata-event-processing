@@ -14,6 +14,32 @@ function isStringDDMMYYYYHHMM(dt){
     return reDate.test(dt);
 }
 
+function isDemo(url) {
+    if (
+        (url.includes('://london.my-netdata.io'))
+        ||
+        (url.includes('://cdn77.my-netdata.io'))
+        ||
+        (url.includes('://octopuscs.my-netdata.io'))
+        ||
+        (url.includes('://bangalore.my-netdata.io'))
+        ||
+        (url.includes('://frankfurt.my-netdata.io'))
+        ||
+        (url.includes('://newyork.my-netdata.io'))
+        ||
+        (url.includes('://sanfrancisco.my-netdata.io'))
+        ||
+        (url.includes('://singapore.my-netdata.io'))
+        ||
+        (url.includes('://toronto.my-netdata.io'))
+        ){
+        return true
+    } else {
+        return false
+    }
+}
+
 function processElementsAgent(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
@@ -748,9 +774,6 @@ function processPropertiesAgent(event) {
         event.event = event.properties['interaction_token'];
     }
 
-    // netdata_posthog_plugin_version
-    event.properties['netdata_posthog_plugin_version'] = '0.0.1';
-
     return event
 }
 
@@ -1092,6 +1115,8 @@ function processElementsCommunity(event) {
     return event
 }
 
+const netdataPluginVersion = '0.0.1';
+
 async function setupPlugin({ config, global }) {
     console.log("Setting up the plugin!");
     console.log(config);
@@ -1106,28 +1131,48 @@ async function processEvent(event, { config, cache }) {
 
         if ('$current_url' in event.properties){
 
-            if (['agent dashboard', 'agent backend'].includes(event.properties['$current_url'])) {
+            if (
+                (['agent dashboard', 'agent backend'].includes(event.properties['$current_url'])) 
+                || 
+                isDemo(event.properties['$current_url'])
+                ) {
+
+                event.properties['event_source'] = 'agent';
                 event = processElementsAgent(event);
                 event = processPropertiesAgent(event);
+
             } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud') ) {
+
                 event.properties['event_source'] = 'cloud';
                 event = processElementsCloud(event);
+
             } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud') ) {
+
                 event.properties['event_source'] = 'website';
                 event = processElementsWebsite(event);
+
             } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud') ) {
+
                 event.properties['event_source'] = 'learn';
                 event = processElementsLearn(event);
+
             } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud') ) {
+
                 event.properties['event_source'] = 'community';
                 event = processElementsCommunity(event);
+
             } else {
+
                 event.properties['event_source'] = 'unknown';
+
             }
 
         } else {
             event.properties['event_source'] = 'unknown';
         }
+
+    // netdata_posthog_plugin_version
+    event.properties['netdata_posthog_plugin_version'] = netdataPluginVersion;
 
     }
 
