@@ -1325,11 +1325,11 @@ function processElementsCommunity(event) {
     return event
 }
 
-const netdataPluginVersion = '0.0.2';
+const netdataPluginVersion = '0.0.3';
 
 async function setupPlugin({ config, global }) {
-    console.log("Setting up the plugin!");
-    console.log(config);
+    //console.log("Setting up the plugin!")
+    //console.log(config)
     global.setupDone = true;
 }
 
@@ -1339,7 +1339,11 @@ async function processEvent(event, { config, cache }) {
 
         event.properties['event_ph'] = event.event;
 
-        if ('$current_url' in event.properties){
+        if (
+            ('$current_url' in event.properties)
+            ||
+            (event.properties['event_ph'] === '$identify')
+        ){
 
             if (
                 (['agent dashboard', 'agent backend'].includes(event.properties['$current_url'])) 
