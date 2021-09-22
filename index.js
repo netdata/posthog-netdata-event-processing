@@ -1325,7 +1325,7 @@ function processElementsCommunity(event) {
     return event
 }
 
-const netdataPluginVersion = '0.0.3';
+const netdataPluginVersion = '0.0.4';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -1338,53 +1338,51 @@ async function processEvent(event, { config, cache }) {
     if (event.properties) {
 
         event.properties['event_ph'] = event.event;
+        event.properties['netdata_posthog_plugin_version'] = netdataPluginVersion;
 
-        if (
-            ('$current_url' in event.properties)
-            ||
-            (event.properties['event_ph'] === '$identify')
-        ){
+        if (event.properties['event_ph'] === '$identify') {
+
+            event.properties['event_source'] = 'cloud';
+            event = processElementsCloud(event);
+
+        } else if ('$current_url' in event.properties) {
 
             if (
-                ('$current_url' in event.properties && ['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
-                || 
-                isDemo(event.properties['$current_url'])
-                ) {
+                (['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
+                ||
+                (isDemo(event.properties['$current_url']))
+            ) {
 
                 event.properties['event_source'] = 'agent';
                 event = processElementsAgent(event);
                 event = processPropertiesAgent(event);
 
-            } else if (
-                ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://app.netdata.cloud'))
-                ||
-                (event.properties['event_ph'] === '$identify')
-                ) {
+            } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud')) {
 
                 event.properties['event_source'] = 'cloud';
                 event = processElementsCloud(event);
 
-            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://www.netdata.cloud') ) {
+            } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud')) {
 
                 event.properties['event_source'] = 'website';
                 event = processElementsWebsite(event);
 
-            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://learn.netdata.cloud') ) {
+            } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud')) {
 
                 event.properties['event_source'] = 'learn';
                 event = processElementsLearn(event);
 
-            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://community.netdata.cloud') ) {
+            } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud')) {
 
                 event.properties['event_source'] = 'community';
                 event = processElementsCommunity(event);
 
-            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://staging.netdata.cloud') ) {
+            } else if (event.properties['$current_url'].startsWith('https://staging.netdata.cloud')) {
 
                 event.properties['event_source'] = 'staging';
                 event = processElementsStaging(event);
 
-            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://testing.netdata.cloud') ) {
+            } else if (event.properties['$current_url'].startsWith('https://testing.netdata.cloud')) {
 
                 event.properties['event_source'] = 'testing';
                 event = processElementsTesting(event);
@@ -1396,11 +1394,10 @@ async function processEvent(event, { config, cache }) {
             }
 
         } else {
-            event.properties['event_source'] = 'unknown';
-        }
 
-    // netdata_posthog_plugin_version
-    event.properties['netdata_posthog_plugin_version'] = netdataPluginVersion;
+            event.properties['event_source'] = 'unknown';
+
+        }
 
     }
 

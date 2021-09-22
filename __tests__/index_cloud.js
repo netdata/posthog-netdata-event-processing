@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.3'
+const netdataPluginVersion = '0.0.4'
 
 beforeEach(() => {
     resetMeta({
@@ -164,4 +164,18 @@ test('event_source_cloud', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("cloud")
+})
+
+// test event_source_cloud_identify
+test('event_source_cloud_identify', async () => {
+    const eventExample = {
+        "event": "$identify",
+        "distinct_id": "dev-test",
+        "properties": {
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("cloud")
+    expect(eventCopy['properties']['event_ph']).toEqual("$identify")
 })
