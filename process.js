@@ -30,8 +30,8 @@ async function processEvent(event, { config, cache }) {
 
             if (
                 ('$current_url' in event.properties && ['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
-                || 
-                isDemo(event.properties['$current_url'])
+                ||
+                ('$current_url' in event.properties && isDemo(event.properties['$current_url']))
                 ) {
 
                 event.properties['event_source'] = 'agent'
