@@ -1351,7 +1351,11 @@ async function processEvent(event, { config, cache }) {
                 event = processElementsAgent(event);
                 event = processPropertiesAgent(event);
 
-            } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud') ) {
+            } else if (
+                (event.properties['$current_url'].startsWith('https://app.netdata.cloud'))
+                ||
+                (event.properties['event_ph'] === '$identify')
+                ) {
 
                 event.properties['event_source'] = 'cloud';
                 event = processElementsCloud(event);
