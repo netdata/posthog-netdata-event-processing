@@ -1325,7 +1325,7 @@ function processElementsCommunity(event) {
     return event
 }
 
-const netdataPluginVersion = '0.0.1';
+const netdataPluginVersion = '0.0.2';
 
 async function setupPlugin({ config, global }) {
     console.log("Setting up the plugin!");
