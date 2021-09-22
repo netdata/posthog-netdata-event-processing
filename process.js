@@ -1,6 +1,8 @@
 import { processElementsAgent } from './process_elements_agent';
 import { processPropertiesAgent } from './process_properties_agent';
 import { processElementsCloud } from './process_elements_cloud';
+import { processElementsStaging } from './process_elements_staging';
+import { processElementsTesting } from './process_elements_testing';
 import { processElementsWebsite } from './process_elements_website';
 import { processElementsLearn } from './process_elements_learn';
 import { processElementsCommunity } from './process_elements_community';
@@ -51,6 +53,16 @@ async function processEvent(event, { config, cache }) {
 
                 event.properties['event_source'] = 'community'
                 event = processElementsCommunity(event)
+
+            } else if (event.properties['$current_url'].startsWith('https://staging.netdata.cloud') ) {
+
+                event.properties['event_source'] = 'staging'
+                event = processElementsStaging(event)
+
+            } else if (event.properties['$current_url'].startsWith('https://testing.netdata.cloud') ) {
+
+                event.properties['event_source'] = 'testing'
+                event = processElementsTesting(event)
 
             } else {
 

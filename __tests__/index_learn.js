@@ -151,3 +151,17 @@ test('processEvent does not crash with identify', async () => {
     const event1 = await processEvent(clone(event0), getMeta())
     expect(event1).toEqual(event0)
 })
+
+// test event_source_learn
+test('event_source_learn', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://learn.netdata.cloud/",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("learn")
+})
