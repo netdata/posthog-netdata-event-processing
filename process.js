@@ -29,7 +29,7 @@ async function processEvent(event, { config, cache }) {
         ){
 
             if (
-                (['agent dashboard', 'agent backend'].includes(event.properties['$current_url'])) 
+                ('$current_url' in event.properties && ['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
                 || 
                 isDemo(event.properties['$current_url'])
                 ) {
@@ -39,7 +39,7 @@ async function processEvent(event, { config, cache }) {
                 event = processPropertiesAgent(event)
 
             } else if (
-                (event.properties['$current_url'].startsWith('https://app.netdata.cloud'))
+                ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://app.netdata.cloud'))
                 ||
                 (event.properties['event_ph'] === '$identify')
                 ) {
@@ -47,27 +47,27 @@ async function processEvent(event, { config, cache }) {
                 event.properties['event_source'] = 'cloud'
                 event = processElementsCloud(event)
 
-            } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud') ) {
+            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://www.netdata.cloud') ) {
 
                 event.properties['event_source'] = 'website'
                 event = processElementsWebsite(event)
 
-            } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud') ) {
+            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://learn.netdata.cloud') ) {
 
                 event.properties['event_source'] = 'learn'
                 event = processElementsLearn(event)
 
-            } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud') ) {
+            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://community.netdata.cloud') ) {
 
                 event.properties['event_source'] = 'community'
                 event = processElementsCommunity(event)
 
-            } else if (event.properties['$current_url'].startsWith('https://staging.netdata.cloud') ) {
+            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://staging.netdata.cloud') ) {
 
                 event.properties['event_source'] = 'staging'
                 event = processElementsStaging(event)
 
-            } else if (event.properties['$current_url'].startsWith('https://testing.netdata.cloud') ) {
+            } else if ('$current_url' in event.properties && event.properties['$current_url'].startsWith('https://testing.netdata.cloud') ) {
 
                 event.properties['event_source'] = 'testing'
                 event = processElementsTesting(event)
