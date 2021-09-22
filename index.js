@@ -1325,7 +1325,9 @@ function processElementsCommunity(event) {
     return event
 }
 
-const netdataPluginVersion = '0.0.5';
+//import URL from 'url';
+
+const netdataPluginVersion = '0.0.6';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -1348,11 +1350,10 @@ async function processEvent(event, { config, cache }) {
         } else if ('$current_url' in event.properties) {
 
             // try extract specific url params
-            if (event.properties['$current_url'].startsWith('http')) {
-                const urlParams = new URL(event.properties['$current_url']).searchParams;
-                if (event.properties['$current_url'].includes('utm_source')) event.properties['url_param_utm_source'] = urlParams.get('utm_source');
-            }
-
+            //if (event.properties['$current_url'].startsWith('http')) {
+            //    const urlParams = new URL(event.properties['$current_url']).searchParams
+            //    if (event.properties['$current_url'].includes('utm_source')) event.properties['url_param_utm_source'] = urlParams.get('utm_source');
+            //}
 
             if (
                 (['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
