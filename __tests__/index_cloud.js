@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.4'
+const netdataPluginVersion = '0.0.5'
 
 beforeEach(() => {
     resetMeta({
@@ -178,4 +178,18 @@ test('event_source_cloud_identify', async () => {
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("cloud")
     expect(eventCopy['properties']['event_ph']).toEqual("$identify")
+})
+
+// test utm_source
+test('utm_source', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://www.netdata.cloud/blog/how-to-monitor-your-disks-and-filesystems-now-also-with-ebpf/?utm_campaign=eBPF&utm_content=180421154&utm_medium=social&utm_source=twitter&hss_channel=tw-734637019306033152"
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['url_param_utm_source']).toEqual("twitter")
 })

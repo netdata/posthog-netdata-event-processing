@@ -1347,6 +1347,13 @@ async function processEvent(event, { config, cache }) {
 
         } else if ('$current_url' in event.properties) {
 
+            // parse url utm params
+            const urlParams = new URLSearchParams(event.properties['$current_url']);
+            if (event.properties['$current_url'].includes('utm_source')) event.properties['url_param_utm_source'] = urlParams.get('utm_source');
+            if (event.properties['$current_url'].includes('utm_medium')) event.properties['url_param_utm_medium'] = urlParams.get('utm_medium');
+            if (event.properties['$current_url'].includes('utm_campaign')) event.properties['url_param_utm_campaign'] = urlParams.get('utm_campaign');
+            if (event.properties['$current_url'].includes('utm_content')) event.properties['url_param_utm_content'] = urlParams.get('utm_content');
+
             if (
                 (['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
                 ||

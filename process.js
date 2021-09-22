@@ -8,7 +8,7 @@ import { processElementsLearn } from './process_elements_learn';
 import { processElementsCommunity } from './process_elements_community';
 import { isDemo } from "./utils";
 
-const netdataPluginVersion = '0.0.4'
+const netdataPluginVersion = '0.0.5'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -29,6 +29,13 @@ async function processEvent(event, { config, cache }) {
             event = processElementsCloud(event)
 
         } else if ('$current_url' in event.properties) {
+
+            // try extract specific url params
+            const urlParams = new URLSearchParams(event.properties['$current_url']);
+            if (event.properties['$current_url'].includes('utm_source')) event.properties['url_param_utm_source'] = urlParams.get('utm_source');
+            if (event.properties['$current_url'].includes('utm_medium')) event.properties['url_param_utm_medium'] = urlParams.get('utm_medium');
+            if (event.properties['$current_url'].includes('utm_campaign')) event.properties['url_param_utm_campaign'] = urlParams.get('utm_campaign');
+            if (event.properties['$current_url'].includes('utm_content')) event.properties['url_param_utm_content'] = urlParams.get('utm_content');
 
             if (
                 (['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
