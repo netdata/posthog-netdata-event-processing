@@ -421,3 +421,32 @@ test('event_source', async () => {
     expect(eventCopy['properties']['event_source']).toEqual("agent")
     })
 
+// test event_source_agent_backend
+test('event_source_agent_backend', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "agent backend",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("agent")
+})
+
+// test event_source_agent_frontend
+test('event_source_agent_frontend', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "agent dashboard",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("agent")
+})
+
+
