@@ -96,9 +96,9 @@ export function processPropertiesAgent(event) {
     event.properties['interaction_type'] = getInteractionTypeAgent(event)
     event.properties['interaction_detail'] = getInteractionDetailAgent(event)
     event.properties['interaction_token'] = event.properties['interaction_type'].concat('|',event.properties['interaction_detail'])
-    if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
-        event.event = event.properties['interaction_token']
-    }
+    //if (event.event === '$autocapture' && event.properties.hasOwnProperty('interaction_token')) {
+    //    event.event = event.properties['interaction_token']
+    //}
 
     return event
 }
