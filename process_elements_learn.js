@@ -38,6 +38,22 @@ export function processElementsLearn(event) {
 
             }
 
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track']
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::')
+                    event.properties['el_data_track_0'] = arr[0]
+                    event.properties['el_data_track_1'] = arr[1]
+                    event.properties['el_data_track_2'] = arr[2]
+                    event.properties['el_data_track_3'] = arr[3]
+                    event.properties['el_data_track_4'] = arr[4]
+                }
+
+            }
+
             // el_href
             if ('attr__href' in element && element['attr__href'] !== null) {
                 event.properties['el_href'] = element['attr__href']

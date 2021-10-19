@@ -180,16 +180,37 @@ test('event_source_cloud_identify', async () => {
     expect(eventCopy['properties']['event_ph']).toEqual("$identify")
 })
 
-// test utm_source
-//test('utm_source', async () => {
-//    const eventExample = {
-//         "event": "$pageview",
-//         "distinct_id": "dev-test",
-//         "properties": {
-//             "$current_url": "https://www.netdata.cloud/blog/how-to-monitor-your-disks-and-filesystems-now-also-with-ebpf/?utm_campaign=eBPF&utm_content=180421154&utm_medium=social&utm_source=twitter&hss_channel=tw-734637019306033152"
-//         }
-//     }
-//     const event = createEvent(eventExample)
-//     const eventCopy = await processEvent(clone(event), getMeta())
-//     expect(eventCopy['properties']['url_param_utm_source']).toEqual("twitter")
-// })
+// test data_track
+test('data_track', async () => {
+    const eventExample = {
+        "event": "$autocapture",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://app.netdata.cloud/",
+            "$elements": [
+                {
+                    "attr__data-track": "date-picker::click-quick-selector::::21600"
+                },
+                {
+                    "attr__data-track": "#menu_web_log_nginx",
+                },
+                {
+                    "$el_text": "unshared"
+                },
+                {
+                    "attr__data-id": "newyork_netdata_rocks_mem_ksm",
+                    "attr__data-legend-position": "bottom",
+                    "attr__data-netdata": "mem.ksm",
+                }
+            ]
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("cloud")
+    expect(eventCopy['properties']['el_data_track']).toEqual("date-picker::click-quick-selector::::21600")
+    expect(eventCopy['properties']['el_data_track_0']).toEqual("date-picker")
+    expect(eventCopy['properties']['el_data_track_1']).toEqual("click-quick-selector")
+    expect(eventCopy['properties']['el_data_track_2']).toEqual("")
+    expect(eventCopy['properties']['el_text']).toEqual("unshared")
+})

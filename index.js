@@ -65,6 +65,38 @@ function processElementsAgent(event) {
 
             }
 
+            // el_data_ga
+            if ('attr__data-ga' in element) {
+                event.properties['el_data_ga'] = element['attr__data-ga'];
+
+                // el_data_ga_0
+                if (element['attr__data-ga'].includes('::')) {
+                    arr = element['attr__data-ga'].split('::');
+                    event.properties['el_data_ga_0'] = arr[0];
+                    event.properties['el_data_ga_1'] = arr[1];
+                    event.properties['el_data_ga_2'] = arr[2];
+                    event.properties['el_data_ga_3'] = arr[3];
+                    event.properties['el_data_ga_4'] = arr[4];
+                }
+
+            }
+
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
+                }
+
+            }
+
             // el_id_menu
             if ('attr__href' in element && element['attr__href'] !== null && element['attr__href'].substring(0,5) === '#menu') {
                 event.properties['el_href_menu'] = element['attr__href'];
@@ -818,6 +850,22 @@ function processElementsCloud(event) {
 
             }
 
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
+                }
+
+            }
+
             // el_href
             if ('attr__href' in element && element['attr__href'] !== null) {
                 event.properties['el_href'] = element['attr__href'];
@@ -918,6 +966,22 @@ function processElementsStaging(event) {
                     event.properties['el_data_ga_2'] = arr[2];
                     event.properties['el_data_ga_3'] = arr[3];
                     event.properties['el_data_ga_4'] = arr[4];
+                }
+
+            }
+
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
                 }
 
             }
@@ -1026,6 +1090,22 @@ function processElementsTesting(event) {
 
             }
 
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
+                }
+
+            }
+
             // el_href
             if ('attr__href' in element && element['attr__href'] !== null) {
                 event.properties['el_href'] = element['attr__href'];
@@ -1130,6 +1210,22 @@ function processElementsWebsite(event) {
 
             }
 
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
+                }
+
+            }
+
             // el_href
             if ('attr__href' in element && element['attr__href'] !== null) {
                 event.properties['el_href'] = element['attr__href'];
@@ -1208,6 +1304,22 @@ function processElementsLearn(event) {
 
             }
 
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
+                }
+
+            }
+
             // el_href
             if ('attr__href' in element && element['attr__href'] !== null) {
                 event.properties['el_href'] = element['attr__href'];
@@ -1282,6 +1394,22 @@ function processElementsCommunity(event) {
                     event.properties['el_data_ga_2'] = arr[2];
                     event.properties['el_data_ga_3'] = arr[3];
                     event.properties['el_data_ga_4'] = arr[4];
+                }
+
+            }
+
+            // el_data_track
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track'] = element['attr__data-track'];
+
+                // el_data_track_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::');
+                    event.properties['el_data_track_0'] = arr[0];
+                    event.properties['el_data_track_1'] = arr[1];
+                    event.properties['el_data_track_2'] = arr[2];
+                    event.properties['el_data_track_3'] = arr[3];
+                    event.properties['el_data_track_4'] = arr[4];
                 }
 
             }
