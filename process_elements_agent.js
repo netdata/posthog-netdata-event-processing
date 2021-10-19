@@ -4,93 +4,8 @@ export function processElementsAgent(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
 
-        // process each element, last (innermost) first.
+        // process each element, last (outermost) first.
         event.properties['$elements'].slice().forEach((element) => {
-
-            // el_data_testid_inner
-            if ('attr__data-testid' in element) {
-                event.properties['el_data_testid_inner'] = element['attr__data-testid']
-
-                // el_data_testid_inner_0
-                if (element['attr__data-testid'].includes('::')) {
-                    arr = element['attr__data-testid'].split('::')
-                    event.properties['el_data_testid_inner_0'] = arr[0]
-                    event.properties['el_data_testid_inner_1'] = arr[1]
-                    event.properties['el_data_testid_inner_2'] = arr[2]
-                    event.properties['el_data_testid_inner_3'] = arr[3]
-                    event.properties['el_data_testid_inner_4'] = arr[4]
-                }
-
-            }
-
-            // el_data_ga_inner
-            if ('attr__data-ga' in element) {
-                event.properties['el_data_ga_inner'] = element['attr__data-ga']
-
-                // el_data_ga_inner_0
-                if (element['attr__data-ga'].includes('::')) {
-                    arr = element['attr__data-ga'].split('::')
-                    event.properties['el_data_ga_inner_0'] = arr[0]
-                    event.properties['el_data_ga_inner_1'] = arr[1]
-                    event.properties['el_data_ga_inner_2'] = arr[2]
-                    event.properties['el_data_ga_inner_3'] = arr[3]
-                    event.properties['el_data_ga_inner_4'] = arr[4]
-                }
-
-            }
-
-            // el_data_track_inner
-            if ('attr__data-track' in element) {
-                event.properties['el_data_track_inner'] = element['attr__data-track']
-
-                // el_data_track_inner_0
-                if (element['attr__data-track'].includes('::')) {
-                    arr = element['attr__data-track'].split('::')
-                    event.properties['el_data_track_inner_0'] = arr[0]
-                    event.properties['el_data_track_inner_1'] = arr[1]
-                    event.properties['el_data_track_inner_2'] = arr[2]
-                    event.properties['el_data_track_inner_3'] = arr[3]
-                    event.properties['el_data_track_inner_4'] = arr[4]
-                }
-
-            }
-
-        })
-
-        // process each element, reverse to use posthog order as preference
-        event.properties['$elements'].slice().reverse().forEach((element) => {
-
-            // el_data_testid
-            if ('attr__data-testid' in element) {
-                event.properties['el_data_testid'] = element['attr__data-testid']
-
-                // el_data_testid_0
-                if (element['attr__data-testid'].includes('::')) {
-                    arr = element['attr__data-testid'].split('::')
-                    event.properties['el_data_testid_0'] = arr[0]
-                    event.properties['el_data_testid_1'] = arr[1]
-                    event.properties['el_data_testid_2'] = arr[2]
-                    event.properties['el_data_testid_3'] = arr[3]
-                    event.properties['el_data_testid_4'] = arr[4]
-                }
-
-            }
-
-            // el_data_ga
-            if ('attr__data-ga' in element) {
-                event.properties['el_data_ga'] = element['attr__data-ga']
-
-                // el_data_ga_0
-                if (element['attr__data-ga'].includes('::')) {
-                    arr = element['attr__data-ga'].split('::')
-                    event.properties['el_data_ga_0'] = arr[0]
-                    event.properties['el_data_ga_1'] = arr[1]
-                    event.properties['el_data_ga_2'] = arr[2]
-                    event.properties['el_data_ga_3'] = arr[3]
-                    event.properties['el_data_ga_4'] = arr[4]
-                }
-
-            }
 
             // el_data_testid_outer
             if ('attr__data-testid' in element) {
@@ -136,6 +51,91 @@ export function processElementsAgent(event) {
                     event.properties['el_data_track_outer_2'] = arr[2]
                     event.properties['el_data_track_outer_3'] = arr[3]
                     event.properties['el_data_track_outer_4'] = arr[4]
+                }
+
+            }
+
+        })
+
+        // process each element, reverse to use posthog order as preference
+        event.properties['$elements'].slice().reverse().forEach((element) => {
+
+            // el_data_testid
+            if ('attr__data-testid' in element) {
+                event.properties['el_data_testid'] = element['attr__data-testid']
+
+                // el_data_testid_0
+                if (element['attr__data-testid'].includes('::')) {
+                    arr = element['attr__data-testid'].split('::')
+                    event.properties['el_data_testid_0'] = arr[0]
+                    event.properties['el_data_testid_1'] = arr[1]
+                    event.properties['el_data_testid_2'] = arr[2]
+                    event.properties['el_data_testid_3'] = arr[3]
+                    event.properties['el_data_testid_4'] = arr[4]
+                }
+
+            }
+
+            // el_data_ga
+            if ('attr__data-ga' in element) {
+                event.properties['el_data_ga'] = element['attr__data-ga']
+
+                // el_data_ga_0
+                if (element['attr__data-ga'].includes('::')) {
+                    arr = element['attr__data-ga'].split('::')
+                    event.properties['el_data_ga_0'] = arr[0]
+                    event.properties['el_data_ga_1'] = arr[1]
+                    event.properties['el_data_ga_2'] = arr[2]
+                    event.properties['el_data_ga_3'] = arr[3]
+                    event.properties['el_data_ga_4'] = arr[4]
+                }
+
+            }
+
+            // el_data_testid_inner
+            if ('attr__data-testid' in element) {
+                event.properties['el_data_testid_inner'] = element['attr__data-testid']
+
+                // el_data_testid_inner_0
+                if (element['attr__data-testid'].includes('::')) {
+                    arr = element['attr__data-testid'].split('::')
+                    event.properties['el_data_testid_inner_0'] = arr[0]
+                    event.properties['el_data_testid_inner_1'] = arr[1]
+                    event.properties['el_data_testid_inner_2'] = arr[2]
+                    event.properties['el_data_testid_inner_3'] = arr[3]
+                    event.properties['el_data_testid_inner_4'] = arr[4]
+                }
+
+            }
+
+            // el_data_ga_inner
+            if ('attr__data-ga' in element) {
+                event.properties['el_data_ga_inner'] = element['attr__data-ga']
+
+                // el_data_ga_inner_0
+                if (element['attr__data-ga'].includes('::')) {
+                    arr = element['attr__data-ga'].split('::')
+                    event.properties['el_data_ga_inner_0'] = arr[0]
+                    event.properties['el_data_ga_inner_1'] = arr[1]
+                    event.properties['el_data_ga_inner_2'] = arr[2]
+                    event.properties['el_data_ga_inner_3'] = arr[3]
+                    event.properties['el_data_ga_inner_4'] = arr[4]
+                }
+
+            }
+
+            // el_data_track_inner
+            if ('attr__data-track' in element) {
+                event.properties['el_data_track_inner'] = element['attr__data-track']
+
+                // el_data_track_inner_0
+                if (element['attr__data-track'].includes('::')) {
+                    arr = element['attr__data-track'].split('::')
+                    event.properties['el_data_track_inner_0'] = arr[0]
+                    event.properties['el_data_track_inner_1'] = arr[1]
+                    event.properties['el_data_track_inner_2'] = arr[2]
+                    event.properties['el_data_track_inner_3'] = arr[3]
+                    event.properties['el_data_track_inner_4'] = arr[4]
                 }
 
             }
