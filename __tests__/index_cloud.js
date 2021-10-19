@@ -189,10 +189,10 @@ test('data_track', async () => {
             "$current_url": "https://app.netdata.cloud/",
             "$elements": [
                 {
-                    "attr__data-track": "date-picker::click-quick-selector::::21600"
+                    "attr__data-track": "foobar"
                 },
                 {
-                    "attr__data-track": "#menu_web_log_nginx",
+                    "attr__data-track": "date-picker::click-quick-selector::::21600"
                 },
                 {
                     "$el_text": "unshared"
@@ -208,9 +208,11 @@ test('data_track', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("cloud")
-    expect(eventCopy['properties']['el_data_track']).toEqual("date-picker::click-quick-selector::::21600")
-    expect(eventCopy['properties']['el_data_track_0']).toEqual("date-picker")
-    expect(eventCopy['properties']['el_data_track_1']).toEqual("click-quick-selector")
-    expect(eventCopy['properties']['el_data_track_2']).toEqual("")
+    expect(eventCopy['properties']['el_data_track_inner']).toEqual("date-picker::click-quick-selector::::21600")
+    expect(eventCopy['properties']['el_data_track_inner_0']).toEqual("date-picker")
+    expect(eventCopy['properties']['el_data_track_inner_1']).toEqual("click-quick-selector")
+    expect(eventCopy['properties']['el_data_track_inner_2']).toEqual("")
     expect(eventCopy['properties']['el_text']).toEqual("unshared")
+    expect(eventCopy['properties']['el_data_track_inner']).toEqual("date-picker::click-quick-selector::::21600")
+    expect(eventCopy['properties']['el_data_track_outer']).toEqual("foobar")
 })
