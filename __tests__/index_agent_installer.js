@@ -14,27 +14,23 @@ const netdataPluginVersion = '0.0.7'
 beforeEach(() => {
     resetMeta({
         config: {
-            netdata_version: 'v1.29.2',
+            netdata_version: 'v1.32.1',
         },
     })
 })
 
 test('setupPlugin', async () => {
-    expect(getMeta().config.netdata_version).toEqual('v1.29.2')
+    expect(getMeta().config.netdata_version).toEqual('v1.32.1')
     await setupPlugin(getMeta())
     expect(getMeta().global.setupDone).toEqual(true)
 })
 
-// test event_source_testing
-test('event_source_testing', async () => {
-    const eventExample = {
-        "event": "$pageview",
-        "distinct_id": "dev-test",
-        "properties": {
-            "$current_url": "https://testing.netdata.cloud/",
-        }
-    }
-    const event = createEvent(eventExample)
+// test event_source
+test('event_source', async () => {
+    const event = createEvent({ event: 'test event', properties: { "$current_url":"agent installer"} })
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['event_source']).toEqual("testing")
+    expect(eventCopy['properties']['event_source']).toEqual("agent installer")
 })
+
+
+

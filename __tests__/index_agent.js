@@ -9,18 +9,18 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.6'
+const netdataPluginVersion = '0.0.7'
 
 beforeEach(() => {
     resetMeta({
         config: {
-            netdata_version: 'v1.29.2',
+            netdata_version: 'v1.32.1',
         },
     })
 })
 
 test('setupPlugin', async () => {
-    expect(getMeta().config.netdata_version).toEqual('v1.29.2')
+    expect(getMeta().config.netdata_version).toEqual('v1.32.1')
     await setupPlugin(getMeta())
     expect(getMeta().global.setupDone).toEqual(true)
 })
