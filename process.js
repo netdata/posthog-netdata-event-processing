@@ -1,5 +1,7 @@
 import { processElementsAgent } from './process_elements_agent';
 import { processPropertiesAgent } from './process_properties_agent';
+import { processElementsAgentInstaller } from './process_elements_agent_installer';
+import { processPropertiesAgentInstaller } from './process_properties_agent_installer';
 import { processElementsCloud } from './process_elements_cloud';
 import { processElementsStaging } from './process_elements_staging';
 import { processElementsTesting } from './process_elements_testing';
@@ -9,7 +11,7 @@ import { processElementsCommunity } from './process_elements_community';
 import { isDemo } from "./utils";
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.6'
+const netdataPluginVersion = '0.0.7'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -46,6 +48,12 @@ async function processEvent(event, { config, cache }) {
                 event.properties['event_source'] = 'agent'
                 event = processElementsAgent(event)
                 event = processPropertiesAgent(event)
+
+            } else if (['agent installer'].includes(event.properties['$current_url'])) {
+
+                event.properties['event_source'] = 'agent installer'
+                event = processElementsAgentInstaller(event)
+                event = processPropertiesAgentInstaller(event)
 
             } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud')) {
 
