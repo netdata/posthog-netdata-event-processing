@@ -6,7 +6,7 @@ export function processPropertiesAgentInstaller(event) {
     if (event.properties['install_options'] != null) {
 
         // make set for install options
-        let installOptions = [...new Set(event.properties['install_options'].split('--'))];
+        let installOptions = [...new Set((event.properties['install_options'] + ' ').split('--'))];
 
         // make flag for each option
         installOptions.forEach((installOption) => {
