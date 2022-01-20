@@ -397,13 +397,13 @@ test('processEvent does not crash with identify', async () => {
 
 // test config_https_available
 test('config_https_available', async () => {
-    const event = createEvent({ event: 'test event', properties: { "config_https_available": "||web", "$current_url": "agent backend" } })
+    const event = createEvent({ event: 'test event', properties: { "config_https_available": true, "$current_url": "agent backend" } })
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy).toEqual({
         ...event,
         properties: {
             ...event.properties,
-            config_https_available_web: true,
+            config_https_available: true,
             netdata_posthog_plugin_version: netdataPluginVersion,
             interaction_type: 'other',
             interaction_detail: '',
