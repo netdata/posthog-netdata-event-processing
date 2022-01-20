@@ -23,15 +23,6 @@ export function processPropertiesAgent(event) {
         })
     }
 
-    // add attribute for each config_https_available flag
-    if (event.properties['config_https_available']) {
-        [...new Set(event.properties['config_https_available'].split('|'))].forEach((httpsAvailable) => {
-            if ((httpsAvailable !== "") && (httpsAvailable !== null)){
-                event.properties[`config_https_available_${cleanPropertyName(httpsAvailable)}`] = true
-            }
-        })
-    }
-
     // add attribute for each host collector
     if (event.properties['host_collectors']) {
 
