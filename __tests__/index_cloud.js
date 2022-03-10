@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.7'
+const netdataPluginVersion = '0.0.8'
 
 beforeEach(() => {
     resetMeta({
@@ -215,4 +215,32 @@ test('data_track', async () => {
     expect(eventCopy['properties']['el_text']).toEqual("unshared")
     expect(eventCopy['properties']['el_data_track_outer']).toEqual("date-picker::click-quick-selector::::21600")
     expect(eventCopy['properties']['el_data_track_inner']).toEqual("foobar")
+})
+
+// test el_name
+test('el_name', async () => {
+    const eventExample = {
+        "event": "$autocapture",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://app.netdata.cloud/",
+            "$elements": [
+                {
+                    "attr__foo": "foo"
+                },
+                {
+                    "attr__bar": "bar",
+                },
+                {
+                    "attr__data-id": "newyork_netdata_rocks_mem_ksm",
+                    "attr__data-legend-position": "bottom",
+                    "attr__data-netdata": "mem.ksm",
+                    "attr__name": "foo",
+                }
+            ]
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['el_name']).toEqual("foo")
 })

@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.7'
+const netdataPluginVersion = '0.0.8'
 
 beforeEach(() => {
     resetMeta({
@@ -164,4 +164,32 @@ test('event_source_learn', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("learn")
+})
+
+// test el_name
+test('el_name', async () => {
+    const eventExample = {
+        "event": "$autocapture",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://learn.netdata.cloud/",
+            "$elements": [
+                {
+                    "attr__foo": "foo"
+                },
+                {
+                    "attr__bar": "bar",
+                },
+                {
+                    "attr__data-id": "newyork_netdata_rocks_mem_ksm",
+                    "attr__data-legend-position": "bottom",
+                    "attr__data-netdata": "mem.ksm",
+                    "attr__name": "foo",
+                }
+            ]
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['el_name']).toEqual("foo")
 })

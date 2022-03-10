@@ -212,6 +212,11 @@ function processElementsAgent(event) {
                 event.properties['el_id'] = element['attr__id'];
             }
 
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
+            }
+
             // el_title
             if ('attr__title' in element && element['attr__title'] !== null) {
                 event.properties['el_title'] = element['attr__title'];
@@ -1074,6 +1079,11 @@ function processElementsCloud(event) {
                 event.properties['el_id'] = element['attr__id'];
             }
 
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
+            }
+
             // el_title
             if ('attr__title' in element && element['attr__title'] !== null) {
                 event.properties['el_title'] = element['attr__title'];
@@ -1192,6 +1202,11 @@ function processElementsStaging(event) {
             // el_id
             if ('attr__id' in element && element['attr__id'] !== null) {
                 event.properties['el_id'] = element['attr__id'];
+            }
+
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
             }
 
             // el_title
@@ -1314,6 +1329,11 @@ function processElementsTesting(event) {
                 event.properties['el_id'] = element['attr__id'];
             }
 
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
+            }
+
             // el_title
             if ('attr__title' in element && element['attr__title'] !== null) {
                 event.properties['el_title'] = element['attr__title'];
@@ -1434,6 +1454,11 @@ function processElementsWebsite(event) {
                 event.properties['el_id'] = element['attr__id'];
             }
 
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
+            }
+
             // el_title
             if ('attr__title' in element && element['attr__title'] !== null) {
                 event.properties['el_title'] = element['attr__title'];
@@ -1526,6 +1551,11 @@ function processElementsLearn(event) {
             // el_id
             if ('attr__id' in element && element['attr__id'] !== null) {
                 event.properties['el_id'] = element['attr__id'];
+            }
+
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
             }
 
             // el_title
@@ -1622,6 +1652,11 @@ function processElementsCommunity(event) {
                 event.properties['el_id'] = element['attr__id'];
             }
 
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name'];
+            }
+
             // el_title
             if ('attr__title' in element && element['attr__title'] !== null) {
                 event.properties['el_title'] = element['attr__title'];
@@ -1644,7 +1679,7 @@ function processElementsCommunity(event) {
 
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.7';
+const netdataPluginVersion = '0.0.8';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
