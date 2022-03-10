@@ -73,6 +73,11 @@ export function processElementsStaging(event) {
                 event.properties['el_id'] = element['attr__id']
             }
 
+            // el_name
+            if ('attr__name' in element && element['attr__name'] !== null) {
+                event.properties['el_name'] = element['attr__name']
+            }
+
             // el_title
             if ('attr__title' in element && element['attr__title'] !== null) {
                 event.properties['el_title'] = element['attr__title']
