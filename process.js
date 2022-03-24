@@ -11,7 +11,7 @@ import { processElementsCommunity } from './process_elements_community';
 import { isDemo } from "./utils";
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.8'
+const netdataPluginVersion = '0.0.9'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
