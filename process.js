@@ -43,6 +43,8 @@ async function processEvent(event, { config, cache }) {
                 (['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
                 ||
                 (isDemo(event.properties['$current_url']))
+                ||
+                (event.properties['$current_url'].startsWith('https://netdata.corp.app.netdata.cloud'))
             ) {
 
                 event.properties['event_source'] = 'agent'
