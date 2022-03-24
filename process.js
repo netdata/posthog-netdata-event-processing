@@ -26,12 +26,8 @@ async function processEvent(event, { config, cache }) {
         event.properties['event_ph'] = event.event
         event.properties['netdata_posthog_plugin_version'] = netdataPluginVersion
 
-        if (event.properties['event_ph'] === '$identify') {
-
-            event.properties['event_source'] = 'cloud'
-            event = processElementsCloud(event)
-
-        } else if ('$current_url' in event.properties) {
+        // determine processing based on url
+        if ('$current_url' in event.properties) {
 
             // try extract specific url params
             //if (event.properties['$current_url'].startsWith('http')) {
@@ -93,12 +89,16 @@ async function processEvent(event, { config, cache }) {
 
             }
 
+        } else if (event.properties['event_ph'] === '$identify') {
+
+            event.properties['event_source'] = 'cloud'
+            event = processElementsCloud(event)
+
         } else {
 
             event.properties['event_source'] = 'unknown'
 
         }
-
     }
 
     return event
