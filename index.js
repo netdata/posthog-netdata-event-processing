@@ -1679,7 +1679,7 @@ function processElementsCommunity(event) {
 
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.8';
+const netdataPluginVersion = '0.0.9';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -1694,12 +1694,7 @@ async function processEvent(event, { config, cache }) {
         event.properties['event_ph'] = event.event;
         event.properties['netdata_posthog_plugin_version'] = netdataPluginVersion;
 
-        if (event.properties['event_ph'] === '$identify') {
-
-            event.properties['event_source'] = 'cloud';
-            event = processElementsCloud(event);
-
-        } else if ('$current_url' in event.properties) {
+        if ('$current_url' in event.properties) {
 
             // try extract specific url params
             //if (event.properties['$current_url'].startsWith('http')) {
@@ -1711,6 +1706,8 @@ async function processEvent(event, { config, cache }) {
                 (['agent dashboard', 'agent backend'].includes(event.properties['$current_url']))
                 ||
                 (isDemo(event.properties['$current_url']))
+                ||
+                (event.properties['$current_url'].startsWith('https://netdata.corp.app.netdata.cloud'))
             ) {
 
                 event.properties['event_source'] = 'agent';
@@ -1759,12 +1756,16 @@ async function processEvent(event, { config, cache }) {
 
             }
 
+        } else if (event.properties['event_ph'] === '$identify') {
+
+            event.properties['event_source'] = 'cloud';
+            event = processElementsCloud(event);
+
         } else {
 
             event.properties['event_source'] = 'unknown';
 
         }
-
     }
 
     return event
