@@ -117,7 +117,7 @@ test('data_ga', async () => {
             "$current_url": "https://app.netdata.cloud/",
             "$elements": [
                 {
-                    "attr__data-ga": "date-picker::click-quick-selector::::21600"
+                    "attr__data-ga": "some-category::some-action::some-label::some-value::some-foo",
                 },
                 {
                     "attr__data-ga": "#menu_web_log_nginx",
@@ -126,6 +126,7 @@ test('data_ga', async () => {
                     "$el_text": "unshared"
                 },
                 {
+                    "attr__data-ga": "date-picker::click-quick-selector::::21600",
                     "attr__data-id": "newyork_netdata_rocks_mem_ksm",
                     "attr__data-legend-position": "bottom",
                     "attr__data-netdata": "mem.ksm",
@@ -136,10 +137,15 @@ test('data_ga', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("cloud")
-    expect(eventCopy['properties']['el_data_ga']).toEqual("date-picker::click-quick-selector::::21600")
-    expect(eventCopy['properties']['el_data_ga_0']).toEqual("date-picker")
-    expect(eventCopy['properties']['el_data_ga_1']).toEqual("click-quick-selector")
-    expect(eventCopy['properties']['el_data_ga_2']).toEqual("")
+    expect(eventCopy['properties']['el_data_ga']).toEqual("some-category::some-action::some-label::some-value::some-foo")
+    expect(eventCopy['properties']['el_data_ga_inner']).toEqual("some-category::some-action::some-label::some-value::some-foo")
+    expect(eventCopy['properties']['el_data_ga_outer']).toEqual("date-picker::click-quick-selector::::21600")
+    expect(eventCopy['properties']['el_data_ga_0']).toEqual("some-category")
+    expect(eventCopy['properties']['el_data_ga_1']).toEqual("some-action")
+    expect(eventCopy['properties']['el_data_ga_2']).toEqual("some-label")
+    expect(eventCopy['properties']['event_category']).toEqual("some-category")
+    expect(eventCopy['properties']['event_action']).toEqual("some-action")
+    expect(eventCopy['properties']['event_label']).toEqual("some-label")
     expect(eventCopy['properties']['el_text']).toEqual("unshared")
 })
 

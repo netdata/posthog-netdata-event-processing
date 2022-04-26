@@ -1008,6 +1008,11 @@ function processElementsCloud(event) {
                     event.properties['el_data_ga_2'] = arr[2];
                     event.properties['el_data_ga_3'] = arr[3];
                     event.properties['el_data_ga_4'] = arr[4];
+
+                    // give nice names in posthog
+                    event.properties['event_category'] = arr[0];
+                    event.properties['event_action'] = arr[1];
+                    event.properties['event_label'] = arr[2];
                 }
 
             }
@@ -1679,7 +1684,7 @@ function processElementsCommunity(event) {
 
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.9';
+const netdataPluginVersion = '0.0.10';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -1694,6 +1699,7 @@ async function processEvent(event, { config, cache }) {
         event.properties['event_ph'] = event.event;
         event.properties['netdata_posthog_plugin_version'] = netdataPluginVersion;
 
+        // determine processing based on url
         if ('$current_url' in event.properties) {
 
             // try extract specific url params
