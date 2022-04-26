@@ -87,6 +87,11 @@ export function processElementsCloud(event) {
                     event.properties['el_data_ga_2'] = arr[2]
                     event.properties['el_data_ga_3'] = arr[3]
                     event.properties['el_data_ga_4'] = arr[4]
+
+                    // give nice names in posthog
+                    event.properties['event_category'] = arr[0]
+                    event.properties['event_action'] = arr[1]
+                    event.properties['event_label'] = arr[2]
                 }
 
             }
