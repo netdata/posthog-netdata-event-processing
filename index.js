@@ -1013,6 +1013,7 @@ function processElementsCloud(event) {
                     event.properties['event_category'] = arr[0];
                     event.properties['event_action'] = arr[1];
                     event.properties['event_label'] = arr[2];
+                    event.properties['event_value'] = arr[3];
                 }
 
             }

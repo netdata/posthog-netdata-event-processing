@@ -117,7 +117,7 @@ test('data_ga', async () => {
             "$current_url": "https://app.netdata.cloud/",
             "$elements": [
                 {
-                    "attr__data-ga": "some-category::some-action::some-label::some-value::some-value",
+                    "attr__data-ga": "some-category::some-action::some-label::some-value",
                 },
                 {
                     "attr__data-ga": "#menu_web_log_nginx",
@@ -137,8 +137,8 @@ test('data_ga', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['event_source']).toEqual("cloud")
-    expect(eventCopy['properties']['el_data_ga']).toEqual("some-category::some-action::some-label::some-value::some-value")
-    expect(eventCopy['properties']['el_data_ga_inner']).toEqual("some-category::some-action::some-label::some-value::some-value")
+    expect(eventCopy['properties']['el_data_ga']).toEqual("some-category::some-action::some-label::some-value")
+    expect(eventCopy['properties']['el_data_ga_inner']).toEqual("some-category::some-action::some-label::some-value")
     expect(eventCopy['properties']['el_data_ga_outer']).toEqual("date-picker::click-quick-selector::::21600")
     expect(eventCopy['properties']['el_data_ga_0']).toEqual("some-category")
     expect(eventCopy['properties']['el_data_ga_1']).toEqual("some-action")
