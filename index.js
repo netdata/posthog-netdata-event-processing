@@ -1136,6 +1136,22 @@ function processElementsCloud(event) {
     return event
 }
 
+function processPropertiesCloud(event) {
+
+    // break out $pathname
+    if (event.properties['$pathname']) {
+        let idx = 1;
+        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
+            if ((pathName !== "") && (pathName !== null)){
+                event.properties[`pathname_${idx}`] = pathName;
+                idx = ++idx;
+            }
+        });
+    }
+
+    return event
+}
+
 function processElementsStaging(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
@@ -1256,6 +1272,20 @@ function processElementsStaging(event) {
 
         });
 
+    }
+
+    return event
+}
+
+function processPropertiesStaging(event) {
+
+    // break out $pathname
+    if (event.properties['$pathname']) {
+        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
+            if ((pathName !== "") && (pathName !== null)){
+                event.properties[`pathname_${pathName.index}`] = pathName;
+            }
+        });
     }
 
     return event
@@ -1386,6 +1416,20 @@ function processElementsTesting(event) {
     return event
 }
 
+function processPropertiesTesting(event) {
+
+    // break out $pathname
+    if (event.properties['$pathname']) {
+        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
+            if ((pathName !== "") && (pathName !== null)){
+                event.properties[`pathname_${pathName.index}`] = pathName;
+            }
+        });
+    }
+
+    return event
+}
+
 function processElementsWebsite(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
@@ -1480,6 +1524,20 @@ function processElementsWebsite(event) {
 
         });
 
+    }
+
+    return event
+}
+
+function processPropertiesWebsite(event) {
+
+    // break out $pathname
+    if (event.properties['$pathname']) {
+        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
+            if ((pathName !== "") && (pathName !== null)){
+                event.properties[`pathname_${pathName.index}`] = pathName;
+            }
+        });
     }
 
     return event
@@ -1584,6 +1642,20 @@ function processElementsLearn(event) {
     return event
 }
 
+function processPropertiesLearn(event) {
+
+    // break out $pathname
+    if (event.properties['$pathname']) {
+        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
+            if ((pathName !== "") && (pathName !== null)){
+                event.properties[`pathname_${pathName.index}`] = pathName;
+            }
+        });
+    }
+
+    return event
+}
+
 function processElementsCommunity(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
@@ -1683,9 +1755,23 @@ function processElementsCommunity(event) {
     return event
 }
 
+function processPropertiesCommunity(event) {
+
+    // break out $pathname
+    if (event.properties['$pathname']) {
+        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
+            if ((pathName !== "") && (pathName !== null)){
+                event.properties[`pathname_${pathName.index}`] = pathName;
+            }
+        });
+    }
+
+    return event
+}
+
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.10';
+const netdataPluginVersion = '0.0.11';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -1731,31 +1817,37 @@ async function processEvent(event, { config, cache }) {
 
                 event.properties['event_source'] = 'cloud';
                 event = processElementsCloud(event);
+                event = processPropertiesCloud(event);
 
             } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud')) {
 
                 event.properties['event_source'] = 'website';
                 event = processElementsWebsite(event);
+                event = processPropertiesWebsite(event);
 
             } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud')) {
 
                 event.properties['event_source'] = 'learn';
                 event = processElementsLearn(event);
+                event = processPropertiesLearn(event);
 
             } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud')) {
 
                 event.properties['event_source'] = 'community';
                 event = processElementsCommunity(event);
+                event = processPropertiesCommunity(event);
 
             } else if (event.properties['$current_url'].startsWith('https://staging.netdata.cloud')) {
 
                 event.properties['event_source'] = 'staging';
                 event = processElementsStaging(event);
+                event = processPropertiesStaging(event);
 
             } else if (event.properties['$current_url'].startsWith('https://testing.netdata.cloud')) {
 
                 event.properties['event_source'] = 'testing';
                 event = processElementsTesting(event);
+                event = processPropertiesTesting(event);
 
             } else {
 
@@ -1767,6 +1859,7 @@ async function processEvent(event, { config, cache }) {
 
             event.properties['event_source'] = 'cloud';
             event = processElementsCloud(event);
+            event = processPropertiesCloud(event);
 
         } else {
 

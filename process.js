@@ -1,17 +1,31 @@
 import { processElementsAgent } from './process_elements_agent';
 import { processPropertiesAgent } from './process_properties_agent';
+
 import { processElementsAgentInstaller } from './process_elements_agent_installer';
 import { processPropertiesAgentInstaller } from './process_properties_agent_installer';
+
 import { processElementsCloud } from './process_elements_cloud';
+import { processPropertiesCloud } from './process_properties_cloud';
+
 import { processElementsStaging } from './process_elements_staging';
+import { processPropertiesStaging } from './process_properties_staging';
+
 import { processElementsTesting } from './process_elements_testing';
+import { processPropertiesTesting } from './process_properties_testing';
+
 import { processElementsWebsite } from './process_elements_website';
+import { processPropertiesWebsite } from './process_properties_website';
+
 import { processElementsLearn } from './process_elements_learn';
+import { processPropertiesLearn } from './process_properties_learn';
+
 import { processElementsCommunity } from './process_elements_community';
+import { processPropertiesCommunity } from './process_properties_community';
+
 import { isDemo } from "./utils";
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.10'
+const netdataPluginVersion = '0.0.11'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -57,31 +71,37 @@ async function processEvent(event, { config, cache }) {
 
                 event.properties['event_source'] = 'cloud'
                 event = processElementsCloud(event)
+                event = processPropertiesCloud(event)
 
             } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud')) {
 
                 event.properties['event_source'] = 'website'
                 event = processElementsWebsite(event)
+                event = processPropertiesWebsite(event)
 
             } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud')) {
 
                 event.properties['event_source'] = 'learn'
                 event = processElementsLearn(event)
+                event = processPropertiesLearn(event)
 
             } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud')) {
 
                 event.properties['event_source'] = 'community'
                 event = processElementsCommunity(event)
+                event = processPropertiesCommunity(event)
 
             } else if (event.properties['$current_url'].startsWith('https://staging.netdata.cloud')) {
 
                 event.properties['event_source'] = 'staging'
                 event = processElementsStaging(event)
+                event = processPropertiesStaging(event)
 
             } else if (event.properties['$current_url'].startsWith('https://testing.netdata.cloud')) {
 
                 event.properties['event_source'] = 'testing'
                 event = processElementsTesting(event)
+                event = processPropertiesTesting(event)
 
             } else {
 
@@ -93,6 +113,7 @@ async function processEvent(event, { config, cache }) {
 
             event.properties['event_source'] = 'cloud'
             event = processElementsCloud(event)
+            event = processPropertiesCloud(event)
 
         } else {
 
