@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.9'
+const netdataPluginVersion = '0.0.11'
 
 beforeEach(() => {
     resetMeta({
@@ -250,4 +250,22 @@ test('el_name', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['el_name']).toEqual("foo")
+})
+
+// test pathname
+test('pathname', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://app.netdata.cloud/a/b/c/d",
+            "$pathname": "/a/b/c/d"
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['pathname_1']).toEqual("a")
+    expect(eventCopy['properties']['pathname_2']).toEqual("b")
+    expect(eventCopy['properties']['pathname_3']).toEqual("c")
+    expect(eventCopy['properties']['pathname_4']).toEqual("d")
 })
