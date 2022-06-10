@@ -41,3 +41,14 @@ export function isDemo(url) {
         return false
     }
 }
+
+export function splitPathName(event) {
+    if (event.properties['$pathname']) {
+        event.properties["$pathname"].split("/").forEach((pathname, index) => {
+          if ((pathname !== "") && (pathname !== null)){
+            event.properties[`pathname_${index}`] = pathname
+          }
+        })
+      }
+    return event
+}

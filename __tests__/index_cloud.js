@@ -269,3 +269,20 @@ test('pathname', async () => {
     expect(eventCopy['properties']['pathname_3']).toEqual("c")
     expect(eventCopy['properties']['pathname_4']).toEqual("d")
 })
+
+// test pathname
+test('pathname_real', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://app.netdata.cloud/account/sso-agent?id=e6bfbf32-e89f-11ec-a180-233f485cb8df",
+            "$pathname": "/account/sso-agent?id=e6bfbf32-e89f-11ec-a180-233f485cb8df"
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['pathname_1']).toEqual("account")
+    expect(eventCopy['properties']['pathname_2']).toEqual("sso-agent?id=e6bfbf32-e89f-11ec-a180-233f485cb8df")
+
+})

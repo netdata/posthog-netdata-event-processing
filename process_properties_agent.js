@@ -1,8 +1,10 @@
-import {cleanPropertyName} from "./utils";
+import {cleanPropertyName, splitPathName} from "./utils";
 import {getInteractionTypeAgent} from "./interaction_type_agent";
 import {getInteractionDetailAgent} from "./interaction_detail_agent";
 
 export function processPropertiesAgent(event) {
+
+    event = splitPathName(event)
 
     // has_alarms_critical
     if (typeof event.properties['alarms_critical'] === 'number') {
