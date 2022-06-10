@@ -42,6 +42,17 @@ function isDemo(url) {
     }
 }
 
+function splitPathName(event) {
+    if (event.properties['$pathname']) {
+        event.properties["$pathname"].split("/").forEach((pathname, index) => {
+          if ((pathname !== "") && (pathname !== null)){
+            event.properties[`pathname_${index}`] = pathname;
+          }
+        });
+      }
+    return event
+}
+
 function processElementsAgent(event) {
     // extract properties from elements
     if (event.properties['$elements']) {
@@ -802,6 +813,8 @@ function getInteractionDetailAgent(event) {
 
 function processPropertiesAgent(event) {
 
+    event = splitPathName(event);
+
     // has_alarms_critical
     if (typeof event.properties['alarms_critical'] === 'number') {
         event.properties['has_alarms_critical'] = event.properties['alarms_critical'] > 0;
@@ -1138,18 +1151,10 @@ function processElementsCloud(event) {
 
 function processPropertiesCloud(event) {
 
-    // break out $pathname
-    if (event.properties['$pathname']) {
-        let idx = 1;
-        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
-            if ((pathName !== "") && (pathName !== null)){
-                event.properties[`pathname_${idx}`] = pathName;
-                idx = ++idx;
-            }
-        });
-    }
+    event = splitPathName(event);
 
     return event
+
 }
 
 function processElementsStaging(event) {
@@ -1279,14 +1284,7 @@ function processElementsStaging(event) {
 
 function processPropertiesStaging(event) {
 
-    // break out $pathname
-    if (event.properties['$pathname']) {
-        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
-            if ((pathName !== "") && (pathName !== null)){
-                event.properties[`pathname_${pathName.index}`] = pathName;
-            }
-        });
-    }
+    event = splitPathName(event);
 
     return event
 }
@@ -1418,14 +1416,7 @@ function processElementsTesting(event) {
 
 function processPropertiesTesting(event) {
 
-    // break out $pathname
-    if (event.properties['$pathname']) {
-        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
-            if ((pathName !== "") && (pathName !== null)){
-                event.properties[`pathname_${pathName.index}`] = pathName;
-            }
-        });
-    }
+    event = splitPathName(event);
 
     return event
 }
@@ -1531,14 +1522,7 @@ function processElementsWebsite(event) {
 
 function processPropertiesWebsite(event) {
 
-    // break out $pathname
-    if (event.properties['$pathname']) {
-        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
-            if ((pathName !== "") && (pathName !== null)){
-                event.properties[`pathname_${pathName.index}`] = pathName;
-            }
-        });
-    }
+    event = splitPathName(event);
 
     return event
 }
@@ -1644,14 +1628,7 @@ function processElementsLearn(event) {
 
 function processPropertiesLearn(event) {
 
-    // break out $pathname
-    if (event.properties['$pathname']) {
-        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
-            if ((pathName !== "") && (pathName !== null)){
-                event.properties[`pathname_${pathName.index}`] = pathName;
-            }
-        });
-    }
+    event = splitPathName(event);
 
     return event
 }
@@ -1757,21 +1734,14 @@ function processElementsCommunity(event) {
 
 function processPropertiesCommunity(event) {
 
-    // break out $pathname
-    if (event.properties['$pathname']) {
-        [...new Set(event.properties['$pathname'].split('/'))].forEach((pathName) => {
-            if ((pathName !== "") && (pathName !== null)){
-                event.properties[`pathname_${pathName.index}`] = pathName;
-            }
-        });
-    }
+    event = splitPathName(event);
 
     return event
 }
 
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.11';
+const netdataPluginVersion = '0.0.12';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")

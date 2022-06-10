@@ -25,7 +25,7 @@ import { processPropertiesCommunity } from './process_properties_community';
 import { isDemo } from "./utils";
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.11'
+const netdataPluginVersion = '0.0.12'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
