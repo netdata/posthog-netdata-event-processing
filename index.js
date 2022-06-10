@@ -1741,7 +1741,7 @@ function processPropertiesCommunity(event) {
 
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.11';
+const netdataPluginVersion = '0.0.12';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
