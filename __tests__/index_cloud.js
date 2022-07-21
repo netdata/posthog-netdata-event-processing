@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.12'
+const netdataPluginVersion = '0.0.13'
 
 beforeEach(() => {
     resetMeta({
@@ -285,4 +285,33 @@ test('pathname_real', async () => {
     expect(eventCopy['properties']['pathname_1']).toEqual("account")
     expect(eventCopy['properties']['pathname_2']).toEqual("sso-agent?id=e6bfbf32-e89f-11ec-a180-233f485cb8df")
 
+})
+
+// test el_class
+test('el_class', async () => {
+    const eventExample = {
+        "event": "$autocapture",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://app.netdata.cloud/",
+            "$elements": [
+                {
+                    "attr__foo": "foo"
+                },
+                {
+                    "attr__bar": "bar",
+                    "attributes": {
+                        "attr__aria-label": "my_aria_label",
+                        "attr__class": "my_att_class"
+                    },
+                },
+                {
+                    "attr__class": "my_class"
+                }
+            ]
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['el_class']).toEqual("my_class")
 })

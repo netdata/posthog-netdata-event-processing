@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.12'
+const netdataPluginVersion = '0.0.13'
 
 beforeEach(() => {
     resetMeta({
@@ -192,4 +192,59 @@ test('el_name', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['el_name']).toEqual("foo")
+})
+
+// test el_aria_label
+test('el_aria_label', async () => {
+    const eventExample = {
+        "event": "$autocapture",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://learn.netdata.cloud/",
+            "$elements": [
+                {
+                    "attr__foo": "foo"
+                },
+                {
+                    "attr__bar": "bar",
+                    "attributes": {
+                        "attr__aria-label": "Docs pages navigation",
+                        "attr__class": "pagination-nav docusaurus-mt-lg"
+                    },
+                }
+            ]
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['el_aria_label']).toEqual("Docs pages navigation")
+})
+
+// test el_class
+test('el_class', async () => {
+    const eventExample = {
+        "event": "$autocapture",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://learn.netdata.cloud/",
+            "$elements": [
+                {
+                    "attr__foo": "foo"
+                },
+                {
+                    "attr__bar": "bar",
+                    "attributes": {
+                        "attr__aria-label": "Docs pages navigation",
+                        "attr__class": "my_att_class"
+                    },
+                },
+                {
+                    "attr__class": "my_class"
+                }
+            ]
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['el_class']).toEqual("my_class")
 })

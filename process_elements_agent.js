@@ -403,6 +403,11 @@ export function processElementsAgent(event) {
                 event.properties['el_id_updatemodal'] = true
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class']
+            }
+
         })
 
     }

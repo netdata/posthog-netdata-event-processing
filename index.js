@@ -456,6 +456,11 @@ function processElementsAgent(event) {
                 event.properties['el_id_updatemodal'] = true;
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
+            }
+
         });
 
     }
@@ -1142,6 +1147,11 @@ function processElementsCloud(event) {
                 }
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
+            }
+
         });
 
     }
@@ -1273,6 +1283,11 @@ function processElementsStaging(event) {
                 } else {
                     event.properties['el_submenu'] = '';
                 }
+            }
+
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
             }
 
         });
@@ -1407,6 +1422,11 @@ function processElementsTesting(event) {
                 }
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
+            }
+
         });
 
     }
@@ -1511,6 +1531,11 @@ function processElementsWebsite(event) {
 
             } else if ('text' in element && element['text'] !== null && element['text'] !== '') {
                 event.properties['el_text'] = element['text'];
+            }
+
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
             }
 
         });
@@ -1619,6 +1644,16 @@ function processElementsLearn(event) {
                 event.properties['el_text'] = element['text'];
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
+            }
+
+            // el_aria_label
+            if ('attributes' in element && element['attributes'] !== null && 'attr__aria-label' in element['attributes']) {
+                event.properties['el_aria_label'] = element['attributes']['attr__aria-label'];
+            }
+
         });
 
     }
@@ -1725,6 +1760,11 @@ function processElementsCommunity(event) {
                 event.properties['el_text'] = element['text'];
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class'];
+            }
+
         });
 
     }
@@ -1741,7 +1781,7 @@ function processPropertiesCommunity(event) {
 
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.12';
+const netdataPluginVersion = '0.0.13';
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
