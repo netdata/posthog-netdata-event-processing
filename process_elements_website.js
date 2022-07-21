@@ -91,6 +91,11 @@ export function processElementsWebsite(event) {
                 event.properties['el_text'] = element['text']
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class']
+            }
+
         })
 
     }

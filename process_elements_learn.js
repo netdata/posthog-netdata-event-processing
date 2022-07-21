@@ -91,6 +91,16 @@ export function processElementsLearn(event) {
                 event.properties['el_text'] = element['text']
             }
 
+            // el_class
+            if ('attr__class' in element && element['attr__class'] !== null) {
+                event.properties['el_class'] = element['attr__class']
+            }
+
+            // el_aria_label
+            if ('attributes' in element && element['attributes'] !== null && 'attr__aria-label' in element['attributes']) {
+                event.properties['el_aria_label'] = element['attributes']['attr__aria-label']
+            }
+
         })
 
     }
