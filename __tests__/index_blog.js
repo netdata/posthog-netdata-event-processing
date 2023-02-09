@@ -31,7 +31,7 @@ test('data_testid', async () => {
         "event": "$autocapture",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://learn.netdata.cloud/",
+            "$current_url": "https://blog.netdata.cloud/",
             "$elements": [
                 {
                     "attr__data-testid": "date-picker::click-quick-selector::::21600",
@@ -104,7 +104,7 @@ test('data_testid', async () => {
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['event_source']).toEqual("learn")
+    expect(eventCopy['properties']['event_source']).toEqual("blog")
     expect(eventCopy['properties']['el_data_testid']).toEqual("date-picker::click-quick-selector::::21600")
 })
 
@@ -114,7 +114,7 @@ test('data_ga', async () => {
         "event": "$autocapture",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://learn.netdata.cloud/",
+            "$current_url": "https://blog.netdata.cloud/",
             "$elements": [
                 {
                     "attr__data-ga": "date-picker::click-quick-selector::::21600"
@@ -135,7 +135,7 @@ test('data_ga', async () => {
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['event_source']).toEqual("learn")
+    expect(eventCopy['properties']['event_source']).toEqual("blog")
     expect(eventCopy['properties']['el_data_ga']).toEqual("date-picker::click-quick-selector::::21600")
     expect(eventCopy['properties']['el_data_ga_0']).toEqual("date-picker")
     expect(eventCopy['properties']['el_data_ga_1']).toEqual("click-quick-selector")
@@ -152,18 +152,18 @@ test('processEvent does not crash with identify', async () => {
     expect(event1).toEqual(event0)
 })
 
-// test event_source_learn
-test('event_source_learn', async () => {
+// test event_source_blog
+test('event_source_blog', async () => {
     const eventExample = {
         "event": "$pageview",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://learn.netdata.cloud/",
+            "$current_url": "https://blog.netdata.cloud/",
         }
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['event_source']).toEqual("learn")
+    expect(eventCopy['properties']['event_source']).toEqual("blog")
 })
 
 // test el_name
@@ -172,7 +172,7 @@ test('el_name', async () => {
         "event": "$autocapture",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://learn.netdata.cloud/",
+            "$current_url": "https://blog.netdata.cloud/",
             "$elements": [
                 {
                     "attr__foo": "foo"
@@ -200,7 +200,7 @@ test('el_aria_label', async () => {
         "event": "$autocapture",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://learn.netdata.cloud/",
+            "$current_url": "https://blog.netdata.cloud/",
             "$elements": [
                 {
                     "attr__foo": "foo"
@@ -226,7 +226,7 @@ test('el_class', async () => {
         "event": "$autocapture",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://learn.netdata.cloud/",
+            "$current_url": "https://blog.netdata.cloud/",
             "$elements": [
                 {
                     "attr__foo": "foo"
@@ -249,16 +249,16 @@ test('el_class', async () => {
     expect(eventCopy['properties']['el_class']).toEqual("my_class")
 })
 
-// test event_source_learn_preview
-test('event_source_learn_preview', async () => {
+// test event_source_blog_preview
+test('event_source_blog_preview', async () => {
     const eventExample = {
         "event": "$pageview",
         "distinct_id": "dev-test",
         "properties": {
-            "$current_url": "https://deploy-preview-1058--netdata-docusaurus.netlify.app/",
+            "$current_url": "https://deploy-preview-168--netdata-blog.netlify.app",
         }
     }
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
-    expect(eventCopy['properties']['event_source']).toEqual("learn_preview")
+    expect(eventCopy['properties']['event_source']).toEqual("blog_preview")
 })
