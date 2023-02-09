@@ -22,10 +22,13 @@ import { processPropertiesLearn } from './process_properties_learn';
 import { processElementsCommunity } from './process_elements_community';
 import { processPropertiesCommunity } from './process_properties_community';
 
+import { processElementsBlog } from './process_elements_blog';
+import { processPropertiesBlog } from './process_properties_blog';
+
 import { isDemo } from "./utils";
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.13'
+const netdataPluginVersion = '0.0.14'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -79,11 +82,36 @@ async function processEvent(event, { config, cache }) {
                 event = processElementsWebsite(event)
                 event = processPropertiesWebsite(event)
 
+            } else if (event.properties['$current_url'].includes('netdata-website.netlify.app')
+            ) {
+
+                event.properties['event_source'] = 'website_preview'
+                event = processElementsWebsite(event)
+                event = processPropertiesWebsite(event)
+
             } else if (event.properties['$current_url'].startsWith('https://learn.netdata.cloud')) {
 
                 event.properties['event_source'] = 'learn'
                 event = processElementsLearn(event)
                 event = processPropertiesLearn(event)
+
+            } else if (event.properties['$current_url'].includes('netdata-docusaurus.netlify.app')) {
+
+                event.properties['event_source'] = 'learn_preview'
+                event = processElementsLearn(event)
+                event = processPropertiesLearn(event)
+
+            } else if (event.properties['$current_url'].startsWith('https://blog.netdata.cloud')) {
+
+                event.properties['event_source'] = 'blog'
+                event = processElementsBlog(event)
+                event = processPropertiesBlog(event)
+
+            } else if (event.properties['$current_url'].includes('netdata-blog.netlify.app')) {
+
+                event.properties['event_source'] = 'blog_preview'
+                event = processElementsBlog(event)
+                event = processPropertiesBlog(event)
 
             } else if (event.properties['$current_url'].startsWith('https://community.netdata.cloud')) {
 

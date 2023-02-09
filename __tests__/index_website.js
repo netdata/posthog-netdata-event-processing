@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.13'
+const netdataPluginVersion = '0.0.14'
 
 beforeEach(() => {
     resetMeta({
@@ -221,4 +221,18 @@ test('el_class', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['el_class']).toEqual("my_class")
+})
+
+// test event_source_website_preview
+test('event_source_website_preview', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://deploy-preview-167--netdata-website.netlify.app/",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("website_preview")
 })
