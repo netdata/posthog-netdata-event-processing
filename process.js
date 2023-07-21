@@ -28,7 +28,7 @@ import { processPropertiesBlog } from './process_properties_blog';
 import { isDemo } from "./utils";
 //import URL from 'url';
 
-const netdataPluginVersion = '0.0.14'
+const netdataPluginVersion = '0.0.15'
 
 async function setupPlugin({ config, global }) {
     //console.log("Setting up the plugin!")
@@ -70,20 +70,14 @@ async function processEvent(event, { config, cache }) {
                 event = processElementsAgentInstaller(event)
                 event = processPropertiesAgentInstaller(event)
 
-            } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud')) {
-
-                event.properties['event_source'] = 'cloud'
-                event = processElementsCloud(event)
-                event = processPropertiesCloud(event)
-
             } else if (event.properties['$current_url'].startsWith('https://www.netdata.cloud')) {
 
                 event.properties['event_source'] = 'website'
                 event = processElementsWebsite(event)
                 event = processPropertiesWebsite(event)
 
-            } else if (event.properties['$current_url'].includes('netdata-website.netlify.app')
-            ) {
+            } else if (event.properties['$current_url'].includes('netdata-website.netlify.app')) 
+            {
 
                 event.properties['event_source'] = 'website_preview'
                 event = processElementsWebsite(event)
@@ -130,6 +124,20 @@ async function processEvent(event, { config, cache }) {
                 event.properties['event_source'] = 'testing'
                 event = processElementsTesting(event)
                 event = processPropertiesTesting(event)
+
+            } else if (event.properties['$current_url'].startsWith('https://app.netdata.cloud') 
+            || event.properties['$current_url'].includes(':19999/spaces/')
+            || event.properties['$current_url'].includes('/spaces/')
+            ) {
+
+                if (event.properties['$current_url'].startsWith('https://app.netdata.cloud')) {
+                    event.properties['event_source'] = 'cloud';
+                } else {
+                    event.properties['event_source'] = 'cloud_agent';
+                }
+
+                event = processElementsCloud(event)
+                event = processPropertiesCloud(event)
 
             } else {
 
