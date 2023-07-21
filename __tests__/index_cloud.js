@@ -9,18 +9,18 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.14'
+const netdataPluginVersion = '0.0.15'
 
 beforeEach(() => {
     resetMeta({
         config: {
-            netdata_version: 'v1.32.1',
+            netdata_version: 'v1.41.0',
         },
     })
 })
 
 test('setupPlugin', async () => {
-    expect(getMeta().config.netdata_version).toEqual('v1.32.1')
+    expect(getMeta().config.netdata_version).toEqual('v1.41.0')
     await setupPlugin(getMeta())
     expect(getMeta().global.setupDone).toEqual(true)
 })
@@ -268,6 +268,7 @@ test('pathname', async () => {
     expect(eventCopy['properties']['pathname_2']).toEqual("b")
     expect(eventCopy['properties']['pathname_3']).toEqual("c")
     expect(eventCopy['properties']['pathname_4']).toEqual("d")
+    expect(eventCopy['properties']['event_source']).toEqual("cloud")
 })
 
 // test pathname
@@ -284,6 +285,7 @@ test('pathname_real', async () => {
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['pathname_1']).toEqual("account")
     expect(eventCopy['properties']['pathname_2']).toEqual("sso-agent?id=e6bfbf32-e89f-11ec-a180-233f485cb8df")
+    expect(eventCopy['properties']['event_source']).toEqual("cloud")
 
 })
 
@@ -314,4 +316,46 @@ test('el_class', async () => {
     const event = createEvent(eventExample)
     const eventCopy = await processEvent(clone(event), getMeta())
     expect(eventCopy['properties']['el_class']).toEqual("my_class")
+})
+
+// test cloud_agent_19999
+test('cloud_agent_19999', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://10.10.10.10:19999/spaces/foo",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("cloud_agent")
+})
+
+// test cloud_agent_spaces
+test('cloud_agent_spaces', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://some.netdata/spaces/foo",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("cloud_agent")
+})
+
+// test cloud_spaces
+test('cloud_agent_spaces', async () => {
+    const eventExample = {
+        "event": "$pageview",
+        "distinct_id": "dev-test",
+        "properties": {
+            "$current_url": "https://app.netdata.cloud/spaces/foobar",
+        }
+    }
+    const event = createEvent(eventExample)
+    const eventCopy = await processEvent(clone(event), getMeta())
+    expect(eventCopy['properties']['event_source']).toEqual("cloud")
 })

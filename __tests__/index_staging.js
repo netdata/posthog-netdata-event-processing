@@ -9,7 +9,7 @@ const {
 } = require('posthog-plugins/test/utils.js')
 const { setupPlugin, processEvent } = require('../index')
 
-const netdataPluginVersion = '0.0.14'
+const netdataPluginVersion = '0.0.15'
 
 beforeEach(() => {
     resetMeta({
